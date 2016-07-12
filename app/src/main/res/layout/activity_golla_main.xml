@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fbutton="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/main_top_img"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="@dimen/main_top_img_margin_top"
+        android:layout_marginBottom="@dimen/main_top_img_margin_bottom"/>
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/tournamentBtn"
+        android:layout_width="@dimen/main_btn_width"
+        android:layout_height="@dimen/main_btn_height"
+        android:layout_marginTop="@dimen/main_btn_margin_top"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentLeft="true"
+        android:text="Tournament"
+        android:textColor="@android:color/white"
+        android:textSize="50dp"
+        fbutton:buttonColor="@color/color_concrete"
+        fbutton:shadowEnabled="true" />
+
+
+    <info.hoang8f.widget.FButton
+        android:id="@+id/randomBtn"
+        android:layout_width="@dimen/main_btn_width"
+        android:layout_height="@dimen/main_btn_height"
+        android:layout_marginTop="@dimen/main_btn_margin_top"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_alignParentRight="true"
+        android:layout_gravity="right"
+        android:text="Random"
+        android:textColor="@android:color/white"
+        android:textSize="50dp"
+        fbutton:buttonColor="@color/color_concrete"
+        fbutton:shadowEnabled="true" />
+
+</LinearLayout>

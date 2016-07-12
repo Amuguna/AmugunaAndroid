@@ -1,0 +1,14 @@
+<resources>
+    <!-- G Pad Tablet -->
+    <dimen name="activity_horizontal_margin">200dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="main_top_img_margin_top">50dp</dimen>
+    <dimen name="main_top_img_margin_bottom">50dp</dimen>
+
+    <dimen name="main_btn_width">400dp</dimen>
+    <dimen name="main_btn_height">150dp</dimen>
+    <dimen name="main_btn_margin_top">50dp</dimen>
+
+    <dimen name="ad_bottom_layout_height">75dp</dimen>
+</resources>
