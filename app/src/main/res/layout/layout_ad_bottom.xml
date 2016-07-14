@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/ad_bottom_layout_height"
+    android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:background="@color/color_concrete">
+    android:gravity="center"
+    >   <!--android:layout_height="@dimen/ad_bottom_layout_height"-->
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/ad_bottom_layout_height"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
         android:text="Copyright 2016. Golla. All rights reserved."
         android:textColor="@color/color_clouds"
         android:textSize="20dp"
         android:gravity="center"
-        />
+        />  <!--android:layout_height="@dimen/ad_bottom_layout_height"-->
 
 </RelativeLayout>

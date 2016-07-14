@@ -1,7 +1,9 @@
 package com.nexters.amuguna.golla;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
@@ -18,15 +20,18 @@ public class SplashScreen extends AppCompatActivity {
     @Bind(R.id.splash_img)
     ImageView splashImg;
 
+
+
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.splash);
         ButterKnife.bind(this);
 
-        Glide.with(this).load(R.drawable.fleax_splash).into(splashImg);
-
         /* Hide ActionBar */
         getSupportActionBar().hide();
+
+        Glide.with(this).load(R.drawable.fleax_splash).into(splashImg);
+
 
         Thread timerThread = new Thread(){
             public void run(){
@@ -36,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{
-                    /* Move to GollaMainActivity. */
+                   /* Move to GollaMainActivity normally. */
                     Intent intent = new Intent(SplashScreen.this,GollaMainActivity.class);
                     startActivity(intent);
                 }

@@ -16,9 +16,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.nexters.amuguna.golla.GollaMainActivity" />
+        <activity
+            android:name="com.nexters.amuguna.golla.GollaMainActivity"
+            android:screenOrientation="portrait"
+            />
         <activity
             android:name="com.nexters.amuguna.golla.MainActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
+            android:name="com.nexters.amuguna.golla.ResultActivity"
             android:screenOrientation="portrait"
             />
 

@@ -4,8 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
-    android:orientation="vertical">
-<!-- android:layout_weight="100" -->
+    android:orientation="vertical"
+    >
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -13,74 +14,61 @@
         android:orientation="vertical">
 
         <ImageView
-            android:id="@+id/main_top_img"
+            android:id="@+id/result_img"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            />
+            android:layout_weight="1"/>
 
     </LinearLayout>
-
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
+        android:layout_weight="35"
         android:orientation="vertical"
-        android:gravity="bottom"
+        android:background="@color/color_clouds"
         >
-
-        <info.hoang8f.widget.FButton
-            android:id="@+id/tournamentBtn"
-            android:layout_width="@dimen/main_btn_width"
-            android:layout_height="100dp"
-            android:layout_alignParentLeft="true"
-            android:text="Tournament"
-            android:textColor="@android:color/white"
-            android:textSize="30dp"
-            fbutton:buttonColor="@color/color_silver"
-            fbutton:shadowEnabled="true" />
-        <!--
-        android:layout_marginBottom="@dimen/main_top_img_margin_bottom"
-
-        android:layout_marginTop="@dimen/main_btn_margin_top"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"-->
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="25"
-        android:orientation="vertical"
-        android:gravity="center_vertical"
+        android:layout_weight="15"
+        android:orientation="horizontal"
         >
 
         <info.hoang8f.widget.FButton
-            android:id="@+id/randomBtn"
-            android:layout_width="@dimen/main_btn_width"
-            android:layout_height="100dp"
-            android:layout_alignParentRight="true"
-            android:layout_gravity="right"
-            android:text="Random"
+            android:id="@+id/retryBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Retry"
             android:textColor="@android:color/white"
             android:textSize="30dp"
             fbutton:buttonColor="@color/color_silver"
             fbutton:shadowEnabled="true" />
-        <!--android:layout_marginTop="@dimen/main_btn_margin_top"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"-->
+
+        <info.hoang8f.widget.FButton
+            android:id="@+id/goHomeBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5"
+            android:text="Home"
+            android:textColor="@android:color/white"
+            android:textSize="30dp"
+            fbutton:buttonColor="@color/color_asbestos"
+            fbutton:shadowEnabled="true" />
 
     </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/ad_bottom_layout"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_weight="10"
-        android:orientation="vertical"
         android:background="@color/color_concrete"
         >
 
