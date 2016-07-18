@@ -87,6 +87,9 @@ public class GollaMainActivity extends AppCompatActivity {
     void tournamentBtnClick() {
         /* Move to MainActivity. */
         Intent intent = new Intent(GollaMainActivity.this,MainActivity.class);
+        intent.putExtra("isTournament", true);
+        intent.putExtra("isFirstRound", true);
+        intent.putExtra("round", 8);
         startActivity(intent);
     }
 
@@ -94,6 +97,7 @@ public class GollaMainActivity extends AppCompatActivity {
     void randomBtnClick() {
         /* Move to ResultActivity. */
         Intent intent = new Intent(GollaMainActivity.this,ResultActivity.class);
+        intent.putExtra("isTournament", false);
         startActivity(intent);
     }
 
