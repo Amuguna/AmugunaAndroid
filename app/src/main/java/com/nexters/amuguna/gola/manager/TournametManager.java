@@ -13,7 +13,7 @@ public class TournametManager {
         tournametManager = new TournametManager();
     }
     private TournametManager() {
-        initTree(32);
+        initTree(16);
     }
 
     public static synchronized TournametManager getInstance() {
@@ -23,7 +23,6 @@ public class TournametManager {
     public int getDepth() {
         return this.depth;
     }
-
     public int getCount() {
         return this.count;
     }
