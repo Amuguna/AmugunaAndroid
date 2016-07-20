@@ -22,7 +22,7 @@ import info.hoang8f.widget.FButton;
 
 public class MainActivity extends AppCompatActivity {
 
-    //boolean visible=true;
+    /*boolean visible=true;*/
     SharedPreferences prefs;
     Intent intent;
     final String firstRoundPrefs = "firstRound";
