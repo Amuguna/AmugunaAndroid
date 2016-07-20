@@ -1,4 +1,4 @@
-package com.nexters.amuguna.golla;
+package com.nexters.amuguna.gola;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,18 +18,18 @@ public class ResultActivity extends AppCompatActivity {
 
     Intent intent;
 
-    @Bind(R.id.result_img)
+    @Bind(com.nexters.amuguna.gola.R.id.result_img)
     ImageView resultImg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_result);
+        setContentView(com.nexters.amuguna.gola.R.layout.activity_result);
         ButterKnife.bind(this);
 
         /* Hide ActionBar */
         getSupportActionBar().hide();
 
-        Glide.with(this).load(R.drawable.fleax_main).into(resultImg);
+        Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(resultImg);
 
         /* 토너먼트에서 넘어왔는지 랜덤 선택에서 넘어왔는지 확인 */
         intent = getIntent();

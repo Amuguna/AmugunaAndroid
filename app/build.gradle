@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.3"
 
     defaultConfig {
-        applicationId "com.nexters.amuguna.golla"
+        applicationId "com.nexters.amuguna.gola"
         minSdkVersion 19
         targetSdkVersion 23
         versionCode 1

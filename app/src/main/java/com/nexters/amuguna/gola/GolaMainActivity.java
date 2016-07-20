@@ -1,4 +1,4 @@
-package com.nexters.amuguna.golla;
+package com.nexters.amuguna.gola;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -23,29 +23,29 @@ import info.hoang8f.widget.FButton;
 /**
  * Created by Daesub Kim on 2016-07-09.
  */
-public class GollaMainActivity extends AppCompatActivity {
+public class GolaMainActivity extends AppCompatActivity {
 
     SharedPreferences prefs;
     final String firstRunPrefs = "firstRun";
 
-    @Bind(R.id.tournamentBtn)
+    @Bind(com.nexters.amuguna.gola.R.id.tournamentBtn)
     FButton tourBtn;
 
-    @Bind(R.id.randomBtn)
+    @Bind(com.nexters.amuguna.gola.R.id.randomBtn)
     FButton randomBtn;
 
-    @Bind(R.id.main_top_img)
+    @Bind(com.nexters.amuguna.gola.R.id.main_top_img)
     ImageView mainTopImg;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_golla_main);
+        setContentView(com.nexters.amuguna.gola.R.layout.activity_gola_main);
         ButterKnife.bind(this);
 
         /* Hide ActionBar */
         getSupportActionBar().hide();
 
-        Glide.with(this).load(R.drawable.fleax_main).into(mainTopImg);
+        Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(mainTopImg);
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
          /* Check the First Run */
@@ -65,11 +65,11 @@ public class GollaMainActivity extends AppCompatActivity {
         final Dialog dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
-        dialog.setContentView(R.layout.coach_mark);
+        dialog.setContentView(com.nexters.amuguna.gola.R.layout.coach_mark);
         dialog.setCanceledOnTouchOutside(true);
 
         /* Close the Coach Mark */
-        View closeView = dialog.findViewById(R.id.coach_mark_close);
+        View closeView = dialog.findViewById(com.nexters.amuguna.gola.R.id.coach_mark_close);
         closeView.setOnClickListener(new View.OnClickListener(){
             public void onClick(View view) {
                 dialog.dismiss();
@@ -83,20 +83,20 @@ public class GollaMainActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    @OnClick(R.id.tournamentBtn)
+    @OnClick(com.nexters.amuguna.gola.R.id.tournamentBtn)
     void tournamentBtnClick() {
         /* Move to MainActivity. */
-        Intent intent = new Intent(GollaMainActivity.this,MainActivity.class);
+        Intent intent = new Intent(GolaMainActivity.this,MainActivity.class);
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
         intent.putExtra("round", 8);
         startActivity(intent);
     }
 
-    @OnClick(R.id.randomBtn)
+    @OnClick(com.nexters.amuguna.gola.R.id.randomBtn)
     void randomBtnClick() {
         /* Move to ResultActivity. */
-        Intent intent = new Intent(GollaMainActivity.this,ResultActivity.class);
+        Intent intent = new Intent(GolaMainActivity.this,ResultActivity.class);
         intent.putExtra("isTournament", false);
         startActivity(intent);
     }

@@ -1,4 +1,4 @@
-package com.nexters.amuguna.golla.manager;
+package com.nexters.amuguna.gola.manager;
 
 /**
  * Created by Daesub Kim on 2016-07-15.

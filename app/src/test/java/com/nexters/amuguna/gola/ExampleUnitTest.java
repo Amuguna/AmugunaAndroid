@@ -1,4 +1,4 @@
-package com.nexters.amuguna.golla;
+package com.nexters.amuguna.gola;
 
 import org.junit.Test;
 
