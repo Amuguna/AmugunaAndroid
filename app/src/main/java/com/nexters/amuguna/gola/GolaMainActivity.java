@@ -14,6 +14,7 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.nexters.amuguna.gola.manager.GolaImageManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -46,6 +47,8 @@ public class GolaMainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(mainTopImg);
+
+        //GolaImageManager.getInstatnce().initImages();
 
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
          /* Check the First Run */
@@ -89,7 +92,7 @@ public class GolaMainActivity extends AppCompatActivity {
         Intent intent = new Intent(GolaMainActivity.this,MainActivity.class);
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
-        intent.putExtra("round", 8);
+        intent.putExtra("round", StaticInfomation.DEFAULT_ROUND);
         startActivity(intent);
     }
 

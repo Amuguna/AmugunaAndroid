@@ -4,8 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:weightSum="100"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:background="@color/color_black">
 <!-- android:layout_weight="100" -->
+
+
+    <LinearLayout
+        android:id="@+id/ad_bottom_layout"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="10"
+        android:orientation="vertical"
+        >
+
+        <include
+            android:id="@+id/layout_ad_bottom"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            layout="@layout/top_menu_bar"
+            />
+
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -75,24 +97,6 @@
 
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/ad_bottom_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:orientation="vertical"
-        android:background="@color/color_concrete"
-        >
 
-        <include
-            android:id="@+id/layout_ad_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            layout="@layout/layout_ad_bottom"
-            />
-
-    </LinearLayout>
 
 </LinearLayout>

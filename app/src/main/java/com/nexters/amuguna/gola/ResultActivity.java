@@ -35,6 +35,7 @@ public class ResultActivity extends AppCompatActivity {
         intent = getIntent();
         if(intent.getBooleanExtra("isTournament", true)){
             Log.e("isTournament ?", "TOURNAMENT !!!! ");
+            Log.e("RESULT", ""+intent.getIntExtra("result",10));
         } else {
             Log.e("isTournament ?", "NO !!!! ");
         }
