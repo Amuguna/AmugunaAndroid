@@ -23,7 +23,7 @@ public class MainActivity extends AppCompatActivity {
     //private static ArrayList<String, String>
     int[] ran;
     //boolean visible=true;
-    SharedPreferences prefs;
+    //SharedPreferences prefs;
     Intent intent;
     final String firstRoundPrefs = "firstRound";
     //TournametManager tournament;

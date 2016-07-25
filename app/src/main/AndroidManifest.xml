@@ -25,6 +25,10 @@
             android:screenOrientation="portrait"
             />
         <activity
+            android:name="com.nexters.amuguna.gola.TournamentActivity"
+            android:screenOrientation="portrait"
+            />
+        <activity
             android:name="com.nexters.amuguna.gola.ResultActivity"
             android:screenOrientation="portrait"
             />
