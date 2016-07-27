@@ -88,7 +88,7 @@ public class GolaMainActivity extends AppCompatActivity {
     @OnClick(com.nexters.amuguna.gola.R.id.tournamentBtn)
     void tournamentBtnClick() {
         /* Move to MainActivity. */
-        Intent intent = new Intent(GolaMainActivity.this,MainActivity.class);
+        Intent intent = new Intent(GolaMainActivity.this,TournamentActivity.class);
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
         intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
