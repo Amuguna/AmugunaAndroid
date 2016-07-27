@@ -6,6 +6,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.nexters.amuguna.gola.manager.GolaImageManager;
 
 import java.util.Collections;
 
@@ -37,13 +38,16 @@ public class SplashScreen extends AppCompatActivity {
         Thread timerThread = new Thread(){
             public void run(){
                 try{
+
                     // 랜덤 수 세팅
+                    StaticInfo.RAN.clear();
                     for(int i=1; i<=StaticInfo.DEFAULT_ROUND; i++) {
                         StaticInfo.RAN.add(i);
+
                     }
 
                     /* Expose splash image for 2 sec. */
-                    sleep(2000);
+                    sleep(1500);
                 }catch(InterruptedException e){
                     e.printStackTrace();
                 }finally{

@@ -1,7 +1,10 @@
 package com.nexters.amuguna.gola.manager;
 
+import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 
+import com.nexters.amuguna.gola.BuildConfig;
 import com.nexters.amuguna.gola.model.GolaImage;
 
 import java.io.File;
@@ -15,7 +18,9 @@ import java.util.List;
 public class GolaImageManager {
 
     private static GolaImageManager instatnce;
-    private List<String> golas;
+    public List<String> golas;
+    public static String []food = "gola_img_dupbab,gola_img_galbi,gola_img_gamza,gola_img_sam,gola_img_samkye,gola_img_soondubu,gola_img_ssal_kooksu,gola_img_ssam,gola_img_staek,gola_img_sushi,gola_img_sushi_roll,gola_img_tang,gola_img_woodong,gola_img_yang,gola_img_zzambbong,gola_img_zzazang,gola_img_zzimdak".split(",");
+    //public static String []food = "gola_img_dupbab.jpg,gola_img_galbi.jpg,gola_img_gamza.jpg,gola_img_sam.jpg,gola_img_samkye.jpg,gola_img_soondubu.jpg,gola_img_ssal_kooksu.jpg,gola_img_ssam.jpg,gola_img_staek.jpg,gola_img_sushi.jpg,gola_img_sushi_roll.jpg,gola_img_tang.jpg,gola_img_woodong.jpg,gola_img_yang.jpg,gola_img_zzambbong.jpg,gola_img_zzazang.jpg,gola_img_zzimdak.jpg".split(",");
 
     static {
         instatnce = new GolaImageManager();
@@ -27,16 +32,20 @@ public class GolaImageManager {
     }
 
     public void initImages() {
-        String imageFileName="";
 
-        File drawable = new File("/drawable/");
+
+        /*String imageFileName="";
+        File drawable = new File(Uri.parse("android.resource://"+ BuildConfig.APPLICATION_ID+"/").toString());
+
         File [] fileList = drawable.listFiles();
         for(int i=0;i<fileList.length;i++){
             imageFileName = fileList[i].getName();
-            if(imageFileName.startsWith("gola_img_")) {
+            Log.e("imageFileName",imageFileName);
+            if(imageFileName.contains("gola_img_")) {
                 golas.add(imageFileName);
+
             }
-        }
+        }*/
 
     }
     /*golas = new ArrayList<GolaImage>();

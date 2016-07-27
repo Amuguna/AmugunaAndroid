@@ -1,6 +1,9 @@
 package com.nexters.amuguna.gola;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,8 +12,10 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.nexters.amuguna.gola.manager.GolaImageManager;
 import com.transitionseverywhere.TransitionManager;
 
+import java.io.File;
 import java.util.Collections;
 
 import butterknife.Bind;
@@ -36,6 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(com.nexters.amuguna.gola.R.id.center_layout)
     ViewGroup viewGroup;
 
+    int imageIndex = 0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,6 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         /* Hide ActionBar */
         getSupportActionBar().hide();
+
 
         intent = getIntent();
         //tournament = TournametManager.getInstance();
@@ -66,13 +73,16 @@ public class MainActivity extends AppCompatActivity {
                 StaticInfo.CUR_NODE[i] = StaticInfo.RAN.get(i-1);
             // ROUND의 1/2 만큼 배열을 생성하여 NEXT_NODE 에 넣어준다.
             StaticInfo.NEXT_NODE = new int[StaticInfo.DEFAULT_ROUND/2+1];
-
-            //int[] ran = tournament.initTree(intent.getIntExtra("round", StaticInfomation.DEFAULT_ROUND));
-            //int[] ran = tournament.initTree(intent.getIntExtra("round", StaticInfomation.DEFAULT_ROUND));
         }
+        Glide.with(this).load(getResourceId()).into(topImage);
+        Glide.with(this).load(getResourceId()).into(bottomImage);
 
-        Glide.with(this).load(R.drawable.gola_img_dupbab).into(topImage);
-        Glide.with(this).load(R.drawable.gola_img_galbi).into(bottomImage);
+    }
+    public int getResourceId(){
+
+        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+GolaImageManager.food[imageIndex++],null,null);
+        Log.e("resourceId",resourceId+"");
+        return resourceId;
     }
 
     /* CUR_ROUND, GAME_TOT 초기화 */
@@ -147,6 +157,40 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
+    void topImgClick() {
+
+
+
+        TransitionManager.beginDelayedTransition(viewGroup);
+        bottomImage.setVisibility(View.INVISIBLE);
+
+        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1]);
+
+
+    }
+
+    @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
+    void bottomImgClick() {
+
+
+        TransitionManager.beginDelayedTransition(viewGroup);
+        topImage.setVisibility(View.INVISIBLE);
+
+        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]);
+    }
+}
+        /*TransitionManager.beginDelayedTransition(viewGroup);
+        visible = !visible;
+        bottomImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
+//switch (nextRound(StaticInfomation.ARR_NODE[StaticInfomation.CNT*2-1]){
+
+//}
+        /*TransitionManager.beginDelayedTransition(viewGroup);
+        visible = !visible;
+        topImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
+
     /*private void nextNode() {
         int[] temp;
         temp = StaticInfo.ARR_NODE;
@@ -190,36 +234,3 @@ public class MainActivity extends AppCompatActivity {
         }
         return ;
     }*/
-
-    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
-    void topImgClick() {
-
-        /*TransitionManager.beginDelayedTransition(viewGroup);
-        visible = !visible;
-        bottomImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
-
-
-        TransitionManager.beginDelayedTransition(viewGroup);
-        bottomImage.setVisibility(View.INVISIBLE);
-
-        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT*2-1]);
-
-        //switch (nextRound(StaticInfomation.ARR_NODE[StaticInfomation.CNT*2-1]){
-
-        //}
-    }
-
-    @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
-    void bottomImgClick() {
-
-        /*TransitionManager.beginDelayedTransition(viewGroup);
-        visible = !visible;
-        topImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
-
-
-        TransitionManager.beginDelayedTransition(viewGroup);
-        topImage.setVisibility(View.INVISIBLE);
-
-        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT*2]);
-    }
-}
