@@ -1,16 +1,20 @@
 package com.nexters.amuguna.gola;
 
+import android.animation.ObjectAnimator;
 import android.content.Intent;
-import android.net.Uri;
+
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.nexters.amuguna.gola.manager.GolaImageManager;
 import com.transitionseverywhere.TransitionManager;
+
 
 import java.util.Collections;
 
@@ -33,6 +37,9 @@ public class TournamentActivity extends AppCompatActivity {
     @Bind(com.nexters.amuguna.gola.R.id.center_layout)
     ViewGroup viewGroup;
 
+    public static long DURATION_TIME=1000;
+
+    static int imageIndex=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -64,10 +71,16 @@ public class TournamentActivity extends AppCompatActivity {
             StaticInfo.NEXT_NODE = new int[StaticInfo.DEFAULT_ROUND/2+1];
         }
 
-        Glide.with(this).load(R.drawable.gola_img_dupbab).into(topImage);
-        Glide.with(this).load(R.drawable.gola_img_galbi).into(bottomImage);
-    }
+        Glide.with(this).load(getResourceId()).into(topImage);
+        Glide.with(this).load(getResourceId()).into(bottomImage);
 
+    }
+    public int getResourceId(){
+        Log.e("index-", imageIndex + "");
+        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imageIndex++],null,null);
+        Log.e("resourceId", resourceId + "");
+        return resourceId;
+    }
     /* CUR_ROUND, GAME_TOT 초기화 */
     private void initRound() {
         switch(StaticInfo.DEFAULT_ROUND) {
@@ -82,6 +95,7 @@ public class TournamentActivity extends AppCompatActivity {
                 StaticInfo.GAME_CNT = 1;
                 break;
             case 4:
+
                 StaticInfo.CUR_ROUND = 4;
                 StaticInfo.GAME_TOT = 2;
                 StaticInfo.GAME_CNT = 1;
@@ -108,7 +122,8 @@ public class TournamentActivity extends AppCompatActivity {
         StaticInfo.GAME_CNT = 1;
     }
 
-    private void nextGame(int selectedNum) {
+    private void nextGame(int
+ selectedNum) {
 
         Log.e("몇강?", ""+ StaticInfo.CUR_ROUND);
         Log.e("총 몇 경기?", ""+ StaticInfo.GAME_TOT);
@@ -148,28 +163,61 @@ public class TournamentActivity extends AppCompatActivity {
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
 
+
         /*TransitionManager.beginDelayedTransition(viewGroup);
         visible = !visible;
         bottomImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
+        startFlipAnimation();
+        /*TransitionManager.beginDelayedTransition(viewGroup);
+        bottomImage.setVisibility(View.INVISIBLE);*/
 
-        TransitionManager.beginDelayedTransition(viewGroup);
-        bottomImage.setVisibility(View.INVISIBLE);
-
-        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT*2-1]);
-
+        new Thread(){
+            public void run(){
+                try {Thread.sleep(DURATION_TIME);} catch(Exception ex){ex.printStackTrace();}
+                new Thread(new Runnable(){
+                    public void run(){
+                        runOnUiThread(new Runnable(){
+                            public void run(){
+                                nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1]);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        }.start();
     }
-
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-
         /*TransitionManager.beginDelayedTransition(viewGroup);
         visible = !visible;
         topImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
+        startFlipAnimation();
+        /*TransitionManager.beginDelayedTransition(viewGroup);
+        topImage.setVisibility(View.INVISIBLE);*/
 
-        TransitionManager.beginDelayedTransition(viewGroup);
-        topImage.setVisibility(View.INVISIBLE);
-
-        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT*2]);
+        new Thread(){
+            public void run(){
+                try {Thread.sleep(DURATION_TIME);} catch(Exception ex){ex.printStackTrace();}
+                new Thread(new Runnable(){
+                    public void run(){
+                        runOnUiThread(new Runnable(){
+                            public void run(){
+                                nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]);
+                            }
+                        });
+                    }
+                }).start();
+            }
+        }.start();
     }
+    public void startFlipAnimation(){
+        ObjectAnimator animator1 = ObjectAnimator.ofFloat(topImage,"rotationY",0,180);
+        animator1.setDuration(DURATION_TIME);
+        ObjectAnimator animator2 = ObjectAnimator.ofFloat(bottomImage,"rotationY",0,180);
+        animator2.setDuration(DURATION_TIME);
+        animator1.start();
+        animator2.start();
 
+
+    }
 }

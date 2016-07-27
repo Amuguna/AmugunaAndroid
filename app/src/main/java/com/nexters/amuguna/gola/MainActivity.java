@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
     @Bind(com.nexters.amuguna.gola.R.id.center_layout)
     ViewGroup viewGroup;
 
-    int imageIndex = 0 ;
+    static int imageIndex = 0 ;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public int getResourceId(){
-
+        Log.e("index-",imageIndex+"");
         int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+GolaImageManager.food[imageIndex++],null,null);
         Log.e("resourceId",resourceId+"");
         return resourceId;
