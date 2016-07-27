@@ -14,7 +14,6 @@ import android.view.Window;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.nexters.amuguna.gola.manager.GolaImageManager;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -92,7 +91,7 @@ public class GolaMainActivity extends AppCompatActivity {
         Intent intent = new Intent(GolaMainActivity.this,MainActivity.class);
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
-        intent.putExtra("round", StaticInfomation.DEFAULT_ROUND);
+        intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
         startActivity(intent);
     }
 

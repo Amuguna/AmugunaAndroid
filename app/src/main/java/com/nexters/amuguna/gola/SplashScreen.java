@@ -6,7 +6,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.nexters.amuguna.gola.manager.GolaImageManager;
+
+import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
@@ -37,9 +38,10 @@ public class SplashScreen extends AppCompatActivity {
             public void run(){
                 try{
                     // 랜덤 수 세팅
-                    for(int i=1; i<=17; i++) {
-                        StaticInfomation.RAN.add(i);
+                    for(int i=1; i<=StaticInfo.DEFAULT_ROUND; i++) {
+                        StaticInfo.RAN.add(i);
                     }
+
                     /* Expose splash image for 2 sec. */
                     sleep(2000);
                 }catch(InterruptedException e){

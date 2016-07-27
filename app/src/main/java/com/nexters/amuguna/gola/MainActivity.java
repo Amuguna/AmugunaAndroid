@@ -1,7 +1,6 @@
 package com.nexters.amuguna.gola;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -51,11 +50,22 @@ public class MainActivity extends AppCompatActivity {
 
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
-            /* 랜덤 수를 한번 섞어준다 */
-            Collections.shuffle(StaticInfomation.RAN);
+             /* 랜덤 수를 한번 섞어준다 */
+            Collections.shuffle(StaticInfo.RAN);
 
-            initTree();
+            for(int a:StaticInfo.RAN)
+                Log.e("Random", "" + a);
 
+            /* Default Round에 따른 CUR_ROUND, GAME_TOT 값 초기화 */
+            initRound();
+
+            /* Node 초기화 */
+            StaticInfo.CUR_NODE = new int[StaticInfo.DEFAULT_ROUND+1];
+            // 섞인 랜덤수를 CUR_NODE에 넣어준다.
+            for(int i=1; i<=StaticInfo.DEFAULT_ROUND; i++)
+                StaticInfo.CUR_NODE[i] = StaticInfo.RAN.get(i-1);
+            // ROUND의 1/2 만큼 배열을 생성하여 NEXT_NODE 에 넣어준다.
+            StaticInfo.NEXT_NODE = new int[StaticInfo.DEFAULT_ROUND/2+1];
 
             //int[] ran = tournament.initTree(intent.getIntExtra("round", StaticInfomation.DEFAULT_ROUND));
             //int[] ran = tournament.initTree(intent.getIntExtra("round", StaticInfomation.DEFAULT_ROUND));
@@ -65,50 +75,56 @@ public class MainActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.gola_img_galbi).into(bottomImage);
     }
 
-    private void initTree() {
-        switch(StaticInfomation.DEFAULT_ROUND) {
-            case 32 :
-                StaticInfomation.ROUND = 32;
-                StaticInfomation.ROUND_TOT = 16;
+    /* CUR_ROUND, GAME_TOT 초기화 */
+    private void initRound() {
+        switch(StaticInfo.DEFAULT_ROUND) {
+            case 16:
+                StaticInfo.CUR_ROUND = 16;
+                StaticInfo.GAME_TOT = 8;
                 break;
-            case 16 :
-                StaticInfomation.ROUND = 16;
-                StaticInfomation.ROUND_TOT = 8;
+            case 8:
+                StaticInfo.CUR_ROUND = 8;
+                StaticInfo.GAME_TOT = 4;
                 break;
-            case 8 :
-                StaticInfomation.ROUND = 8;
-                StaticInfomation.ROUND_TOT = 4;
+            case 4:
+                StaticInfo.CUR_ROUND = 4;
+                StaticInfo.GAME_TOT = 2;
                 break;
-            case 4 :
-                StaticInfomation.ROUND = 4;
-                StaticInfomation.ROUND_TOT = 2;
-                break;
-            case 2 :
-                StaticInfomation.ROUND = 2;
-                StaticInfomation.ROUND_TOT = 1;
+            case 2:
+                StaticInfo.CUR_ROUND = 2;
+                StaticInfo.GAME_TOT = 1;
                 break;
         }
-        StaticInfomation.ARR_NODE = new int[StaticInfomation.DEFAULT_ROUND+1];
-        StaticInfomation.ARR_NODE[0] = StaticInfomation.DEFAULT_ROUND;
-        for(int i=1; i<=StaticInfomation.DEFAULT_ROUND; i++) {
-            StaticInfomation.ARR_NODE[i] = StaticInfomation.RAN.get(i-1);
-        }
-        StaticInfomation.NEXT_ARR_NODE = new int[StaticInfomation.DEFAULT_ROUND/2 + 1];
-        StaticInfomation.NEXT_ARR_NODE[0] = StaticInfomation.DEFAULT_ROUND/2;
     }
 
-    private void nextRound(int selectedNum) {
+    private void initNode(int round) {
 
-        Log.e("몇강?", ""+StaticInfomation.ROUND);
-        Log.e("몇 경기?", ""+StaticInfomation.ROUND_TOT);
-        Log.e("COUNT", ""+StaticInfomation.CNT);
+        // NEXT_NODE를 CUR_NODE에 넣는다.
+        StaticInfo.CUR_NODE = StaticInfo.NEXT_NODE;
 
-        StaticInfomation.NEXT_ARR_NODE[StaticInfomation.CNT] = selectedNum;
-        if(StaticInfomation.ROUND_TOT == StaticInfomation.CNT) {
+        // NEXT_NODE를 round/2의 배열로 생셩하여 다시 세팅
+        StaticInfo.NEXT_NODE = new int[round/2+1];
+
+        // 현재 Round, Total Game수, GAME_CNT 다시 세팅
+        StaticInfo.CUR_ROUND/=2;
+        StaticInfo.GAME_TOT/=2;
+        StaticInfo.GAME_CNT = 1;
+    }
+
+    private void nextGame(int selectedNum) {
+
+        Log.e("몇강?", ""+ StaticInfo.CUR_ROUND);
+        Log.e("총 몇 경기?", ""+ StaticInfo.GAME_TOT);
+        Log.e("게임Count", ""+ StaticInfo.GAME_CNT);
+
+        StaticInfo.NEXT_NODE[StaticInfo.GAME_CNT] = selectedNum;
+        StaticInfo.GAME_CNT++;
+
+        if(StaticInfo.GAME_CNT == StaticInfo.GAME_TOT) {
             // 결승
-            if(StaticInfomation.ROUND == 2) {
+            if(StaticInfo.CUR_ROUND == 2) {
                 //return -1;
-                Log.e("SelectedNum", ""+selectedNum);
+                Log.e("결승 SelectedNum", ""+selectedNum);
                 /* Move to ResultActivity. */
                 intent = new Intent(MainActivity.this,ResultActivity.class);
                 intent.putExtra("result",selectedNum);
@@ -118,11 +134,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return;
             }
-            nextNode();
-            //return 0;
+            initNode(StaticInfo.CUR_ROUND);
         }
-
-        StaticInfomation.CNT++;
 
         //return 1;
         Log.e("SelectedNum", ""+selectedNum);
@@ -134,20 +147,20 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void nextNode() {
+    /*private void nextNode() {
         int[] temp;
-        temp = StaticInfomation.ARR_NODE;
-        StaticInfomation.ARR_NODE = StaticInfomation.NEXT_ARR_NODE;
-        StaticInfomation.NEXT_ARR_NODE = temp;
+        temp = StaticInfo.ARR_NODE;
+        StaticInfo.ARR_NODE = StaticInfo.NEXT_ARR_NODE;
+        StaticInfo.NEXT_ARR_NODE = temp;
 
-        StaticInfomation.ROUND/=2;
-        StaticInfomation.ROUND_TOT/=2;
+        StaticInfo.ROUND/=2;
+        StaticInfo.ROUND_TOT/=2;
 
-        StaticInfomation.NEXT_ARR_NODE[0] = StaticInfomation.ROUND;
+        StaticInfo.NEXT_ARR_NODE[0] = StaticInfo.ROUND;
 
-        StaticInfomation.CNT = 0;
+        StaticInfo.CNT = 0;
 
-    }
+    }*/
 
     /*private void nextRound1() {
 
@@ -189,7 +202,7 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.beginDelayedTransition(viewGroup);
         bottomImage.setVisibility(View.INVISIBLE);
 
-        nextRound(StaticInfomation.ARR_NODE[StaticInfomation.CNT*2-1]);
+        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT*2-1]);
 
         //switch (nextRound(StaticInfomation.ARR_NODE[StaticInfomation.CNT*2-1]){
 
@@ -207,6 +220,6 @@ public class MainActivity extends AppCompatActivity {
         TransitionManager.beginDelayedTransition(viewGroup);
         topImage.setVisibility(View.INVISIBLE);
 
-        nextRound(StaticInfomation.ARR_NODE[StaticInfomation.CNT*2]);
+        nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT*2]);
     }
 }
