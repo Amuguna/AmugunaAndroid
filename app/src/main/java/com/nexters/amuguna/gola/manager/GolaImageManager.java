@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.nexters.amuguna.gola.model.GolaImage;
 
+import java.io.File;
 import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,20 +15,31 @@ import java.util.List;
 public class GolaImageManager {
 
     private static GolaImageManager instatnce;
-    private List<GolaImage> golas;
+    private List<String> golas;
 
     static {
         instatnce = new GolaImageManager();
     }
-    private GolaImageManager(){}
+    private GolaImageManager(){golas = new ArrayList<String>();}
 
     public static synchronized GolaImageManager getInstatnce(){
         return instatnce;
     }
 
     public void initImages() {
+        String imageFileName="";
 
-        golas = new ArrayList<GolaImage>();
+        File drawable = new File("/drawable/");
+        File [] fileList = drawable.listFiles();
+        for(int i=0;i<fileList.length;i++){
+            imageFileName = fileList[i].getName();
+            if(imageFileName.startsWith("gola_img_")) {
+                golas.add(imageFileName);
+            }
+        }
+
+    }
+    /*golas = new ArrayList<GolaImage>();
         final Field[] fields = com.nexters.amuguna.gola.R.drawable.class.getFields();
         int i=1;
         for (Field f : fields) {
@@ -40,10 +52,9 @@ public class GolaImageManager {
                     continue;
                 }
             }
-        }
-    }
+        }*/
 
-    public  List<GolaImage> getGolas() {
+    public  List<String> getGolas() {
         return this.golas;
     }
 
