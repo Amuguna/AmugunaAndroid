@@ -41,7 +41,7 @@ public class SplashScreen extends AppCompatActivity {
 
                     // 랜덤 수 세팅
                     StaticInfo.RAN.clear();
-                    for(int i=1; i<=StaticInfo.DEFAULT_ROUND; i++) {
+                    for(int i=1; i<=GolaImageManager.food.length; i++) {
                         StaticInfo.RAN.add(i);
 
                     }

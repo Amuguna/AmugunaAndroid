@@ -27,6 +27,8 @@ import butterknife.OnClick;
 public class TournamentActivity extends AppCompatActivity {
 
     Intent intent;
+    int topImgNum;
+    int bottomImgNum;
 
     @Bind(com.nexters.amuguna.gola.R.id.center_top_img)
     ImageView topImage;
@@ -39,7 +41,7 @@ public class TournamentActivity extends AppCompatActivity {
 
     public static long DURATION_TIME=1000;
 
-    static int imageIndex=0;
+    //static int imageIndex=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,8 +58,9 @@ public class TournamentActivity extends AppCompatActivity {
              /* 랜덤 수를 한번 섞어준다 */
             Collections.shuffle(StaticInfo.RAN);
 
-            for(int a:StaticInfo.RAN)
+            for(int a:StaticInfo.RAN) {
                 Log.e("Random", "" + a);
+            }
 
             /* Default Round에 따른 CUR_ROUND, GAME_TOT 값 초기화 */
             initRound();
@@ -71,13 +74,17 @@ public class TournamentActivity extends AppCompatActivity {
             StaticInfo.NEXT_NODE = new int[StaticInfo.DEFAULT_ROUND/2+1];
         }
 
-        Glide.with(this).load(getResourceId()).into(topImage);
-        Glide.with(this).load(getResourceId()).into(bottomImage);
+        topImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
+        bottomImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2];
+        //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
+        //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
+        Glide.with(this).load(getResourceId(topImgNum-1)).into(topImage);
+        Glide.with(this).load(getResourceId(bottomImgNum-1)).into(bottomImage);
 
     }
-    public int getResourceId(){
-        Log.e("index-", imageIndex + "");
-        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imageIndex++],null,null);
+    private int getResourceId(int imgIndex){
+        Log.e("index-", imgIndex + "");
+        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imgIndex],null,null);
         Log.e("resourceId", resourceId + "");
         return resourceId;
     }
@@ -178,7 +185,7 @@ public class TournamentActivity extends AppCompatActivity {
                     public void run(){
                         runOnUiThread(new Runnable(){
                             public void run(){
-                                nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1]);
+                                nextGame(topImgNum);
                             }
                         });
                     }
@@ -202,7 +209,7 @@ public class TournamentActivity extends AppCompatActivity {
                     public void run(){
                         runOnUiThread(new Runnable(){
                             public void run(){
-                                nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]);
+                                nextGame(bottomImgNum);
                             }
                         });
                     }
@@ -217,7 +224,6 @@ public class TournamentActivity extends AppCompatActivity {
         animator2.setDuration(DURATION_TIME);
         animator1.start();
         animator2.start();
-
 
     }
 }

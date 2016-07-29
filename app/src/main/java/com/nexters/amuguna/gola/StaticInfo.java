@@ -8,8 +8,8 @@ import java.util.ArrayList;
 public class StaticInfo {
 
     /* 16강 기본 세팅 */
-    public static final int DEFAULT_ROUND = 16;
-    //public static final int DEFAULT_ROUND = 8;
+    //public static final int DEFAULT_ROUND = 16;
+    public static final int DEFAULT_ROUND = 8;
 
     /* 현재 몇강 토너먼트인지 */
     public static int CUR_ROUND = 16;

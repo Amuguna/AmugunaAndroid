@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
+import com.nexters.amuguna.gola.manager.GolaImageManager;
 
 import java.util.Collections;
 
@@ -39,13 +40,15 @@ public class ResultActivity extends AppCompatActivity {
         /* Hide ActionBar */
         getSupportActionBar().hide();
 
-        Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(resultImg);
+        //Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(resultImg);
+
 
         /* 토너먼트에서 넘어왔는지 랜덤 선택에서 넘어왔는지 확인 */
         intent = getIntent();
         if(intent.getBooleanExtra("isTournament", true)){
             Log.e("isTournament ?", "TOURNAMENT !!!! ");
-            Log.e("RESULT", ""+intent.getIntExtra("result",10));
+            Log.e("RESULT", ""+intent.getIntExtra("result",1));
+            Glide.with(this).load(getResourceId(intent.getIntExtra("result",1)-1)).into(resultImg);
         } else {
 
             /* 랜덤 수를 한번 섞어준다 */
@@ -53,7 +56,15 @@ public class ResultActivity extends AppCompatActivity {
 
             Log.e("isTournament ?", "NO !!!! ");
             Log.e("RESULT", ""+StaticInfo.RAN.get(0));
+            Glide.with(this).load(getResourceId(StaticInfo.RAN.get(0)-1)).into(resultImg);
         }
+    }
+
+    private int getResourceId(int imgIndex){
+        Log.e("index-", imgIndex+"" );
+        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imgIndex],null,null);
+        Log.e("resourceId", resourceId + "");
+        return resourceId;
     }
 
     @OnClick(com.nexters.amuguna.gola.R.id.retryBtn)
@@ -65,6 +76,8 @@ public class ResultActivity extends AppCompatActivity {
             intent.putExtra("isTournament", true);
             intent.putExtra("isFirstRound", true);
             intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
         } else {
             /* Move to ResultActivity. */
