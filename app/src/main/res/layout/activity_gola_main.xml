@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:fbutton="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
@@ -6,27 +7,8 @@
     android:weightSum="100"
     android:orientation="vertical"
     android:background="@color/color_black">
-<!-- android:layout_weight="100" -->
+&lt;!&ndash; android:layout_weight="100" &ndash;&gt;
 
-
-    <LinearLayout
-        android:id="@+id/ad_bottom_layout"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="10"
-        android:orientation="vertical"
-        >
-
-        <include
-            android:id="@+id/layout_ad_bottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:layout_gravity="center"
-            layout="@layout/top_menu_bar"
-            />
-
-    </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -63,12 +45,12 @@
             android:textSize="30dp"
             fbutton:buttonColor="@color/color_silver"
             fbutton:shadowEnabled="true" />
-        <!--
+        &lt;!&ndash;
         android:layout_marginBottom="@dimen/main_top_img_margin_bottom"
 
         android:layout_marginTop="@dimen/main_btn_margin_top"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"-->
+        android:paddingRight="10dp"&ndash;&gt;
 
     </LinearLayout>
 
@@ -91,12 +73,87 @@
             android:textSize="30dp"
             fbutton:buttonColor="@color/color_silver"
             fbutton:shadowEnabled="true" />
-        <!--android:layout_marginTop="@dimen/main_btn_margin_top"
+        &lt;!&ndash;android:layout_marginTop="@dimen/main_btn_margin_top"
         android:paddingLeft="10dp"
-        android:paddingRight="10dp"-->
+        android:paddingRight="10dp"&ndash;&gt;
 
     </LinearLayout>
 
 
 
-</LinearLayout>
+</LinearLayout>-->
+
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <LinearLayout
+        android:id="@+id/main_logo_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_top_margin"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/logo_main"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_bottom_linear"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:id="@+id/tournamentBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/tournament_btn"/>
+
+        <ImageView
+            android:id="@+id/randomBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/copy_right_text_size"
+            android:gravity="center"
+            android:src="@drawable/random_btn"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_bottom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="20pt"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/copy_right_text_size">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/back_to_tutorial"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#66000000"
+            android:textSize="@dimen/copy_right_text_size"
+            android:text="튜토리얼 다시보기"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
+

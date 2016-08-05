@@ -9,15 +9,36 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
-        <activity android:name=".SplashScreen">
+        <activity android:name="com.nexters.amuguna.gola.SplashScreen">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
-            android:name=".GolaMainActivity"
+            android:name="com.nexters.amuguna.gola.Intro1Activity"
+            android:screenOrientation="portrait"
+            >
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+            </activity>
+        <activity
+            android:name="com.nexters.amuguna.gola.Intro2Activity"
+            android:screenOrientation="portrait"
+            >
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+        <activity
+            android:name="com.nexters.amuguna.gola.GolaMainActivity"
             android:screenOrientation="portrait"
             />
         <activity
@@ -32,6 +53,7 @@
             android:name="com.nexters.amuguna.gola.ResultActivity"
             android:screenOrientation="portrait"
             />
+
 
 
     </application>

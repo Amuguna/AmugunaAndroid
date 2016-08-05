@@ -1,5 +1,11 @@
 <resources>
     <!-- Galaxy Mobile. -->
+
+    <dimen name="copy_right_text_size">7pt</dimen>
+
+    <dimen name="main_top_margin">15pt</dimen>
+
+
     <dimen name="activity_horizontal_margin">50dp</dimen>
     <dimen name="activity_vertical_margin">16dp</dimen>
 

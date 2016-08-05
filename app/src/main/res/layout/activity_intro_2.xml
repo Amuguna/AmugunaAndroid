@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FAFAFA">
+
+    <LinearLayout
+        android:id="@+id/intro_2_oval_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_top_margin"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:background="@drawable/intro2_oval20"
+            android:layout_height="8dp"
+            android:layout_width="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_gravity="center"/>
+
+        <View
+            android:background="@drawable/intro2_oval60"
+            android:layout_height="8dp"
+            android:layout_width="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/intro_2_text_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intro_2_oval_linear"
+        android:layout_marginTop="@dimen/main_top_margin"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/intro2_text"/>
+
+    </LinearLayout>
+
+<!--
+    <RelativeLayout
+        android:id="@+id/intro2_bottom_relative"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/intro2_g3"
+            android:src="@drawable/intro2_graphic1"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/intro2_g4"
+            android:layout_gravity="right"
+            android:src="@drawable/intro2_graphic2"/>
+
+        <ImageView
+            android:id="@+id/intro2_g3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/intro2_graphic3"/>
+
+        <ImageView
+            android:id="@+id/intro2_g4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/intro2_graphic4"/>
+
+
+
+    </RelativeLayout>-->
+
+</RelativeLayout>

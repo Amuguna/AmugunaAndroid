@@ -29,12 +29,12 @@ public class GolaMainActivity extends AppCompatActivity {
     final String firstRunPrefs = "firstRun";
 
     @Bind(com.nexters.amuguna.gola.R.id.tournamentBtn)
-    FButton tourBtn;
+    ImageView tourBtn;
 
     @Bind(com.nexters.amuguna.gola.R.id.randomBtn)
-    FButton randomBtn;
+    ImageView randomBtn;
 
-    @Bind(com.nexters.amuguna.gola.R.id.main_top_img)
+    //@Bind(com.nexters.amuguna.gola.R.id.main_top_img)
     ImageView mainTopImg;
 
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +45,7 @@ public class GolaMainActivity extends AppCompatActivity {
         /* Hide ActionBar */
         getSupportActionBar().hide();
 
-        Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(mainTopImg);
+        //Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(mainTopImg);
 
         //GolaImageManager.getInstatnce().initImages();
 
@@ -88,7 +88,10 @@ public class GolaMainActivity extends AppCompatActivity {
     @OnClick(com.nexters.amuguna.gola.R.id.tournamentBtn)
     void tournamentBtnClick() {
         /* Move to MainActivity. */
-        Intent intent = new Intent(GolaMainActivity.this,TournamentActivity.class);
+        //Intent intent = new Intent(GolaMainActivity.this,TournamentActivity.class);
+
+        Intent intent = new Intent(GolaMainActivity.this,Intro1Activity.class);
+
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
         intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
@@ -98,9 +101,11 @@ public class GolaMainActivity extends AppCompatActivity {
     @OnClick(com.nexters.amuguna.gola.R.id.randomBtn)
     void randomBtnClick() {
         /* Move to ResultActivity. */
-        Intent intent = new Intent(GolaMainActivity.this,ResultActivity.class);
+        //Intent intent = new Intent(GolaMainActivity.this,ResultActivity.class);
+
+        Intent intent = new Intent(GolaMainActivity.this,Intro2Activity.class);
+
         intent.putExtra("isTournament", false);
         startActivity(intent);
     }
-
 }

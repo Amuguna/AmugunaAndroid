@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#3A299D">
+
+    <LinearLayout
+        android:id="@+id/intro_1_oval_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/main_top_margin"
+        android:layout_alignParentTop="true"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <View
+            android:background="@drawable/intro1_oval80"
+            android:layout_height="8dp"
+            android:layout_width="8dp"
+            android:layout_marginRight="4dp"
+            android:layout_gravity="center"/>
+
+        <View
+            android:background="@drawable/intro1_oval40"
+            android:layout_height="8dp"
+            android:layout_width="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+
+
+    <LinearLayout
+        android:id="@+id/intro_1_text_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/intro_1_oval_linear"
+        android:layout_marginTop="@dimen/main_top_margin"
+        android:orientation="horizontal" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/intro1_text2"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/main_bottom_linear"
+        android:orientation="vertical" >
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/intro1_graphic"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/main_bottom_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="20pt"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/copy_right_text_size">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/go_to_intro2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#64ffffff"
+            android:textSize="@dimen/copy_right_text_size"
+            android:text="다음으로"
+            />
+
+    </LinearLayout>
+
+</RelativeLayout>
