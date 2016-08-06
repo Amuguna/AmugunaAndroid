@@ -62,6 +62,7 @@ public class TournamentActivity extends AppCompatActivity {
 
         intent = getIntent();
 
+
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
              /* 랜덤 수를 한번 섞어준다 */
@@ -88,9 +89,14 @@ public class TournamentActivity extends AppCompatActivity {
             bottomImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2];
             //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
             //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
-            Glide.with(this).load(getResourceId(topImgNum-1))
+            /*Glide.with(this).load(getResourceId(topImgNum-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
             Glide.with(this).load(getResourceId(bottomImgNum-1))
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);*/
+
+            Glide.with(this).load(StaticInfo.resourceList.get(topImgNum-1))
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
+            Glide.with(this).load(StaticInfo.resourceList.get(bottomImgNum-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
 
         }
@@ -180,11 +186,16 @@ public class TournamentActivity extends AppCompatActivity {
         bottomImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2];
         //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
         //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
-        Glide.with(this).load(getResourceId(topImgNum-1))
+        /*Glide.with(this).load(getResourceId(topImgNum-1))
                 .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
         Glide.with(this).load(getResourceId(bottomImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);*/
 
+
+        Glide.with(this).load(StaticInfo.resourceList.get(topImgNum-1))
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
+        Glide.with(this).load(StaticInfo.resourceList.get(bottomImgNum-1))
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
 
 
 
@@ -222,6 +233,9 @@ public class TournamentActivity extends AppCompatActivity {
 
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
+
+        topImage.setEnabled(false);
+        bottomImage.setEnabled(false);
 
         // 결승
         if(StaticInfo.CUR_ROUND == 2) {
@@ -266,6 +280,8 @@ public class TournamentActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable(){
                             public void run(){
                                 nextGame(topImgNum);
+                                topImage.setEnabled(true);
+                                bottomImage.setEnabled(true);
                             }
                         });
                     }
@@ -277,6 +293,8 @@ public class TournamentActivity extends AppCompatActivity {
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
 
+        topImage.setEnabled(false);
+        bottomImage.setEnabled(false);
         // 결승
         if(StaticInfo.CUR_ROUND == 2) {
             nextGame(bottomImgNum);
@@ -326,6 +344,8 @@ public class TournamentActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable(){
                                 public void run(){
                                     nextGame(bottomImgNum);
+                                    topImage.setEnabled(true);
+                                    bottomImage.setEnabled(true);
                                 }
                             });
                         }

@@ -17,13 +17,13 @@
         android:layout_height="1dp"
         android:layout_width="fill_parent"/>
 
-<!--
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="@dimen/top_menu_height"
-        android:background="@color/color_carrot">
+        android:background="@color/color_asbestos">
 
-    </LinearLayout>-->
+    </LinearLayout>
 
 
     <LinearLayout

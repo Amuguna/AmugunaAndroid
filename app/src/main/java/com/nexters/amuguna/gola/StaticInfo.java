@@ -10,7 +10,7 @@ public class StaticInfo {
     private StaticInfo(){}
     /* 16강 기본 세팅 */
     //public static final int DEFAULT_ROUND = 16;
-    public static final int IMAGE_COUNT = 26;
+    public static final int IMAGE_COUNT = 17;
     public static final int DEFAULT_ROUND = 8;
 
     /* 현재 몇강 토너먼트인지 */

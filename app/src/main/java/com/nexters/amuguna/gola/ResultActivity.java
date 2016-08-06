@@ -61,11 +61,13 @@ public class ResultActivity extends AppCompatActivity {
         intent = getIntent();
         if(intent.getBooleanExtra("isTournament", true)){
 
-            Glide.with(this).load(StaticInfo.RAN.get(intent.getIntExtra("result",1)-1))
+            /*Glide.with(this).load(StaticInfo.RAN.get(intent.getIntExtra("result",1)-1))
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
+
+            Glide.with(this).load(StaticInfo.resourceList.get(intent.getIntExtra("result",1)-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_random_btn));
-
 
             Log.e("isTournament ?", "TOURNAMENT !!!! ");
             Log.e("RESULT", ""+intent.getIntExtra("result",1));
@@ -78,7 +80,7 @@ public class ResultActivity extends AppCompatActivity {
             /*Glide.with(this).load(R.drawable.gola_img_dupbab)
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
-            Glide.with(this).load( StaticInfo.RAN.get(0)-1)
+            Glide.with(this).load( StaticInfo.resourceList.get(StaticInfo.RAN.get(0)-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_tournament_btn));
