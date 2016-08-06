@@ -55,6 +55,12 @@
             />
 
 
+        <activity
+            android:name="com.nexters.amuguna.gola.TestActivity"
+            android:screenOrientation="portrait"
+            />
+
+
 
     </application>
 

@@ -81,4 +81,32 @@
 
     </RelativeLayout>-->
 
+
+    <LinearLayout
+        android:id="@+id/start_linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:layout_marginTop="20pt"
+        android:orientation="vertical"
+        android:layout_marginBottom="@dimen/copy_right_text_size">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/go_to_intro2"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:textColor="#66000000"
+            android:textSize="@dimen/copy_right_text_size"
+            android:text="시작하기"
+            />
+
+    </LinearLayout>
+
 </RelativeLayout>

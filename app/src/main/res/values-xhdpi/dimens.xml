@@ -16,7 +16,9 @@
     <dimen name="main_btn_height">150dp</dimen>
     <dimen name="main_btn_margin_top">100dp</dimen>
 
-    <dimen name="ad_bottom_layout_height">75dp</dimen>
+    <dimen name="ad_bottom_layout_height">60dp</dimen>
+
+    <dimen name="top_menu_height">75dp</dimen>
     
     
 </resources>
