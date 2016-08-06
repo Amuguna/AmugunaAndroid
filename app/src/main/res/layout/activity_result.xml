@@ -235,7 +235,7 @@
 
     <LinearLayout
         android:id="@+id/result_pattern_layout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
@@ -244,7 +244,7 @@
 
         <ImageView
             android:id="@+id/result_pattern"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:src="@drawable/result_pattern"
             />

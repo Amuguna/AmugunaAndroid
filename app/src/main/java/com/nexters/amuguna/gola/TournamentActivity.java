@@ -89,9 +89,9 @@ public class TournamentActivity extends AppCompatActivity {
             //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
             //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
             Glide.with(this).load(getResourceId(topImgNum-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(topImage);
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
             Glide.with(this).load(getResourceId(bottomImgNum-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(bottomImage);
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
 
         }
 
@@ -181,9 +181,9 @@ public class TournamentActivity extends AppCompatActivity {
         //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
         //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
         Glide.with(this).load(getResourceId(topImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(topImage);
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
         Glide.with(this).load(getResourceId(bottomImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(bottomImage);
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
 
 
 
@@ -229,11 +229,11 @@ public class TournamentActivity extends AppCompatActivity {
         }
 
 
-        Glide.with(this).load(R.drawable.card_x)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(bottomImage);
+        /*Glide.with(this).load(R.drawable.card_x)
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);*/
         /*Glide.with(this).load("").placeholder(R.drawable.card_x)
                 .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(bottomImage);*/
-        //bottomImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
+        bottomImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
         new Thread(){
             public void run(){
                 try {
@@ -283,11 +283,11 @@ public class TournamentActivity extends AppCompatActivity {
             return;
         }
 
-        Glide.with(this).load(R.drawable.card_x)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(topImage);
+        /*Glide.with(this).load(R.drawable.card_x)
+                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);*/
         /*Glide.with(this).load("").placeholder(R.drawable.card_x)
                 .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(topImage);*/
-        //topImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
+        topImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
         new Thread(){
             public void run(){
                 try {Thread.sleep(100);} catch(Exception ex){ex.printStackTrace();}

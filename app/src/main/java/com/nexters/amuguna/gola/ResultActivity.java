@@ -57,14 +57,15 @@ public class ResultActivity extends AppCompatActivity {
 
         //Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(resultImg);
 
-
         /* 토너먼트에서 넘어왔는지 랜덤 선택에서 넘어왔는지 확인 */
         intent = getIntent();
         if(intent.getBooleanExtra("isTournament", true)){
+
             Glide.with(this).load(getResourceId(intent.getIntExtra("result",1)-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(resultImg);
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_random_btn));
+
 
             Log.e("isTournament ?", "TOURNAMENT !!!! ");
             Log.e("RESULT", ""+intent.getIntExtra("result",1));
@@ -73,8 +74,12 @@ public class ResultActivity extends AppCompatActivity {
             /* 랜덤 수를 한번 섞어준다 */
             Collections.shuffle(StaticInfo.RAN);
 
+            //Glide.with(this).load(R.drawable.gola_img_dupbab).into(resultImg);
+            /*Glide.with(this).load(R.drawable.gola_img_dupbab)
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
+
             Glide.with(this).load(getResourceId(StaticInfo.RAN.get(0)-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(resultImg);
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_tournament_btn));
 
