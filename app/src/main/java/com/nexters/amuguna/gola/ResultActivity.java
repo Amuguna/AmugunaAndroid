@@ -61,7 +61,7 @@ public class ResultActivity extends AppCompatActivity {
         intent = getIntent();
         if(intent.getBooleanExtra("isTournament", true)){
 
-            Glide.with(this).load(getResourceId(intent.getIntExtra("result",1)-1))
+            Glide.with(this).load(StaticInfo.RAN.get(intent.getIntExtra("result",1)-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_random_btn));
@@ -78,23 +78,18 @@ public class ResultActivity extends AppCompatActivity {
             /*Glide.with(this).load(R.drawable.gola_img_dupbab)
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
-            Glide.with(this).load(getResourceId(StaticInfo.RAN.get(0)-1))
+            Glide.with(this).load( StaticInfo.RAN.get(0)-1)
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_tournament_btn));
 
             Log.e("isTournament ?", "NO !!!! ");
-            Log.e("RESULT", ""+StaticInfo.RAN.get(0));
+            Log.e("RESULT", ""+StaticInfo.resourceList.get(0));
 
         }
     }
 
-    private int getResourceId(int imgIndex){
-        Log.e("index-", imgIndex+"" );
-        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imgIndex],null,null);
-        Log.e("resourceId", resourceId + "");
-        return resourceId;
-    }
+
 
     @OnClick(R.id.go_home_top_linear)
     void goHomeBtnClick() {

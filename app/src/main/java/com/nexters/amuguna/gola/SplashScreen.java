@@ -36,6 +36,9 @@ public class SplashScreen extends AppCompatActivity {
 
                     }
 
+                    for(int i=0;i < StaticInfo.IMAGE_COUNT; i++ ){
+                        StaticInfo.resourceList.add(getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[i],null,null));
+                    }
                     /* Expose splash image for 2 sec. */
                     sleep(1500);
                 }catch(InterruptedException e){

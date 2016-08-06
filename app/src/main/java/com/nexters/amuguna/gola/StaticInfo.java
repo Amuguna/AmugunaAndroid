@@ -7,8 +7,10 @@ import java.util.ArrayList;
  */
 public class StaticInfo {
 
+    private StaticInfo(){}
     /* 16강 기본 세팅 */
     //public static final int DEFAULT_ROUND = 16;
+    public static final int IMAGE_COUNT = 26;
     public static final int DEFAULT_ROUND = 8;
 
     /* 현재 몇강 토너먼트인지 */
@@ -23,5 +25,7 @@ public class StaticInfo {
 
     /* 랜덤 수를 담은 리스트 */
     public static final ArrayList<Integer> RAN = new ArrayList<Integer>();
+    public static ArrayList<Integer> resourceList = new ArrayList<Integer>();
+
 
 }
