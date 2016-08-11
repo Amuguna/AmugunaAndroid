@@ -19,4 +19,5 @@
     <dimen name="ad_bottom_layout_height">50dp</dimen>
 
     <dimen name="top_menu_height">60dp</dimen>
+    <dimen name="top_menu_height_of_half">27dp</dimen>
 </resources>

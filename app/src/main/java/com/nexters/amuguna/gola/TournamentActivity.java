@@ -7,10 +7,12 @@ import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
@@ -50,6 +52,7 @@ public class TournamentActivity extends AppCompatActivity {
     public static long DURATION_TIME=500;
 
     //static int imageIndex=0;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,7 +62,6 @@ public class TournamentActivity extends AppCompatActivity {
 
         /* Hide ActionBar */
         getSupportActionBar().hide();
-
         intent = getIntent();
 
 
@@ -100,6 +102,8 @@ public class TournamentActivity extends AppCompatActivity {
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
 
         }
+
+
 
 
 
@@ -151,8 +155,7 @@ public class TournamentActivity extends AppCompatActivity {
         StaticInfo.GAME_CNT = 1;
     }
 
-    private void nextGame(int
- selectedNum) {
+    private void nextGame(int selectedNum) {
 
         Log.e("몇강?", ""+ StaticInfo.CUR_ROUND);
         Log.e("총 몇 경기?", ""+ StaticInfo.GAME_TOT);

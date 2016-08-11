@@ -79,7 +79,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
     public int getResourceId(){
-        
+
         Log.e("index-",imageIndex+"");
         int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+GolaImageManager.food[imageIndex++],null,null);
         Log.e("resourceId",resourceId+"");
