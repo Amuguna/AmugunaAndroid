@@ -3,6 +3,7 @@ package com.nexters.amuguna.gola;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 
 import com.bumptech.glide.Glide;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
@@ -47,16 +48,14 @@ public class SplashScreen extends AppCompatActivity {
                                         .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0))
                         );
                     }
+                    Log.e("imageSize-",StaticInfo.IMAGE_COUNT+"");
                     /*------------잠시 구현한 부분 ---------------*/
+
                     /**
-                     * 렙 5노드의 첫 시작노드.
+                     * 이미지 16장 로딩
                      */
-                    int levelFiveStartNode = (int)Math.pow(2,StaticInfo.TREE_MAX_LEVEL-1)-1;
-                    /**
-                     * 렙 5노드들의 초기화.
-                     */
-                    for(int i= levelFiveStartNode  ;i< levelFiveStartNode*2 ;i++)
-                        StaticInfo.tournamentTree[i]=Glide.with(SplashScreen.this).load(StaticInfo.resourceList.get(i)).bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0));
+                    for(int i= 0  ; i< StaticInfo.ROUND ; i++)
+                        StaticInfo.initTree[i]=Glide.with(SplashScreen.this).load(StaticInfo.resourceList.get(i)).bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0));
                     /*------------------------------------------*/
                     /* Expose splash image for 2 sec. */
                     sleep(1);
