@@ -7,6 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
@@ -34,6 +35,9 @@ public class ResultActivity extends AppCompatActivity {
 
     @Bind(com.nexters.amuguna.gola.R.id.result_img)
     ImageView resultImg;
+
+    @Bind(R.id.result_text)
+    TextView resultText;
 
     @Bind(com.nexters.amuguna.gola.R.id.result_again)
     ImageView againBottomImg;
@@ -64,8 +68,10 @@ public class ResultActivity extends AppCompatActivity {
             /*Glide.with(this).load(StaticInfo.RAN.get(intent.getIntExtra("result",1)-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
-            Glide.with(this).load(StaticInfo.resourceList.get(intent.getIntExtra("result",1)-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
+            StaticInfo.imageList.get(intent.getIntExtra("result",0)).into(resultImg);
+
+            /*Glide.with(this).load(StaticInfo.resourceList.get(intent.getIntExtra("result",1)-1))
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_random_btn));
 
@@ -73,20 +79,26 @@ public class ResultActivity extends AppCompatActivity {
             Log.e("RESULT", ""+intent.getIntExtra("result",1));
 
         } else {
-            /* 랜덤 수를 한번 섞어준다 */
-            Collections.shuffle(StaticInfo.RAN);
 
             //Glide.with(this).load(R.drawable.gola_img_dupbab).into(resultImg);
             /*Glide.with(this).load(R.drawable.gola_img_dupbab)
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
-            Glide.with(this).load( StaticInfo.resourceList.get(StaticInfo.RAN.get(0)-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);
+            int ran = (int) (Math.random()*GolaImageManager.food.length);
+            StaticInfo.imageList.get( ran ).into(resultImg);
+            resultText.setText(StaticInfo.foodName[ran]);
+
+            //StaticInfo.imageList.get(StaticInfo.RAN.get(0)).into(resultImg);
+
+
+
+            /*Glide.with(this).load( StaticInfo.resourceList.get(StaticInfo.RAN.get(0)-1))
+                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_tournament_btn));
 
             Log.e("isTournament ?", "NO !!!! ");
-            Log.e("RESULT", ""+StaticInfo.resourceList.get(0));
+            Log.e("RESULT", ""+StaticInfo.foodName[StaticInfo.RAN.get(0)]);
 
         }
     }
@@ -108,7 +120,7 @@ public class ResultActivity extends AppCompatActivity {
             Intent intent = new Intent(ResultActivity.this,TournamentActivity.class);
             intent.putExtra("isTournament", true);
             intent.putExtra("isFirstRound", true);
-            intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
+            intent.putExtra("round", StaticInfo.ROUND);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);
@@ -137,7 +149,7 @@ public class ResultActivity extends AppCompatActivity {
             Intent intent = new Intent(ResultActivity.this,TournamentActivity.class);
             intent.putExtra("isTournament", true);
             intent.putExtra("isFirstRound", true);
-            intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
+            intent.putExtra("round", StaticInfo.ROUND);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
             startActivity(intent);

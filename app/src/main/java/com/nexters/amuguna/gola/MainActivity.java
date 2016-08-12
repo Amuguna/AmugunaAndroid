@@ -1,3 +1,4 @@
+/*
 package com.nexters.amuguna.gola;
 
 import android.content.Intent;
@@ -48,7 +49,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(com.nexters.amuguna.gola.R.layout.activity_main);
         ButterKnife.bind(this);
 
-        /* Hide ActionBar */
+        */
+/* Hide ActionBar *//*
+
         getSupportActionBar().hide();
 
 
@@ -57,16 +60,22 @@ public class MainActivity extends AppCompatActivity {
 
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
-             /* 랜덤 수를 한번 섞어준다 */
+             */
+/* 랜덤 수를 한번 섞어준다 *//*
+
             Collections.shuffle(StaticInfo.RAN);
 
             for(int a:StaticInfo.RAN)
                 Log.e("Random", "" + a);
 
-            /* Default Round에 따른 CUR_ROUND, GAME_TOT 값 초기화 */
+            */
+/* Default Round에 따른 CUR_ROUND, GAME_TOT 값 초기화 *//*
+
             initRound();
 
-            /* Node 초기화 */
+            */
+/* Node 초기화 *//*
+
             StaticInfo.CUR_NODE = new int[StaticInfo.DEFAULT_ROUND+1];
             // 섞인 랜덤수를 CUR_NODE에 넣어준다.
             for(int i=1; i<=StaticInfo.DEFAULT_ROUND; i++)
@@ -86,7 +95,9 @@ public class MainActivity extends AppCompatActivity {
         return resourceId;
     }
 
-    /* CUR_ROUND, GAME_TOT 초기화 */
+    */
+/* CUR_ROUND, GAME_TOT 초기화 *//*
+
     private void initRound() {
         switch(StaticInfo.DEFAULT_ROUND) {
             case 16:
@@ -136,7 +147,9 @@ public class MainActivity extends AppCompatActivity {
             if(StaticInfo.CUR_ROUND == 2) {
                 //return -1;
                 Log.e("결승 SelectedNum", ""+selectedNum);
-                /* Move to ResultActivity. */
+                */
+/* Move to ResultActivity. *//*
+
                 intent = new Intent(MainActivity.this,ResultActivity.class);
                 intent.putExtra("result",selectedNum);
                 intent.putExtra("isTournament", true);
@@ -182,17 +195,22 @@ public class MainActivity extends AppCompatActivity {
         nextGame(StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]);
     }
 }
-        /*TransitionManager.beginDelayedTransition(viewGroup);
+        */
+/*TransitionManager.beginDelayedTransition(viewGroup);
         visible = !visible;
-        bottomImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
+        bottomImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*//*
+
 //switch (nextRound(StaticInfomation.ARR_NODE[StaticInfomation.CNT*2-1]){
 
 //}
-        /*TransitionManager.beginDelayedTransition(viewGroup);
+        */
+/*TransitionManager.beginDelayedTransition(viewGroup);
         visible = !visible;
-        topImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
+        topImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*//*
 
-    /*private void nextNode() {
+
+    */
+/*private void nextNode() {
         int[] temp;
         temp = StaticInfo.ARR_NODE;
         StaticInfo.ARR_NODE = StaticInfo.NEXT_ARR_NODE;
@@ -205,16 +223,26 @@ public class MainActivity extends AppCompatActivity {
 
         StaticInfo.CNT = 0;
 
-    }*/
+    }*//*
 
-    /*private void nextRound1() {
+
+    */
+/*private void nextRound1() {
 
         switch (tournament.nextRound()) {
 
             case -1 :
-                *//* Test *//*
+                *//*
+*/
+/* Test *//*
+*/
+/*
                 Log.e("Depth / Count", tournament.getDepth() + " / " + tournament.getCount());
-                *//* Move to ResultActivity. *//*
+                *//*
+*/
+/* Move to ResultActivity. *//*
+*/
+/*
                 intent = new Intent(MainActivity.this,ResultActivity.class);
                 intent.putExtra("isTournament", true);
                 intent.putExtra("isFirstRound", false);
@@ -224,7 +252,11 @@ public class MainActivity extends AppCompatActivity {
 
             case 0 :
             case 1 :
-                *//* Test *//*
+                *//*
+*/
+/* Test *//*
+*/
+/*
                 Log.e("Depth / Count", tournament.getDepth() + " / " + tournament.getCount());
                 intent = new Intent(MainActivity.this,MainActivity.class);
                 //intent.putExtra("isTournament", true);

@@ -105,7 +105,7 @@ public class GolaMainActivity extends AppCompatActivity {
 
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
-        intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
+        intent.putExtra("round", StaticInfo.ROUND);
         startActivity(intent);
     }
 

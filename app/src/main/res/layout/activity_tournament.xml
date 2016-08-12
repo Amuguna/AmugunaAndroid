@@ -42,12 +42,19 @@
             android:layout_marginTop="7dp"
             android:gravity="center_vertical|center_horizontal"
             >
-            <ImageView
+            <View
+                android:id="@+id/img_16_back"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/tournament_oval16"
+                android:layout_marginRight="32dp"
+                />
+            <View
                 android:id="@+id/img_16"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:background="#FFDC24"
-                android:layout_marginRight="32dp"
+                android:layout_alignLeft="@+id/img_16_back"
+                android:background="@drawable/tournament_oval_black"
                 />
             <TextView
                 android:id="@+id/tv16"
@@ -55,18 +62,25 @@
                 android:layout_height="wrap_content"
                 android:text="16강"
                 android:textColor="#FFFFFF"
-                android:layout_below="@id/img_16"
+                android:layout_below="@id/img_16_back"
                 android:layout_marginLeft="-10dp"
 
                 />
-            <ImageView
+            <View
+                android:id="@+id/img_8_back"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/tournament_oval8"
+                android:layout_toRightOf="@id/img_16_back"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                />
+            <View
                 android:id="@+id/img_8"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:background="#00ae54"
-                android:layout_toRightOf="@id/img_16"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_alignLeft="@+id/img_8_back"
+                android:background="@drawable/tournament_oval_black"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -76,16 +90,23 @@
                 android:layout_alignTop="@id/tv16"
                 android:layout_marginLeft="28dp"
                 android:layout_marginRight="28dp"
-                android:layout_toRightOf="@id/img_16"
+                android:layout_toRightOf="@id/img_16_back"
                 />
-            <ImageView
+            <View
+                android:id="@+id/img_4_back"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/tournament_oval4"
+                android:layout_toRightOf="@id/img_8_back"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                />
+            <View
                 android:id="@+id/img_4"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:background="#0072d0"
-                android:layout_toRightOf="@id/img_8"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_alignLeft="@+id/img_4_back"
+                android:background="@drawable/tournament_oval_black"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -95,15 +116,22 @@
                 android:layout_alignTop="@id/tv16"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
-                android:layout_toRightOf="@id/img_8"
+                android:layout_toRightOf="@id/img_8_back"
                 />
-            <ImageView
+            <View
+                android:id="@+id/img_2_back"
+                android:layout_width="14dp"
+                android:layout_height="14dp"
+                android:background="@drawable/tournament_oval2"
+                android:layout_marginLeft="32dp"
+                android:layout_toRightOf="@id/img_4_back"
+                />
+            <View
                 android:id="@+id/img_2"
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:background="#ff4534"
-                android:layout_marginLeft="32dp"
-                android:layout_toRightOf="@id/img_4"
+                android:layout_alignLeft="@+id/img_2_back"
+                android:background="@drawable/tournament_oval_black"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -111,7 +139,7 @@
                 android:text="결승"
                 android:textColor="#FFFFFF"
                 android:layout_alignTop="@id/tv16"
-                android:layout_toRightOf="@id/img_4"
+                android:layout_toRightOf="@id/img_4_back"
                 android:layout_marginLeft="26dp"
                 />
         </RelativeLayout>
@@ -129,46 +157,49 @@
         android:weightSum="2"
         android:orientation="vertical"
         >
-        <ImageView
-            android:id="@+id/center_top_img"
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginBottom="9dp"
-            />
-        <ImageView
-            android:id="@+id/center_bottom_img"
+            >
+            <ImageView
+                android:id="@+id/center_top_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="9dp"
+                />
+            <TextView
+                android:id="@+id/center_top_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/center_top_img"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginBottom="17dp"
-            />
+            >
+            <ImageView
+                android:id="@+id/center_bottom_img"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="9dp"
+                />
+            <TextView
+                android:id="@+id/center_bottom_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignLeft="@+id/center_bottom_img"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:textColor="#ffffff" />
+        </RelativeLayout>
+
     </LinearLayout>
-    <LinearLayout
-        android:id="@+id/secondLinear"
-        android:layout_below="@id/frmalayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="5dp"
-        android:layout_marginRight="23dp"
-        android:layout_marginLeft="23dp"
-        android:weightSum="2"
-        android:orientation="vertical"
-        android:visibility="gone"
-        >
-        <ImageView
-            android:id="@+id/center_top_img2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginBottom="9dp"
-            />
-        <ImageView
-            android:id="@+id/center_bottom_img2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginBottom="17dp"
-            />
-    </LinearLayout>
+
 </RelativeLayout>

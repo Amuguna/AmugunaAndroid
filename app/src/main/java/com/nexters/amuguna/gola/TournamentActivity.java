@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
@@ -30,44 +31,28 @@ import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 public class TournamentActivity extends AppCompatActivity {
 
     final AppCompatActivity thisAc = this;
-
     Intent intent;
-    int topImgNum;
-    int bottomImgNum;
 
-    int nowLevelFirstNodeNo = (int) Math.pow(2,StaticInfo.TREE_CURRENT_LEVEL-1)-1;
-
-    public static boolean isFinal = false;
-
-    @Bind(com.nexters.amuguna.gola.R.id.retry_top_linear)
-    ViewGroup retryTopLinear;
-
-    @Bind(com.nexters.amuguna.gola.R.id.go_home_top_linear)
-    ViewGroup goHomeTopLinear;
+    @Bind(R.id.img_16)
+    View oval16;
+    @Bind(R.id.img_8)
+    View oval8;
+    @Bind(R.id.img_4)
+    View oval4;
+    @Bind(R.id.img_2)
+    View oval2;
 
     @Bind(com.nexters.amuguna.gola.R.id.center_top_img)
     ImageView topImage;
 
-    @Bind(R.id.center_top_img2)
-    ImageView topImage2;
+    @Bind(R.id.center_top_text)
+    TextView topText;
 
     @Bind(com.nexters.amuguna.gola.R.id.center_bottom_img)
     ImageView bottomImage;
 
-    @Bind(R.id.center_bottom_img2)
-    ImageView bottomImage2;
-
-    @Bind(R.id.firstLinear)
-    LinearLayout firstLinear;
-    @Bind(R.id.secondLinear)
-    LinearLayout secondLinear;
-
-    public static int CURRENT_TOP_POINTER;
-    public static int CCURRENT_BOTTOM_POINTER;
-    public static int CURRENT_POINTER_LEVEL = StaticInfo.TREE_MAX_LEVEL;
-    public static int CURRENT_MAX_NODE = ( (int) Math.pow(2,CURRENT_POINTER_LEVEL-1)-1 ) * 2;;
-
-    public static long DURATION_TIME=500;
+    @Bind(R.id.center_bottom_text)
+    TextView bottomText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -81,155 +66,263 @@ public class TournamentActivity extends AppCompatActivity {
 
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
-             /* 랜덤 수를 한번 섞어준다 */
-            List<DrawableRequestBuilder<Integer>> tempList=Arrays.asList(StaticInfo.initTree);
-            Collections.shuffle(tempList);
-            /**
-             * 섞인애를 다시 initTree에 넣어주공
-             */
-            StaticInfo.initTree = ( DrawableRequestBuilder<Integer>[]) tempList.toArray();
+            // CNT, ROUND 초기화
+            StaticInfo.CNT = 0; StaticInfo.ROUND = 16;
+            // 랜덤수 섞어줌
+            Collections.shuffle(StaticInfo.RAN);
 
-            /**
-             * 렙 5노드의 첫 시작노드.
-             */
-            StaticInfo.TREE_CURRENT_LEVEL=5;
-            int levelFiveStartNode = (int)Math.pow(2,StaticInfo.TREE_CURRENT_LEVEL-1)-1;
+            // 섞은 랜덤수를 16강 배열에 넣음.
+            for(int i=0; i<StaticInfo.ROUND; i++)
+                StaticInfo.ROUND_16[i] = StaticInfo.RAN.get(i);
 
-            /**
-             * 5레벨의 모든 노드에 초기화걸음
-             */
-            for(int i=0;i<16;i++){
-                StaticInfo.tournamentTree[levelFiveStartNode++] = StaticInfo.initTree[i];
-            }
-            levelFiveStartNode-=16;
-            //System.arraycopy(StaticInfo.initTree,0,StaticInfo.tournamentTree,levelFiveStartNode,levelFiveStartNode*2+2);
+            /* 상단 Progress 세팅  */
+            setTopProgressOval();
 
-            CURRENT_TOP_POINTER = StaticInfo.TREE_CURRENT = levelFiveStartNode;
-            CCURRENT_BOTTOM_POINTER = CURRENT_TOP_POINTER+1;
-            StaticInfo.tournamentTree[StaticInfo.TREE_CURRENT++].into(topImage);
-            StaticInfo.tournamentTree[StaticInfo.TREE_CURRENT++].into(bottomImage);
-            StaticInfo.tournamentTree[StaticInfo.TREE_CURRENT++].into(topImage2);
-            StaticInfo.tournamentTree[StaticInfo.TREE_CURRENT++].into(bottomImage2);
+            /* 첫 Image 세팅 */
+            StaticInfo.imageList.get(StaticInfo.ROUND_16[0]).into(topImage);
+            StaticInfo.imageList.get(StaticInfo.ROUND_16[1]).into(bottomImage);
+
+            topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[0]]);
+            bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[1]]);
+
         }
     }
 
-    public static boolean isLoadingImageMutex = true;
-    private void loadingImage(){
-        checkRound();
-        if(!isFinal) {
-            int tempStartNodeNo = (int) Math.pow(2, StaticInfo.TREE_CURRENT_LEVEL - 1) - 1;
-            if (StaticInfo.TREE_CURRENT == tempStartNodeNo * 2) {
-                int superStartNodeNo = (int) Math.pow(2, StaticInfo.TREE_CURRENT_LEVEL - 2) - 1;
-                topImgNum = superStartNodeNo++;
-                bottomImgNum = superStartNodeNo;
-            } else {
-                topImgNum = StaticInfo.TREE_CURRENT++;
-                bottomImgNum = StaticInfo.TREE_CURRENT++;
-            }
-            CURRENT_TOP_POINTER += 2;
-            CCURRENT_BOTTOM_POINTER += 2;
-            try {
-                if (isLoadingImageMutex) {
-                    secondLinear.setVisibility(View.VISIBLE);
-                    firstLinear.setVisibility(View.GONE);
-                    StaticInfo.tournamentTree[topImgNum].into(topImage);
-                    StaticInfo.tournamentTree[bottomImgNum].into(bottomImage);
-                } else {
-                    firstLinear.setVisibility(View.VISIBLE);
-                    secondLinear.setVisibility(View.GONE);
-                    StaticInfo.tournamentTree[topImgNum].into(topImage2);
-                    StaticInfo.tournamentTree[bottomImgNum].into(bottomImage2);
-                }
-                isLoadingImageMutex = !isLoadingImageMutex;
-            } catch (Exception e) {
-                e.printStackTrace();
-
-            }
-        } else if( CURRENT_TOP_POINTER == 2 || CCURRENT_BOTTOM_POINTER == 2) {
-            secondLinear.setVisibility(View.VISIBLE);
-            firstLinear.setVisibility(View.GONE);
-            StaticInfo.tournamentTree[1].into(topImage2);
-            StaticInfo.tournamentTree[2].into(bottomImage2);
+    private void setTopProgressOval() {
+        /* 상단 Progress 세팅  */
+        switch (StaticInfo.ROUND) {
+            case 16 :
+                oval16.setAlpha(0);
+                oval8.setAlpha(0.5f);
+                oval4.setAlpha(0.5f);
+                oval2.setAlpha(0.5f);
+                break;
+            case 8 :
+                oval16.setAlpha(0.5f);
+                oval8.setAlpha(0);
+                oval4.setAlpha(0.5f);
+                oval2.setAlpha(0.5f);
+                break;
+            case 4 :
+                oval16.setAlpha(0.5f);
+                oval8.setAlpha(0.5f);
+                oval4.setAlpha(0);
+                oval2.setAlpha(0.5f);
+                break;
+            case 2 :
+                oval16.setAlpha(0.5f);
+                oval8.setAlpha(0.5f);
+                oval4.setAlpha(0.5f);
+                oval2.setAlpha(0);
+                break;
         }
+
 
     }
-
-    private void checkRound(){
-        nowLevelFirstNodeNo = (int) Math.pow(2,StaticInfo.TREE_CURRENT_LEVEL-1)-1;
-        if( StaticInfo.TREE_CURRENT == nowLevelFirstNodeNo*2+1 ) {
-            StaticInfo.TREE_CURRENT = (nowLevelFirstNodeNo-1)/2;
-            --StaticInfo.TREE_CURRENT_LEVEL;
-
-        }
-        Log.e("TOP_POINTER/MAX_NODE", CURRENT_TOP_POINTER + "/" + CURRENT_MAX_NODE);
-        if( CURRENT_TOP_POINTER == CURRENT_MAX_NODE-1) {
-            CURRENT_POINTER_LEVEL-=1;
-            int temp = (int)Math.pow(2,CURRENT_POINTER_LEVEL-1)-1;
-            if(temp==0) {
-
-            }
-            Log.e("temp",temp+"");
-
-            CURRENT_TOP_POINTER = temp-2;
-            CURRENT_MAX_NODE = temp*2;
-
-            CCURRENT_BOTTOM_POINTER = CURRENT_TOP_POINTER+1;
-
-        }
-        Log.e("nowIndex--",StaticInfo.TREE_CURRENT+"");
-        if(StaticInfo.TREE_CURRENT == 1) {
-            isFinal = true;
-        }
-
-    }
-
 
     /**
      * 위의 음식 그림 선택 시
      */
-    private void topImageClick(){
-        // 결승
-
-        /*부모노드에 데이터 셋!*/
-        Log.e("top-부모노드/자식노드 - ",((CURRENT_TOP_POINTER-1)/2)+"/"+CURRENT_TOP_POINTER );
-        StaticInfo.tournamentTree[(CURRENT_TOP_POINTER-1)/2]=StaticInfo.tournamentTree[CURRENT_TOP_POINTER];
-        loadingImage();
-    }
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
-        topImageClick();
+        /*기호*/
+        //topImageClick();
+
+        topImage.setEnabled(false);
+        bottomImage.setEnabled(false);
+
+
+        /*대섭*/
+        //2n
+
+        Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT+1) + "경기 : ");
+
+        switch(StaticInfo.ROUND) {
+
+            case 16 :
+
+                Log.e("Top Food", StaticInfo.ROUND_16[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
+                StaticInfo.ROUND_8[StaticInfo.CNT] =  StaticInfo.ROUND_16[ 2*StaticInfo.CNT ];
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+
+                break;
+            case 8 :
+
+                Log.e("Top Food", StaticInfo.ROUND_8[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                StaticInfo.ROUND_4[StaticInfo.CNT] =  StaticInfo.ROUND_8[ 2*StaticInfo.CNT ];
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+
+                break;
+            case 4 :
+
+                Log.e("Top Food", StaticInfo.ROUND_4[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
+                StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT ];
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+
+                break;
+
+            case 2 :
+
+                //StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT ];
+
+                Log.e("IsLastGame", "True");
+                /* Move to ResultActivity. */
+
+                intent = new Intent(TournamentActivity.this,ResultActivity.class);
+                intent.putExtra("result", StaticInfo.ROUND_2[0] );
+                intent.putExtra("isTournament", true);
+                intent.putExtra("isFirstRound", false);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return;
+
+        }
+
+        // Image Load
+        setTopProgressOval();
+        imageLoad();
     }
-    @OnClick(R.id.center_top_img2)
-    void topImgClick2(){
-        topImageClick();
-    }
+
     /**
      * 하단의 음식 그림 선택 시
      */
-    public void bottomImageClick(){
-
-        Log.e("bottom부모노드/자식노드 - ",((CCURRENT_BOTTOM_POINTER-1)/2)+"/"+CCURRENT_BOTTOM_POINTER );
-        StaticInfo.tournamentTree[(CCURRENT_BOTTOM_POINTER-1)/2]=StaticInfo.tournamentTree[CCURRENT_BOTTOM_POINTER];
-        loadingImage();
-    }
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-        bottomImageClick();
+        /*기호*/
+        //bottomImageClick();
         //clickThread(bottomImgNum, topImage);
+
+        topImage.setEnabled(false);
+        bottomImage.setEnabled(false);
+
+        /*대섭*/
+        //2n+1
+        Log.e("Bottom", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT+1) + "경기 : " +  2*StaticInfo.CNT+1);
+
+        switch(StaticInfo.ROUND) {
+
+            case 16 :
+
+                Log.e("Bottom Food", StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
+                StaticInfo.ROUND_8[StaticInfo.CNT] =  StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ];
+
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+
+                break;
+            case 8 :
+
+                Log.e("Bottom Food", StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
+                StaticInfo.ROUND_4[StaticInfo.CNT] =  StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ];
+
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+
+                break;
+            case 4 :
+
+                Log.e("Bottom Food", StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
+                StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ];
+
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+
+                break;
+            case 2 :
+                //StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ];
+                Log.e("IsLastGame", "True");
+
+                intent = new Intent(TournamentActivity.this,ResultActivity.class);
+                intent.putExtra("result", StaticInfo.ROUND_2[0] );
+                intent.putExtra("isTournament", true);
+                intent.putExtra("isFirstRound", false);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return;
+        }
+
+        // Image Load
+        setTopProgressOval();
+        imageLoad();
+
     }
-    @OnClick(R.id.center_bottom_img2)
-    void bottomClick2(){
-        bottomImageClick();
+
+    /* 대섭 */
+    private void imageLoad() {
+
+        switch(StaticInfo.ROUND) {
+
+            case 16 :
+                StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]).into(topImage);
+                StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
+                break;
+            case 8 :
+                StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]).into(topImage);
+                StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
+                break;
+            case 4 :
+                StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]).into(topImage);
+                StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
+                break;
+            case 2 :
+                StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]).into(topImage);
+                StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
+                //StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ];
+                break;
+        }
+
+        topImage.setEnabled(true);
+        bottomImage.setEnabled(true);
+
     }
-
-
-
 
     /*---------------------------------------------------------------------------------------------------------------------------*/
 
     @OnClick(R.id.go_home_top_linear)
     void goHomeBtnClick() {
         Intent intent = new Intent(TournamentActivity.this,GolaMainActivity.class);
+        intent.putExtra("isFirstRound", true);
         startActivity(intent);
         finish();
     }
@@ -239,34 +332,12 @@ public class TournamentActivity extends AppCompatActivity {
         Intent intent = new Intent(TournamentActivity.this,TournamentActivity.class);
         intent.putExtra("isTournament", true);
         intent.putExtra("isFirstRound", true);
-        intent.putExtra("round", StaticInfo.DEFAULT_ROUND);
+        intent.putExtra("round", StaticInfo.ROUND);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
         finish();
     }
-    /*private void clickThread(final int imgNo,final ImageView imageView){
-        topImage.setEnabled(false);
-        bottomImage.setEnabled(false);
-        //imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
-        imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
-        new Thread(){
-            public void run(){
-                try {Thread.sleep(DURATION_TIME);} catch(Exception ex){ex.printStackTrace();}
-                new Thread(new Runnable(){
-                    public void run(){
-                        runOnUiThread(new Runnable(){
-                            public void run(){
-                                nextGame(imgNo);
-                                topImage.setEnabled(true);
-                                bottomImage.setEnabled(true);
-                            }
-                        });
-                    }
-                }).start();
-            }
-        }.start();
-    }*/
 }
 
 /*public void startFlipAnimation(){

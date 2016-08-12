@@ -8,6 +8,8 @@ import android.util.Log;
 import com.bumptech.glide.Glide;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
 
+import java.lang.reflect.Field;
+
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -24,48 +26,43 @@ public class SplashScreen extends AppCompatActivity {
         /* Hide ActionBar */
         getSupportActionBar().hide();
 
-        //Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_splash).into(splashImg);
-
-
-
         Thread timerThread = new Thread(){
             public void run(){
                 try{
-
-                    // 랜덤 수 세팅
                     StaticInfo.RAN.clear();
-                    for(int i=1; i<=GolaImageManager.food.length; i++) {
-                        StaticInfo.RAN.add(i);
+
+                    final Class<?> clz = R.drawable.class;
+                    Field[] drawables = clz.getDeclaredFields();
+                    int i = 0;
+                    for (Field f : drawables) {
+                        String imageName = f.getName();
+                        if(imageName.startsWith("gola_img_")) {
+
+                            Log.e("ImageName", i + " / " + imageName);
+                            // 랜덤 수 세팅
+                            StaticInfo.RAN.add(i);
+                            // ImageList 세팅
+                            StaticInfo.imageList.add(
+                                    Glide.with(SplashScreen.this)
+                                            .load(getResources().getIdentifier("com.nexters.amuguna.gola:drawable/" + imageName,null,null))
+                                            .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0))
+                            );
+                            i++;
+                        }
 
                     }
-
-                    for(int i=0;i < StaticInfo.IMAGE_COUNT; i++ ){
-                        StaticInfo.resourceList.add(getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[i],null,null));
-                    }
-                    for(int i=0;i<StaticInfo.IMAGE_COUNT;i++){
-                        StaticInfo.imageList.add(
-                                Glide.with(SplashScreen.this).load(StaticInfo.resourceList.get(i))
-                                        .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0))
-                        );
-                    }
-                    Log.e("imageSize-",StaticInfo.IMAGE_COUNT+"");
-                    /*------------잠시 구현한 부분 ---------------*/
-
-                    /**
-                     * 이미지 16장 로딩
-                     */
-                    for(int i= 0  ; i< StaticInfo.ROUND ; i++)
-                        StaticInfo.initTree[i]=Glide.with(SplashScreen.this).load(StaticInfo.resourceList.get(i)).bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0));
-                    /*------------------------------------------*/
-                    /* Expose splash image for 2 sec. */
-                    sleep(1);
+                    sleep(1500);
                 }catch(InterruptedException e){
+                    e.printStackTrace();
+                }catch(Exception e) {
                     e.printStackTrace();
                 }finally{
                    /* Move to GolaMainActivity normally. */
                     Intent intent = new Intent(SplashScreen.this,GolaMainActivity.class);
 
                     startActivity(intent);
+
+                    Log.e("Finished?", "YES");
                 }
             }
         };
