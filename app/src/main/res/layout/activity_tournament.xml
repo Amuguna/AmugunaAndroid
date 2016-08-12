@@ -119,6 +119,7 @@
     </FrameLayout>
 
     <LinearLayout
+        android:id="@+id/firstLinear"
         android:layout_below="@id/frmalayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -137,6 +138,32 @@
             />
         <ImageView
             android:id="@+id/center_bottom_img"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="17dp"
+            />
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/secondLinear"
+        android:layout_below="@id/frmalayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="23dp"
+        android:layout_marginLeft="23dp"
+        android:weightSum="2"
+        android:orientation="vertical"
+        >
+        <ImageView
+            android:id="@+id/center_top_img2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:layout_marginBottom="9dp"
+            />
+        <ImageView
+            android:id="@+id/center_bottom_img2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"

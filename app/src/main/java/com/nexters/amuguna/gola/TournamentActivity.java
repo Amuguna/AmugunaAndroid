@@ -1,31 +1,24 @@
 package com.nexters.amuguna.gola;
 
-import android.animation.ObjectAnimator;
 import android.content.Intent;
 
 import android.graphics.BitmapFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
-import com.bumptech.glide.Glide;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
-import com.transitionseverywhere.TransitionManager;
-
-
 import java.util.Collections;
 
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
-
 /**
  * Created by Daesub Kim on 2016-07-25.
  */
@@ -46,24 +39,31 @@ public class TournamentActivity extends AppCompatActivity {
     @Bind(com.nexters.amuguna.gola.R.id.center_top_img)
     ImageView topImage;
 
+    @Bind(R.id.center_top_img2)
+    ImageView topImage2;
+
     @Bind(com.nexters.amuguna.gola.R.id.center_bottom_img)
     ImageView bottomImage;
 
-    public static long DURATION_TIME=500;
+    @Bind(R.id.center_bottom_img2)
+    ImageView bottomImage2;
 
-    //static int imageIndex=0;
+    @Bind(R.id.firstLinear)
+    LinearLayout firstLinear;
+    @Bind(R.id.secondLinear)
+    LinearLayout secondLinear;
+
+    public static long DURATION_TIME=500;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        /*setContentView(com.nexters.amuguna.gola.R.layout.activity_main);*/
         setContentView(R.layout.activity_tournament);
         ButterKnife.bind(this);
 
         /* Hide ActionBar */
         getSupportActionBar().hide();
         intent = getIntent();
-
 
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
@@ -84,36 +84,30 @@ public class TournamentActivity extends AppCompatActivity {
                 StaticInfo.CUR_NODE[i] = StaticInfo.RAN.get(i-1);
             // ROUND의 1/2 만큼 배열을 생성하여 NEXT_NODE 에 넣어준다.
             StaticInfo.NEXT_NODE = new int[StaticInfo.DEFAULT_ROUND/2+1];
-
-
-
-            topImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
-            bottomImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2];
-            //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
-            //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
-            /*Glide.with(this).load(getResourceId(topImgNum-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
-            Glide.with(this).load(getResourceId(bottomImgNum-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);*/
-
-            Glide.with(this).load(StaticInfo.resourceList.get(topImgNum-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
-            Glide.with(this).load(StaticInfo.resourceList.get(bottomImgNum-1))
-                    .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
+            loadingImage();
 
         }
+    }
+    public static boolean isLoadingImageMutex = true;
+    private void loadingImage(){
+        topImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
+        bottomImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2];
 
-
-
-
+        if(isLoadingImageMutex) {
+            firstLinear.setVisibility(View.VISIBLE);
+            secondLinear.setVisibility(View.GONE);
+            StaticInfo.imageList.get(topImgNum - 1).into(topImage2);
+            StaticInfo.imageList.get(bottomImgNum - 1).into(bottomImage2);
+        } else {
+            secondLinear.setVisibility(View.VISIBLE);
+            firstLinear.setVisibility(View.GONE);
+            StaticInfo.imageList.get(topImgNum - 1).into(topImage);
+            StaticInfo.imageList.get(bottomImgNum - 1).into(bottomImage);
+        }
+        isLoadingImageMutex=!isLoadingImageMutex;
 
     }
-    private int getResourceId(int imgIndex){
-        Log.e("index-", imgIndex + "");
-        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imgIndex],null,null);
-        Log.e("resourceId", resourceId + "");
-        return resourceId;
-    }
+
     /* CUR_ROUND, GAME_TOT 초기화 */
     private void initRound() {
         switch(StaticInfo.DEFAULT_ROUND) {
@@ -154,15 +148,14 @@ public class TournamentActivity extends AppCompatActivity {
         StaticInfo.GAME_TOT/=2;
         StaticInfo.GAME_CNT = 1;
     }
-
+    private void showAsLog(String... logs) {
+        for(int i=0;i<logs.length;i+=2)
+            Log.e(logs[i],logs[i+1]);
+    }
     private void nextGame(int selectedNum) {
+        showAsLog(new String[]{"몇강?",""+ StaticInfo.CUR_ROUND,"총 몇 경기?", ""+ StaticInfo.GAME_TOT,"게임Count", ""+ StaticInfo.GAME_CNT} );
 
-        Log.e("몇강?", ""+ StaticInfo.CUR_ROUND);
-        Log.e("총 몇 경기?", ""+ StaticInfo.GAME_TOT);
-        Log.e("게임Count", ""+ StaticInfo.GAME_CNT);
-
-        StaticInfo.NEXT_NODE[StaticInfo.GAME_CNT] = selectedNum;
-        StaticInfo.GAME_CNT++;
+        StaticInfo.NEXT_NODE[StaticInfo.GAME_CNT++] = selectedNum;
 
         if(StaticInfo.GAME_CNT > StaticInfo.GAME_TOT) {
             // 결승
@@ -182,43 +175,16 @@ public class TournamentActivity extends AppCompatActivity {
             initNode(StaticInfo.CUR_ROUND);
         }
 
-        //return 1;
-        Log.e("SelectedNum", ""+selectedNum);
+        Log.e("SelectedNum", "" + selectedNum);
 
-        topImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
-        bottomImgNum = StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2];
-        //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2 - 1];
-        //StaticInfo.CUR_NODE[StaticInfo.GAME_CNT * 2]
-        /*Glide.with(this).load(getResourceId(topImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
-        Glide.with(this).load(getResourceId(bottomImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);*/
-
-
-        Glide.with(this).load(StaticInfo.resourceList.get(topImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);
-        Glide.with(this).load(StaticInfo.resourceList.get(bottomImgNum-1))
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);
-
-
-
-
-        /*intent = new Intent(TournamentActivity.this,TournamentActivity.class);
-        intent.putExtra("isFirstRound", false);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        startActivity(intent);*/
-
+        loadingImage();
     }
-
-
-
     @OnClick(R.id.go_home_top_linear)
     void goHomeBtnClick() {
         Intent intent = new Intent(TournamentActivity.this,GolaMainActivity.class);
         startActivity(intent);
         finish();
     }
-
     @OnClick( com.nexters.amuguna.gola.R.id.retry_top_linear)
     void retryBtnClick() {
         /* Move to TournamentActivity. */
@@ -232,49 +198,34 @@ public class TournamentActivity extends AppCompatActivity {
         finish();
     }
 
-
-
+    /**
+     * 위의 음식 그림 선택 시
+     */
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
-
-        topImage.setEnabled(false);
-        bottomImage.setEnabled(false);
-
         // 결승
         if(StaticInfo.CUR_ROUND == 2) {
             nextGame(topImgNum); return;
         }
+        clickThread(topImgNum, bottomImage);
+    }
 
-
-        /*Glide.with(this).load(R.drawable.card_x)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(bottomImage);*/
-        /*Glide.with(this).load("").placeholder(R.drawable.card_x)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(bottomImage);*/
-        bottomImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
-        new Thread(){
-            public void run(){
-                try {
-                    Thread.sleep(100);} catch(Exception ex){ex.printStackTrace();}
-                new Thread(new Runnable(){
-                    public void run(){
-                        runOnUiThread(new Runnable(){
-                            public void run(){
-                                //startFlipAnimation();
-                            }
-                        });
-                    }
-                }).start();
-            }
-        }.start();
-
-
-        /*TransitionManager.beginDelayedTransition(viewGroup);
-        visible = !visible;
-        bottomImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
-
-        /*TransitionManager.beginDelayedTransition(viewGroup);
-        bottomImage.setVisibility(View.INVISIBLE);*/
-
+    /**
+     * 하단의 음식 그림 선택 시
+     */
+    @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
+    void bottomImgClick() {
+        if(StaticInfo.CUR_ROUND == 2) {
+            nextGame(bottomImgNum);
+            return;
+        }
+        clickThread(bottomImgNum, topImage);
+    }
+    private void clickThread(final int imgNo,final ImageView imageView){
+        topImage.setEnabled(false);
+        bottomImage.setEnabled(false);
+        //imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
+        imageView.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
         new Thread(){
             public void run(){
                 try {Thread.sleep(DURATION_TIME);} catch(Exception ex){ex.printStackTrace();}
@@ -282,7 +233,7 @@ public class TournamentActivity extends AppCompatActivity {
                     public void run(){
                         runOnUiThread(new Runnable(){
                             public void run(){
-                                nextGame(topImgNum);
+                                nextGame(imgNo);
                                 topImage.setEnabled(true);
                                 bottomImage.setEnabled(true);
                             }
@@ -292,74 +243,9 @@ public class TournamentActivity extends AppCompatActivity {
             }
         }.start();
     }
+}
 
-    @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
-    void bottomImgClick() {
-
-        topImage.setEnabled(false);
-        bottomImage.setEnabled(false);
-        // 결승
-        if(StaticInfo.CUR_ROUND == 2) {
-            nextGame(bottomImgNum);
-            return;
-        }
-
-        /*Glide.with(this).load(R.drawable.card_x)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(topImage);*/
-        /*Glide.with(this).load("").placeholder(R.drawable.card_x)
-                .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).override(1000, 700).into(topImage);*/
-        topImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
-        new Thread(){
-            public void run(){
-                try {Thread.sleep(100);} catch(Exception ex){ex.printStackTrace();}
-                new Thread(new Runnable(){
-                    public void run(){
-                        runOnUiThread(new Runnable(){
-                            public void run(){
-                                //startFlipAnimation();
-                            }
-                        });
-                    }
-                }).start();
-            }
-        }.start();
-
-        /*TransitionManager.beginDelayedTransition(viewGroup);
-        visible = !visible;
-        topImage.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);*/
-
-        //startFlipAnimation();
-
-        /*TransitionManager.beginDelayedTransition(viewGroup);
-        topImage.setVisibility(View.INVISIBLE);*/
-
-        new Thread(){
-            public void run(){
-                try {
-                    Thread.sleep(DURATION_TIME);
-                }
-                catch(Exception ex){
-                    ex.printStackTrace();
-                } finally {
-
-                    new Thread(new Runnable(){
-                        public void run(){
-                            runOnUiThread(new Runnable(){
-                                public void run(){
-                                    nextGame(bottomImgNum);
-                                    topImage.setEnabled(true);
-                                    bottomImage.setEnabled(true);
-                                }
-                            });
-                        }
-                    }).start();
-                }
-
-
-            }
-        }.start();
-    }
-    public void startFlipAnimation(){
+/*public void startFlipAnimation(){
 
         ObjectAnimator animator1 = ObjectAnimator.ofFloat(topImage,"rotationX",180,0);
         animator1.setDuration(DURATION_TIME);
@@ -368,5 +254,10 @@ public class TournamentActivity extends AppCompatActivity {
         animator1.start();
         animator2.start();
 
-    }
-}
+    }*/
+/*private int getResourceId(int imgIndex){
+        Log.e("index-", imgIndex + "");
+        int resourceId = getResources().getIdentifier("com.nexters.amuguna.gola:drawable/"+ GolaImageManager.food[imgIndex],null,null);
+        Log.e("resourceId", resourceId + "");
+        return resourceId;
+    }*/

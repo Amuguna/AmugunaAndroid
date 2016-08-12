@@ -1,5 +1,9 @@
 package com.nexters.amuguna.gola;
 
+import android.media.Image;
+
+import com.bumptech.glide.DrawableRequestBuilder;
+
 import java.util.ArrayList;
 
 /**
@@ -26,6 +30,13 @@ public class StaticInfo {
     /* 랜덤 수를 담은 리스트 */
     public static final ArrayList<Integer> RAN = new ArrayList<Integer>();
     public static ArrayList<Integer> resourceList = new ArrayList<Integer>();
+    public static final ArrayList<DrawableRequestBuilder<Integer>> imageList = new ArrayList<DrawableRequestBuilder<Integer>>();
+
+
+    public static final int TREE_SIZE=32;
+    public static DrawableRequestBuilder<Integer>[] tournamentTree = new DrawableRequestBuilder[TREE_SIZE];
+    public static int TREE_MAX_LEVEL = 5;
+    public static int TREE_CURRENT = 0;
 
 
 }
