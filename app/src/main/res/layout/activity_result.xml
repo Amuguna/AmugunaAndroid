@@ -44,7 +44,7 @@
     <RelativeLayout
         android:id="@+id/result_pattern_layout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="82dp"
         android:paddingRight="20dp"
         android:paddingLeft="20dp"
         android:layout_below="@+id/result_img_layout">
@@ -56,15 +56,27 @@
             android:src="@drawable/result_pattern"
             />
         <TextView
+            android:id="@+id/result_top_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
+            android:textColor="#99ffffff"
+            android:layout_marginTop="3dp"
+            android:textSize="17sp"
+            />
+        <TextView
             android:id="@+id/result_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/result_pattern"
-            android:layout_centerVertical="true"
-            android:layout_centerInParent="true"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:gravity="bottom"
             android:textColor="#ffffff"
-            android:layout_gravity="center" />
-
+            android:layout_marginBottom="6dp"
+            android:textSize="36sp"
+            />
     </RelativeLayout>
 
 
@@ -90,7 +102,7 @@
             android:layout_marginBottom="10dp"
             android:text="원하는 결과가 아닌가요? 그렇다면"
             android:textSize="15dp"
-            android:textColor="#66FFFFFF"
+            android:textColor="#99FFFFFF"
             />
 
         <LinearLayout

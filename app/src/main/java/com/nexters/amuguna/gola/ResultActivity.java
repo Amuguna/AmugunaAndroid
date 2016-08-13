@@ -36,6 +36,9 @@ public class ResultActivity extends AppCompatActivity {
     @Bind(com.nexters.amuguna.gola.R.id.result_img)
     ImageView resultImg;
 
+    @Bind(R.id.result_top_text)
+    TextView resultTopText;
+
     @Bind(R.id.result_text)
     TextView resultText;
 
@@ -69,6 +72,8 @@ public class ResultActivity extends AppCompatActivity {
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
 
             StaticInfo.imageList.get(intent.getIntExtra("result",0)).into(resultImg);
+            resultTopText.setText("토너먼트 결과");
+            resultText.setText(StaticInfo.foodName[intent.getIntExtra("result",0)]);
 
             /*Glide.with(this).load(StaticInfo.resourceList.get(intent.getIntExtra("result",1)-1))
                     .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(),20,0)).into(resultImg);*/
@@ -86,6 +91,7 @@ public class ResultActivity extends AppCompatActivity {
 
             int ran = (int) (Math.random()*GolaImageManager.food.length);
             StaticInfo.imageList.get( ran ).into(resultImg);
+            resultTopText.setText("랜덤 선택 결과");
             resultText.setText(StaticInfo.foodName[ran]);
 
             //StaticInfo.imageList.get(StaticInfo.RAN.get(0)).into(resultImg);
