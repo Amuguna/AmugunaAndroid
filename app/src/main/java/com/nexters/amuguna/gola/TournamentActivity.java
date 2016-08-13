@@ -3,6 +3,7 @@ package com.nexters.amuguna.gola;
 import android.content.Intent;
 
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -22,6 +23,7 @@ import java.util.Collections;
 import java.util.List;
 
 import butterknife.Bind;
+import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
@@ -119,22 +121,29 @@ public class TournamentActivity extends AppCompatActivity {
 
 
     }
-
+    private void sleep(long time) {
+        try {
+            Thread.sleep(time);
+        } catch(Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     /**
      * 위의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
-        /*기호*/
-        //topImageClick();
 
         topImage.setEnabled(false);
         bottomImage.setEnabled(false);
 
 
-        /*대섭*/
-        //2n
+        //bottomImage.setImageResource(R.drawable.card_x);
+        bottomImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x));
 
+
+
+        sleep(200);
         Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT+1) + "경기 : ");
 
         switch(StaticInfo.ROUND) {
@@ -199,20 +208,21 @@ public class TournamentActivity extends AppCompatActivity {
         imageLoad();
     }
 
+
     /**
      * 하단의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-        /*기호*/
-        //bottomImageClick();
-        //clickThread(bottomImgNum, topImage);
+
+        topImage.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.card_x));
 
         topImage.setEnabled(false);
         bottomImage.setEnabled(false);
 
+
+
         /*대섭*/
-        //2n+1
         Log.e("Bottom", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT+1) + "경기 : " +  2*StaticInfo.CNT+1);
 
         switch(StaticInfo.ROUND) {
@@ -221,7 +231,6 @@ public class TournamentActivity extends AppCompatActivity {
 
                 Log.e("Bottom Food", StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
                 StaticInfo.ROUND_8[StaticInfo.CNT] =  StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ];
-
                 StaticInfo.CNT++;
 
                 // 16강 라운드 마지막경기 일 경우
@@ -234,9 +243,7 @@ public class TournamentActivity extends AppCompatActivity {
 
                 Log.e("Bottom Food", StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
                 StaticInfo.ROUND_4[StaticInfo.CNT] =  StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ];
-
                 StaticInfo.CNT++;
-
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
@@ -311,9 +318,24 @@ public class TournamentActivity extends AppCompatActivity {
                 //StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ];
                 break;
         }
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(500);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            topImage.setEnabled(true);
+                            bottomImage.setEnabled(true);
+                        }
+                    });
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                }
+            }
+        }).start();
 
-        topImage.setEnabled(true);
-        bottomImage.setEnabled(true);
 
     }
 
