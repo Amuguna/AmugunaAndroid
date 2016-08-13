@@ -173,10 +173,13 @@
                 android:id="@+id/center_top_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/center_top_img"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
-                android:gravity="bottom"
-                android:textColor="#ffffff" />
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="25dp"
+                android:textSize="26sp"
+                />
         </RelativeLayout>
 
         <RelativeLayout
@@ -194,10 +197,13 @@
                 android:id="@+id/center_bottom_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignLeft="@+id/center_bottom_img"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:gravity="bottom"
-                android:textColor="#ffffff" />
+                android:textColor="#ffffff"
+                android:layout_marginBottom="25dp"
+                android:textSize="26sp"
+                />
         </RelativeLayout>
 
     </LinearLayout>

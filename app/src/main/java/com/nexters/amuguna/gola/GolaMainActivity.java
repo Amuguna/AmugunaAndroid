@@ -9,10 +9,13 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
+import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.bumptech.glide.Glide;
 
@@ -38,6 +41,9 @@ public class GolaMainActivity extends AppCompatActivity {
     @Bind(R.id.back_to_tutorial_linear)
     ViewGroup backToTutorialLinear;
 
+    @Bind(R.id.menu_select_linear)
+    LinearLayout menuSelectLinear;
+
     //@Bind(com.nexters.amuguna.gola.R.id.main_top_img)
     ImageView mainTopImg;
 
@@ -56,8 +62,12 @@ public class GolaMainActivity extends AppCompatActivity {
         setContentView(com.nexters.amuguna.gola.R.layout.activity_gola_main);
         ButterKnife.bind(this);
 
+        Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
+        int displayWidth = display.getWidth();
+        displayWidth *=0.12;
         /* Hide ActionBar */
         getSupportActionBar().hide();
+        menuSelectLinear.setPadding(displayWidth,0,displayWidth,0);
 
         //Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(mainTopImg);
 
