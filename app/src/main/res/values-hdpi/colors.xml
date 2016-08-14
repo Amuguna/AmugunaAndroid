@@ -25,4 +25,10 @@
     <color name="color_silver">#bdc3c7</color>
     <color name="color_concrete">#95a5a6</color>
     <color name="color_asbestos">#7f8c8d</color>
+
+    <color name="splash_color">#FFDB24</color>
+    <color name="intro1_color">#3A299D</color>
+    <color name="intro2_main_color">#FAFAFA</color>
+
+
 </resources>

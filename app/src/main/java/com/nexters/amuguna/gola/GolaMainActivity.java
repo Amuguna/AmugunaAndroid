@@ -5,8 +5,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
@@ -50,6 +52,15 @@ public class GolaMainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        setContentView(com.nexters.amuguna.gola.R.layout.activity_gola_main);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            Window window = getWindow();
+            window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.intro2_main_color));
+        }
+        ButterKnife.bind(this);
+
          /* Check the First Run */
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         boolean firstRun = prefs.getBoolean(firstRunPrefs, true);
@@ -58,9 +69,6 @@ public class GolaMainActivity extends AppCompatActivity {
             /* display Coach Mark */
             onCoachMark();
         }
-
-        setContentView(com.nexters.amuguna.gola.R.layout.activity_gola_main);
-        ButterKnife.bind(this);
 
         Display display = ((WindowManager)getSystemService(WINDOW_SERVICE)).getDefaultDisplay();
         int displayWidth = display.getWidth();
@@ -78,32 +86,11 @@ public class GolaMainActivity extends AppCompatActivity {
 
     /* Display the Coach Mark */
     private void onCoachMark() {
-
         Log.d("isOnCoachMark ? ", "Is CoachMark !");
 
         Intent intent = new Intent(GolaMainActivity.this,Intro1Activity.class);
         startActivity(intent);
         finish();
-
-        /*final Dialog dialog = new Dialog(this);
-        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        dialog.getWindow().setBackgroundDrawable(new ColorDrawable((Color.TRANSPARENT)));
-        dialog.setContentView(R.layout.activity_intro_1);
-        dialog.setCanceledOnTouchOutside(true);*/
-
-        /* Close the Coach Mark */
-        /*View closeView = dialog.findViewById(com.nexters.amuguna.gola.R.id.coach_mark_close);
-        closeView.setOnClickListener(new View.OnClickListener(){
-            public void onClick(View view) {
-                dialog.dismiss();
-
-                *//* Change First Run prefs to FALSE *//*
-                SharedPreferences.Editor editor = prefs.edit();
-                editor.putBoolean(firstRunPrefs, false);
-                editor.commit();
-            }
-        });*/
-        //dialog.show();
     }
 
     @OnClick(com.nexters.amuguna.gola.R.id.tournamentBtn)
@@ -124,8 +111,6 @@ public class GolaMainActivity extends AppCompatActivity {
         /* Move to ResultActivity. */
         Intent intent = new Intent(GolaMainActivity.this,ResultActivity.class);
 
-        //Intent intent = new Intent(GolaMainActivity.this,Intro2Activity.class);
-
         intent.putExtra("isTournament", false);
         startActivity(intent);
     }
@@ -134,5 +119,6 @@ public class GolaMainActivity extends AppCompatActivity {
     void backToTutorial() {
         Intent intent = new Intent(GolaMainActivity.this,Intro1Activity.class);
         startActivity(intent);
+        finish();
     }
 }
