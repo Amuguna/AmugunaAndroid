@@ -8,69 +8,78 @@
 
     <LinearLayout
         android:id="@+id/main_logo_linear"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/main_top_margin"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         >
-
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/main_top_img_width"
+            android:layout_height="@dimen/main_top_img_height"
             android:gravity="center"
             android:src="@drawable/logo_main"/>
-
     </LinearLayout>
+
+
+
 
     <LinearLayout
         android:id="@+id/menu_select_linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/back_to_tutorial_linear"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/main_bottom_margin"
         android:orientation="vertical" >
-
         <ImageView
             android:id="@+id/tournamentBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/main_btn_width"
+            android:layout_height="@dimen/main_btn_height"
+            android:paddingLeft="@dimen/main_btn_padding"
+            android:paddingRight="@dimen/main_btn_padding"
+            android:layout_gravity="center"
             android:gravity="center"
             android:src="@drawable/tournament_btn"
-            android:layout_marginBottom="-10dp"
             />
-
         <ImageView
             android:id="@+id/randomBtn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/copy_right_text_size"
+            android:layout_width="@dimen/main_btn_width"
+            android:layout_height="@dimen/main_btn_height"
+            android:paddingLeft="@dimen/main_btn_padding"
+            android:paddingRight="@dimen/main_btn_padding"
+            android:layout_gravity="center"
             android:gravity="center"
+            android:layout_marginTop="@dimen/main_btn_between_margin"
             android:src="@drawable/random_btn"/>
-
     </LinearLayout>
+
+
+
 
     <LinearLayout
         android:id="@+id/back_to_tutorial_linear"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_gravity="bottom"
-        android:layout_marginTop="20pt"
-        android:orientation="vertical"
-        android:layout_marginBottom="@dimen/copy_right_text_size">
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/intro_bottom_margin"
+        android:orientation="vertical">
 
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_width="@dimen/intro_img_size"
+            android:layout_height="@dimen/intro_img_size"
+            android:layout_gravity="center"
             android:gravity="center"
             android:src="@drawable/back_to_tutorial"/>
 
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:gravity="center"
             android:textColor="#66000000"
-            android:textSize="@dimen/copy_right_text_size"
+            android:textSize="@dimen/intro_text_size"
             android:text="튜토리얼 다시보기"
             />
 

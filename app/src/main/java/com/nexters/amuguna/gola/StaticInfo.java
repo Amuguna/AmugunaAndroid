@@ -16,6 +16,7 @@ public class StaticInfo {
     /* 랜덤 수를 담은 리스트 */
     public static final ArrayList<Integer> RAN = new ArrayList<Integer>();
     public static final ArrayList<DrawableRequestBuilder<Integer>> imageList = new ArrayList<DrawableRequestBuilder<Integer>>();
+    public static DrawableRequestBuilder cardX;
 
     //public static final ArrayList<String> foodName = new ArrayList<String>();
     public static final String[] foodName = {"덮밥","갈비","감자탕","삼겹살","삼계탕","순두부찌개","쌀국수","쌈밥"
