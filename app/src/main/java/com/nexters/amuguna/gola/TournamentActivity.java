@@ -16,10 +16,13 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.DrawableRequestBuilder;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
+import com.skyfishjy.library.RippleBackground;
 
 import java.lang.reflect.Type;
 import java.util.Arrays;
@@ -72,6 +75,10 @@ public class TournamentActivity extends AppCompatActivity {
 
     @Bind(R.id.center_bottom_text)
     TextView bottomText;
+
+    @Bind(R.id.ripple)
+    RippleBackground ripple;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -144,16 +151,117 @@ public class TournamentActivity extends AppCompatActivity {
             ex.printStackTrace();
         }
     }
-    /**
-     * 위의 음식 그림 선택 시
-     */
-    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
-    void topImgClick() {
+
+
+    @Bind(R.id.ripple_background_image)
+    View rippleBackgroundImage;
+    @Bind(R.id.round_end_info)
+    TextView round_end_info;
+    @Bind(R.id.im_selected_menu)
+    TextView imSelectMenu;
+    @Bind(R.id.round_end_info2)
+    TextView roundEndInfo2;
+    private void endRound(int []color ,int []selectFood){
+        round_end_info.setText("\n" + StaticInfo.ROUND + "강 종료.");
+        if(StaticInfo.ROUND!=4)
+            roundEndInfo2.setText("터치하면 " + (StaticInfo.ROUND / 2) + "강 시작!");
+        else
+            roundEndInfo2.setText("터치하면 결승 시작!");
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0;i<selectFood.length;i++)
+            if(i%4!=0)
+                stringBuilder.append(" \t"+StaticInfo.foodName[selectFood[i]]);
+            else
+                stringBuilder.append("\n\t"+StaticInfo.foodName[selectFood[i]]);
+        imSelectMenu.setText(stringBuilder.toString());
+        end_infomation.setVisibility(View.VISIBLE);
+        ripple.startRippleAnimation();
+        topImage.setEnabled(false);
+        bottomImage.setEnabled(false);
+
+        rippleBackgroundImage.setBackgroundColor(Color.rgb(color[0],color[1],color[2]));
+    }
+
+    private void topClicked() {
+
+        switch(StaticInfo.ROUND) {
+
+            case 16 :
+                Log.e("Top Food", StaticInfo.ROUND_16[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
+                StaticInfo.ROUND_8[StaticInfo.CNT] =  StaticInfo.ROUND_16[ 2*StaticInfo.CNT ];
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    /*FF3030->10진수로하면-16724016*/
+                    endRound(new int[]{255,30,30},StaticInfo.ROUND_8);
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+                break;
+
+            case 8 :
+                Log.e("Top Food", StaticInfo.ROUND_8[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                StaticInfo.ROUND_4[StaticInfo.CNT] =  StaticInfo.ROUND_8[ 2*StaticInfo.CNT ];
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    endRound(new int[]{0,174,54},StaticInfo.ROUND_4);
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+                break;
+
+            case 4 :
+                Log.e("Top Food", StaticInfo.ROUND_4[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
+                StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT ];
+                StaticInfo.CNT++;
+
+                // 16강 라운드 마지막경기 일 경우
+                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    endRound(new int[]{00,72,208},StaticInfo.ROUND_2);
+                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+                }
+                break;
+
+            case 2 :
+                Log.e("IsLastGame", "True");
+                /* Move to ResultActivity. */
+
+                intent = new Intent(TournamentActivity.this,ResultActivity.class);
+                intent.putExtra("result", StaticInfo.ROUND_2[0] );
+                intent.putExtra("isTournament", true);
+                intent.putExtra("isFirstRound", false);
+                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                startActivity(intent);
+                finish();
+                return;
+        }
+        // Image Load
+        setTopProgress();
+        imageLoad();
+    }
+    @Bind(R.id.end_infomation)
+    RelativeLayout end_infomation;
+
+    @OnClick(R.id.ripple)
+    public void rippleClick(View v) {
+        endPageClick(v);
+    }
+    @OnClick(R.id.end_infomation)
+    public void endInfomationClick(View v){
+        endPageClick(v);
+    }
+    public void endPageClick(View v){
+        end_infomation.setVisibility(View.GONE);
+        ripple.stopRippleAnimation();
+        topImage.setEnabled(true);
+    }
+    private void imgClick(final ImageView unClickImage ,final TextView bottomTopText,final View imgBg) {
 
         topImage.setEnabled(false);
         bottomImage.setEnabled(false);
 
-        Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT+1) + "경기 : ");
+        Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT + 1) + "경기 : ");
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -161,9 +269,20 @@ public class TournamentActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            bottomImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x));
-                            bottomText.setText(null);
-                            imgBgBottom.setVisibility(View.INVISIBLE);
+                            switch (StaticInfo.ROUND) {
+                                case 16 :
+                                    unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x));
+                                    break;
+                                case 8 :
+                                    unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x8));
+                                    break;
+                                case 4 :
+                                    unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x4));
+                                    break;
+
+                            }
+                            bottomTopText.setText(null);
+                            imgBg.setVisibility(View.INVISIBLE);
 
                         }
                     });
@@ -189,106 +308,19 @@ public class TournamentActivity extends AppCompatActivity {
         }).start();
 
     }
-
-    private void topClicked() {
-
-        switch(StaticInfo.ROUND) {
-
-            case 16 :
-                Log.e("Top Food", StaticInfo.ROUND_16[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
-                StaticInfo.ROUND_8[StaticInfo.CNT] =  StaticInfo.ROUND_16[ 2*StaticInfo.CNT ];
-                StaticInfo.CNT++;
-
-                // 16강 라운드 마지막경기 일 경우
-                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
-                }
-                break;
-
-            case 8 :
-                Log.e("Top Food", StaticInfo.ROUND_8[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
-                StaticInfo.ROUND_4[StaticInfo.CNT] =  StaticInfo.ROUND_8[ 2*StaticInfo.CNT ];
-                StaticInfo.CNT++;
-
-                // 16강 라운드 마지막경기 일 경우
-                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
-                }
-                break;
-
-            case 4 :
-                Log.e("Top Food", StaticInfo.ROUND_4[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
-                StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT ];
-                StaticInfo.CNT++;
-
-                // 16강 라운드 마지막경기 일 경우
-                if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    StaticInfo.ROUND/=2; StaticInfo.CNT=0;
-                }
-                break;
-
-            case 2 :
-                Log.e("IsLastGame", "True");
-                /* Move to ResultActivity. */
-
-                intent = new Intent(TournamentActivity.this,ResultActivity.class);
-                intent.putExtra("result", StaticInfo.ROUND_2[0] );
-                intent.putExtra("isTournament", true);
-                intent.putExtra("isFirstRound", false);
-                intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                startActivity(intent);
-                finish();
-                return;
-        }
-        // Image Load
-        setTopProgress();
-        imageLoad();
+    /**
+     * 위의 음식 그림 선택 시
+     */
+    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
+    void topImgClick() {
+        imgClick(bottomImage, bottomText, imgBgBottom);
     }
-
-
     /**
      * 하단의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-
-        topImage.setEnabled(false);
-        bottomImage.setEnabled(false);
-
-        Log.e("Bottom", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT+1) + "경기 : " +  2*StaticInfo.CNT+1);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            topImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x));
-                            topText.setText(null);
-                            imgBgTop.setVisibility(View.INVISIBLE);
-                        }
-                    });
-                    Thread.sleep(500);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            bottomClicked();
-
-                            imgBgTop.setVisibility(View.VISIBLE);
-                            imgBgBottom.setVisibility(View.VISIBLE);
-
-                            topImage.setEnabled(true);
-                            bottomImage.setEnabled(true);
-                        }
-                    });
-                } catch(Exception ex) {
-                    ex.printStackTrace();
-                } finally {
-
-                }
-            }
-        }).start();
-
+        imgClick(topImage, topText, imgBgTop);
     }
 
     private void bottomClicked() {

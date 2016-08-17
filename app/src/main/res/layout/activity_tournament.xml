@@ -255,5 +255,71 @@
                 />
         </RelativeLayout>
     </LinearLayout>
-
+    <RelativeLayout
+        android:layout_below="@id/frmalayout"
+        android:id="@+id/end_infomation"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingRight="23dp"
+        android:paddingLeft="23dp"
+        android:paddingBottom="18dp"
+        android:visibility="gone"
+        >
+        <View
+            android:id="@+id/ripple_background_image"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FF3030"
+            />
+        <TextView
+            android:id="@+id/round_end_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/round_end_info"
+            />
+        <TextView
+            android:id="@+id/round_end_info2"
+            android:layout_below="@id/round_end_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#b0FFFFFF"
+            android:textSize="@dimen/round_end_info"
+            />
+        <TextView
+            android:id="@+id/im_selected_menu_info"
+            android:layout_below="@id/round_end_info2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="\n내가 고른 메뉴"
+            android:gravity="center_horizontal"
+            android:textColor="#E6FFFFFF"
+            android:textSize="@dimen/im_selected_menu_info"
+            />
+        <TextView
+            android:id="@+id/im_selected_menu"
+            android:layout_below="@id/im_selected_menu_info"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#b0FFFFFF"
+            android:textSize="@dimen/im_selected_menu_info"
+            />
+        <com.skyfishjy.library.RippleBackground
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/ripple"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/ripple_height"
+            app:rb_color="#FFFFFF"
+            app:rb_radius="32dp"
+            app:rb_rippleAmount="4"
+            app:rb_duration="3000"
+            app:rb_scale="6"
+            android:paddingBottom="@dimen/ripple_bottom_padding"
+            android:layout_marginBottom="@dimen/ripple_bottom_margin"
+            android:layout_alignParentBottom="true"
+            />
+    </RelativeLayout>
 </RelativeLayout>

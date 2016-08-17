@@ -1,5 +1,11 @@
 <resources>
     <!-- Pad, Tablet -->
+    <dimen name="round_end_info">42sp</dimen>
+    <dimen name="im_selected_menu_info">30sp</dimen>
+    <dimen name="ripple_bottom_margin">-300dp</dimen>
+    <dimen name="ripple_bottom_padding">300dp</dimen>
+    <dimen name="ripple_height">800dp</dimen>
+
     <dimen name="round_margin_value">51dp</dimen>
     <dimen name="round_margin_text_value">45dp</dimen>
     <dimen name="round_top_margin_value">42dp</dimen>

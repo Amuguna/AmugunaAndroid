@@ -1,5 +1,12 @@
 <resources>
     <!-- Regular MobilePhone. -->
+    <dimen name="round_end_info">28sp</dimen>
+    <dimen name="im_selected_menu_info">20sp</dimen>
+    <dimen name="ripple_bottom_margin">-200dp</dimen>
+    <dimen name="ripple_bottom_padding">200dp</dimen>
+    <dimen name="ripple_height">400dp</dimen>
+
+
     <dimen name="round_margin_value">34dp</dimen>
     <dimen name="round_margin_text_value">30dp</dimen>
     <dimen name="round_top_margin_value">28dp</dimen>

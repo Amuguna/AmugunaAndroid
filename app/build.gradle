@@ -28,4 +28,5 @@ dependencies {
     compile 'jp.wasabeef:glide-transformations:2.0.1'
     compile 'info.hoang8f:fbutton:1.0.5'
     compile "com.andkulikov:transitionseverywhere:1.6.4"
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
 }
