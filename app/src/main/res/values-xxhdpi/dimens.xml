@@ -4,6 +4,7 @@
     <dimen name="round_margin_text_value">30dp</dimen>
     <dimen name="round_top_margin_value">28dp</dimen>
     <dimen name="round_top_margin_text_value">44dp</dimen>
+    <dimen name="round_bottom_total_margin_value">1dp</dimen>
 
     <dimen name="copy_right_text_size">7pt</dimen>
 

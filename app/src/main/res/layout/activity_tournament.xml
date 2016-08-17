@@ -30,6 +30,7 @@
         android:layout_centerHorizontal="true"
         android:layout_gravity="center"
         android:gravity="center"
+        android:layout_marginBottom="@dimen/round_bottom_total_margin_value"
         >
         <View
             android:background="#66616161"
@@ -45,6 +46,7 @@
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/round_top_margin_value"
+
             >
             <View
                 android:id="@+id/img_16_back"
@@ -135,6 +137,7 @@
             android:orientation="horizontal"
             android:gravity="center_horizontal"
             android:layout_marginTop="@dimen/round_top_margin_text_value"
+
             >
             <TextView
                 android:id="@+id/tv16"
