@@ -39,171 +39,20 @@
             android:gravity="center"
             />
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            >
-            <View
-                android:id="@+id/img_16_back"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:background="@drawable/tournament_oval16"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginRight="32dp"
-                />
-            <View
-                android:id="@+id/img_16"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:layout_alignLeft="@+id/img_16_back"
-                android:background="@drawable/tournament_oval_black"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:id="@+id/tv16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="16강"
-                android:textSize="@dimen/tournament_progress_text_size"
-                android:textColor="#FFFFFF"
-                android:layout_below="@id/img_16_back"
-                android:gravity="center_horizontal"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            >
-            <View
-                android:id="@+id/img_8_back"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:background="@drawable/tournament_oval8"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginRight="32dp"
-                />
-            <View
-                android:id="@+id/img_8"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:layout_alignLeft="@+id/img_8_back"
-                android:background="@drawable/tournament_oval_black"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:id="@+id/tv8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8강"
-                android:textSize="@dimen/tournament_progress_text_size"
-                android:textColor="#FFFFFF"
-                android:layout_below="@id/img_8_back"
-                android:gravity="center_horizontal"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            >
-            <View
-                android:id="@+id/img_4_back"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:background="@drawable/tournament_oval4"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginRight="32dp"
-                />
-            <View
-                android:id="@+id/img_4"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:layout_alignLeft="@+id/img_4_back"
-                android:background="@drawable/tournament_oval_black"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:id="@+id/tv4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4강"
-                android:textSize="@dimen/tournament_progress_text_size"
-                android:textColor="#FFFFFF"
-                android:layout_below="@id/img_4_back"
-                android:gravity="center_horizontal"
-                />
-        </RelativeLayout>
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:gravity="center"
-            >
-            <View
-                android:id="@+id/img_2_back"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:background="@drawable/tournament_oval2"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginRight="32dp"
-                />
-            <View
-                android:id="@+id/img_2"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:layout_alignLeft="@+id/img_2_back"
-                android:background="@drawable/tournament_oval_black"
-                android:layout_gravity="center_horizontal"
-                />
-            <TextView
-                android:id="@+id/tv2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="결승"
-                android:textSize="@dimen/tournament_progress_text_size"
-                android:textColor="#FFFFFF"
-                android:layout_below="@id/img_2_back"
-                android:gravity="center_horizontal"
-                />
-        </RelativeLayout>
-
-
-        <!--<RelativeLayout
-            android:id="@+id/tounament_round_"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="@dimen/top_menu_height"
-            android:layout_marginRight="23dp"
-            android:layout_marginLeft="23dp"
-            android:layout_marginTop="7dp"
-            android:gravity="center_vertical|center_horizontal"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/round_top_margin_value"
             >
             <View
                 android:id="@+id/img_16_back"
                 android:layout_width="@dimen/tournament_progress_oval_size"
                 android:layout_height="@dimen/tournament_progress_oval_size"
                 android:background="@drawable/tournament_oval16"
-                android:layout_marginRight="32dp"
-                />
-            <View
-                android:id="@+id/img_16"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:layout_alignLeft="@+id/img_16_back"
-                android:background="@drawable/tournament_oval_black"
-                />
-            <TextView
-                android:id="@+id/tv16"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="16강"
-                android:textColor="#FFFFFF"
-                android:layout_below="@id/img_16_back"
-                android:layout_marginLeft="-10dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="@dimen/round_margin_value"
 
                 />
             <View
@@ -211,9 +60,44 @@
                 android:layout_width="@dimen/tournament_progress_oval_size"
                 android:layout_height="@dimen/tournament_progress_oval_size"
                 android:background="@drawable/tournament_oval8"
-                android:layout_toRightOf="@id/img_16_back"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/round_margin_value"
+                android:layout_marginLeft="@dimen/round_margin_value"
+                />
+            <View
+                android:id="@+id/img_4_back"
+                android:layout_width="@dimen/tournament_progress_oval_size"
+                android:layout_height="@dimen/tournament_progress_oval_size"
+                android:background="@drawable/tournament_oval4"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/round_margin_value"
+                android:layout_marginLeft="@dimen/round_margin_value"
+                />
+            <View
+                android:id="@+id/img_2_back"
+                android:layout_width="@dimen/tournament_progress_oval_size"
+                android:layout_height="@dimen/tournament_progress_oval_size"
+                android:background="@drawable/tournament_oval2"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/round_margin_value"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/round_top_margin_value"
+            >
+            <View
+                android:id="@+id/img_16"
+                android:layout_width="@dimen/tournament_progress_oval_size"
+                android:layout_height="@dimen/tournament_progress_oval_size"
+                android:layout_alignLeft="@+id/img_16_back"
+                android:background="@drawable/tournament_oval_black"
+                android:layout_gravity="center_horizontal"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="@dimen/round_margin_value"
                 />
             <View
                 android:id="@+id/img_8"
@@ -221,26 +105,9 @@
                 android:layout_height="@dimen/tournament_progress_oval_size"
                 android:layout_alignLeft="@+id/img_8_back"
                 android:background="@drawable/tournament_oval_black"
-                />
-            <TextView
-                android:id="@+id/tv8"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="8강"
-                android:textColor="#FFFFFF"
-                android:layout_alignTop="@id/tv16"
-                android:layout_marginLeft="28dp"
-                android:layout_marginRight="28dp"
-                android:layout_toRightOf="@id/img_16_back"
-                />
-            <View
-                android:id="@+id/img_4_back"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:background="@drawable/tournament_oval4"
-                android:layout_toRightOf="@id/img_8_back"
-                android:layout_marginLeft="32dp"
-                android:layout_marginRight="32dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/round_margin_value"
+                android:layout_marginLeft="@dimen/round_margin_value"
                 />
             <View
                 android:id="@+id/img_4"
@@ -248,25 +115,9 @@
                 android:layout_height="@dimen/tournament_progress_oval_size"
                 android:layout_alignLeft="@+id/img_4_back"
                 android:background="@drawable/tournament_oval_black"
-                />
-            <TextView
-                android:id="@+id/tv4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="4강"
-                android:textColor="#FFFFFF"
-                android:layout_alignTop="@id/tv16"
-                android:layout_marginLeft="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_toRightOf="@id/img_8_back"
-                />
-            <View
-                android:id="@+id/img_2_back"
-                android:layout_width="@dimen/tournament_progress_oval_size"
-                android:layout_height="@dimen/tournament_progress_oval_size"
-                android:background="@drawable/tournament_oval2"
-                android:layout_marginLeft="32dp"
-                android:layout_toRightOf="@id/img_4_back"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginRight="@dimen/round_margin_value"
+                android:layout_marginLeft="@dimen/round_margin_value"
                 />
             <View
                 android:id="@+id/img_2"
@@ -274,19 +125,60 @@
                 android:layout_height="@dimen/tournament_progress_oval_size"
                 android:layout_alignLeft="@+id/img_2_back"
                 android:background="@drawable/tournament_oval_black"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/round_margin_value"
+                />
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="@dimen/round_top_margin_text_value"
+            >
+            <TextView
+                android:id="@+id/tv16"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="16강"
+                android:textSize="@dimen/tournament_progress_text_size"
+                android:textColor="#FFFFFF"
+                android:layout_marginRight="@dimen/round_margin_text_value"
+                />
+            <TextView
+                android:id="@+id/tv8"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="8강"
+                android:textSize="@dimen/tournament_progress_text_size"
+                android:textColor="#FFFFFF"
+
+
+                android:layout_marginRight="@dimen/round_margin_text_value"
+                android:layout_marginLeft="@dimen/round_margin_text_value"
+                />
+            <TextView
+                android:id="@+id/tv4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="4강"
+                android:textSize="@dimen/tournament_progress_text_size"
+                android:textColor="#FFFFFF"
+
+                android:layout_marginRight="@dimen/round_margin_text_value"
+                android:layout_marginLeft="@dimen/round_margin_text_value"
                 />
             <TextView
                 android:id="@+id/tv2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="결승"
+                android:textSize="@dimen/tournament_progress_text_size"
                 android:textColor="#FFFFFF"
-                android:layout_alignTop="@id/tv16"
-                android:layout_toRightOf="@id/img_4_back"
-                android:layout_marginLeft="26dp"
-                />
-        </RelativeLayout>-->
 
+                android:layout_marginLeft="@dimen/round_margin_text_value"
+                />
+        </LinearLayout>
     </FrameLayout>
 
 

@@ -1,5 +1,9 @@
 <resources>
     <!-- Regular MobilePhone. -->
+    <dimen name="round_margin_value">34dp</dimen>
+    <dimen name="round_margin_text_value">30dp</dimen>
+    <dimen name="round_top_margin_value">28dp</dimen>
+    <dimen name="round_top_margin_text_value">44dp</dimen>
 
     <dimen name="copy_right_text_size">7pt</dimen>
 
