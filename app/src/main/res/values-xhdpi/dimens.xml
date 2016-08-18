@@ -35,11 +35,16 @@
     <dimen name="intro1_graphic_witdh">435dp</dimen>
     <dimen name="intro1_graphic_height">261dp</dimen>
 
-
-    <dimen name="intro2_top_margin">114dp</dimen>
-    <dimen name="intro2_top_width">345dp</dimen>
-    <dimen name="intro2_top_height">255dp</dimen>
+    <!-- Intro2 XML -->
+    <dimen name="intro2_top_margin">132dp</dimen>
+    <dimen name="intro2_top_width">273dp</dimen>
+    <dimen name="intro2_top_height">195dp</dimen>
     <dimen name="intro2_graphic_height">480dp</dimen>
+
+
+    <!-- Intro3 XML -->
+    <dimen name="intro3_top_width">300dp</dimen>
+    <dimen name="intro3_bottom_graphic_height">432dp</dimen>
 
 
     <dimen name="main_top_margin">75dp</dimen>

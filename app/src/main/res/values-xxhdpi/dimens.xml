@@ -32,16 +32,21 @@
     <!-- Intro1 XML -->
     <dimen name="intro1_top_margin">66dp</dimen>
     <dimen name="intro1_top_width">180dp</dimen>
-    <dimen name="intro1_top_height">150dp</dimen>
+    <dimen name="intro1_top_height">156dp</dimen>
     <dimen name="intro1_graphic_bottom_margin">144dp</dimen>
     <dimen name="intro1_graphic_witdh">290dp</dimen>
     <dimen name="intro1_graphic_height">174dp</dimen>
 
     <!-- Intro2 XML -->
-    <dimen name="intro2_top_margin">76dp</dimen>
-    <dimen name="intro2_top_width">230dp</dimen>
-    <dimen name="intro2_top_height">170dp</dimen>
+    <dimen name="intro2_top_margin">88dp</dimen>
+    <dimen name="intro2_top_width">182dp</dimen>
+    <dimen name="intro2_top_height">130dp</dimen>
     <dimen name="intro2_graphic_height">320dp</dimen>
+
+    <!-- Intro3 XML -->
+    <dimen name="intro3_top_width">200dp</dimen>
+    <dimen name="intro3_bottom_graphic_height">288dp</dimen>
+
 
     <!-- GolaMain XML -->
     <dimen name="main_top_margin">50dp</dimen>

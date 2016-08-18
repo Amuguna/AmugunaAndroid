@@ -219,7 +219,7 @@ public class TournamentActivity extends AppCompatActivity {
 
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    endRound(new int[]{00,72,208},StaticInfo.ROUND_2);
+                    endRound(new int[]{16,99,238},StaticInfo.ROUND_2);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
                 break;
@@ -366,7 +366,7 @@ public class TournamentActivity extends AppCompatActivity {
 
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    endRound(new int[]{00,72,208},StaticInfo.ROUND_2);
+                    endRound(new int[]{16,99,238},StaticInfo.ROUND_2);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
 

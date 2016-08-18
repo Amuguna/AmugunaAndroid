@@ -2,7 +2,6 @@ package com.nexters.amuguna.gola;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -16,23 +15,22 @@ import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-
 /**
- * Created by Daesub Kim on 2016-08-05.
+ * Created by Daesub Kim on 2016-08-18.
  */
-public class Intro2Activity extends AppCompatActivity {
+public class Intro3Activity extends AppCompatActivity {
 
-    @Bind(R.id.start_linear)
-    ViewGroup startBtn;
+    @Bind(R.id.go_to_gola_main_linear)
+    ViewGroup goToMainBtn;
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_intro_2);
+        setContentView(R.layout.activity_intro_3);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             Window window = getWindow();
             window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS);
-            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.intro2_main_color));
+            window.setStatusBarColor(ContextCompat.getColor(getApplicationContext(),R.color.intro3_color));
         }
         ButterKnife.bind(this);
 
@@ -40,10 +38,17 @@ public class Intro2Activity extends AppCompatActivity {
         getSupportActionBar().hide();
     }
 
-    @OnClick(R.id.start_linear)
+    @OnClick(R.id.go_to_gola_main_linear)
     void startBtnClick() {
-        Intent intent = new Intent(Intro2Activity.this,Intro3Activity.class);
+
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putBoolean("firstRun", false);
+        editor.commit();
+
+        Intent intent = new Intent(Intro3Activity.this,GolaMainActivity.class);
         startActivity(intent);
         finish();
     }
+
 }

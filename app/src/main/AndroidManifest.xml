@@ -29,6 +29,11 @@
             >
         </activity>
         <activity
+            android:name="com.nexters.amuguna.gola.Intro3Activity"
+            android:screenOrientation="portrait"
+            >
+        </activity>
+        <activity
             android:name="com.nexters.amuguna.gola.GolaMainActivity"
             android:screenOrientation="portrait"
             />
