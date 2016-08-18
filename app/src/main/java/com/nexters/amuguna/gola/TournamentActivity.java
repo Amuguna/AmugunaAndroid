@@ -248,7 +248,7 @@ public class TournamentActivity extends AppCompatActivity {
     public void rippleClick(View v) {
         endPageClick(v);
     }
-    @OnClick(R.id.end_infomation)
+    //@OnClick(R.id.end_infomation)
     public void endInfomationClick(View v){
         endPageClick(v);
     }
