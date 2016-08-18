@@ -11,6 +11,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.nexters.amuguna.gola.manager.GolaImageManager;
 
 import java.lang.reflect.Field;
@@ -58,7 +59,11 @@ public class SplashScreen extends AppCompatActivity {
                             StaticInfo.imageList.add(
                                     Glide.with(SplashScreen.this)
                                             .load(getResources().getIdentifier("com.nexters.amuguna.gola:drawable/" + imageName,null,null))
+
+                                            .diskCacheStrategy( DiskCacheStrategy.RESULT )
+
                                             .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0))
+                                          //  .preload(500, 500)
                             );
                             i++;
                         }
