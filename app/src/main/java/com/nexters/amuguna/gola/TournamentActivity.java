@@ -161,6 +161,7 @@ public class TournamentActivity extends AppCompatActivity {
     TextView imSelectMenu;
     @Bind(R.id.round_end_info2)
     TextView roundEndInfo2;
+
     private void endRound(int []color ,int []selectFood){
         round_end_info.setText("\n" + StaticInfo.ROUND + "강 종료.");
         if(StaticInfo.ROUND!=4)
@@ -256,7 +257,7 @@ public class TournamentActivity extends AppCompatActivity {
         ripple.stopRippleAnimation();
         topImage.setEnabled(true);
     }
-    private void imgClick(final ImageView unClickImage ,final TextView bottomTopText,final View imgBg) {
+    private void imgClick(final int which, final ImageView unClickImage ,final TextView bottomTopText,final View imgBg) {
 
         topImage.setEnabled(false);
         bottomImage.setEnabled(false);
@@ -290,7 +291,11 @@ public class TournamentActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            topClicked();
+
+                            if(which==0)
+                                topClicked();
+                            else
+                                bottomClicked();
 
                             imgBgTop.setVisibility(View.VISIBLE);
                             imgBgBottom.setVisibility(View.VISIBLE);
@@ -313,14 +318,14 @@ public class TournamentActivity extends AppCompatActivity {
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
-        imgClick(bottomImage, bottomText, imgBgBottom);
+        imgClick(0, bottomImage, bottomText, imgBgBottom);
     }
     /**
      * 하단의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-        imgClick(topImage, topText, imgBgTop);
+        imgClick(1, topImage, topText, imgBgTop);
     }
 
     private void bottomClicked() {
@@ -335,6 +340,7 @@ public class TournamentActivity extends AppCompatActivity {
 
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    endRound(new int[]{255,30,30},StaticInfo.ROUND_8);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
 
@@ -346,6 +352,7 @@ public class TournamentActivity extends AppCompatActivity {
                 StaticInfo.CNT++;
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    endRound(new int[]{0,174,54},StaticInfo.ROUND_4);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
 
@@ -359,6 +366,7 @@ public class TournamentActivity extends AppCompatActivity {
 
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+                    endRound(new int[]{00,72,208},StaticInfo.ROUND_2);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
 
