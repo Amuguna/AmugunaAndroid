@@ -1,10 +1,7 @@
 package com.nexters.amuguna.gola;
 
-import android.app.Dialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,19 +9,14 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Display;
-import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-
-import com.bumptech.glide.Glide;
-
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import info.hoang8f.widget.FButton;
 
 /**
  * Created by Daesub Kim on 2016-07-09.
@@ -76,11 +68,6 @@ public class GolaMainActivity extends AppCompatActivity {
         /* Hide ActionBar */
         getSupportActionBar().hide();
         menuSelectLinear.setPadding(displayWidth,0,displayWidth,0);
-
-        //Glide.with(this).load(com.nexters.amuguna.gola.R.drawable.fleax_main).into(mainTopImg);
-
-        //GolaImageManager.getInstatnce().initImages();
-
 
     }
 

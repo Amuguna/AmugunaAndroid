@@ -205,6 +205,13 @@
                 android:layout_height="@dimen/tournament_img_height"
                 android:layout_centerHorizontal="true"
                 />
+            <ImageView
+                android:id="@+id/center_top_next_img"
+                android:layout_width="@dimen/tournament_img_width"
+                android:layout_height="@dimen/tournament_img_height"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                />
             <View
                 android:id="@+id/img_bg_top"
                 android:layout_width="match_parent"
@@ -236,6 +243,13 @@
                 android:layout_height="@dimen/tournament_img_height"
                 android:layout_centerHorizontal="true"
                 />
+            <ImageView
+                android:id="@+id/center_bottom_next_img"
+                android:layout_width="@dimen/tournament_img_width"
+                android:layout_height="@dimen/tournament_img_height"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                />
             <View
                 android:id="@+id/img_bg_bottom"
                 android:layout_width="match_parent"
@@ -258,18 +272,26 @@
     <RelativeLayout
         android:layout_below="@id/frmalayout"
         android:id="@+id/end_infomation"
+        android:layout_width="@dimen/tournament_img_width"
+        android:layout_height="@dimen/tournament_info_frm_height"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/tournament_info_frm_bottom_margin"
+        android:background="@drawable/tournament_info_frm_bg"
+        android:visibility="gone"
+        >
+        <!--
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:paddingRight="23dp"
         android:paddingLeft="23dp"
         android:paddingBottom="18dp"
-        android:visibility="gone"
-        >
+        -->
         <View
             android:id="@+id/ripple_background_image"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#FF3030"
+            android:background="@drawable/tournament_info_frm_bg"
             />
         <TextView
             android:id="@+id/round_end_info"
@@ -310,7 +332,7 @@
         <com.skyfishjy.library.RippleBackground
             xmlns:app="http://schemas.android.com/apk/res-auto"
             android:id="@+id/ripple"
-            android:layout_width="match_parent"
+            android:layout_width="@dimen/tournament_info_frm_width"
             android:layout_height="@dimen/ripple_height"
             app:rb_color="#FFFFFF"
             app:rb_radius="32dp"

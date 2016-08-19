@@ -84,6 +84,10 @@
     <dimen name="tournament_img_text_size">26sp</dimen>
     <dimen name="tournament_bottom_margin">18dp</dimen>
 
+    <dimen name="tournament_info_frm_width">330dp</dimen>
+    <dimen name="tournament_info_frm_height">444dp</dimen>
+    <dimen name="tournament_info_frm_bottom_margin">17.4dp</dimen>
+
 
     <!--  Result XML -->
     <dimen name="result_img_margin">90dp</dimen>

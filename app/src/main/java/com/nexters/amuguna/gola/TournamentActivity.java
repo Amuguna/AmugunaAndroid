@@ -2,38 +2,19 @@ package com.nexters.amuguna.gola;
 
 import android.content.Intent;
 
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.os.Build;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
-
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.DrawableRequestBuilder;
-import com.nexters.amuguna.gola.manager.GolaImageManager;
 import com.skyfishjy.library.RippleBackground;
-
-import java.lang.reflect.Type;
-import java.util.Arrays;
 import java.util.Collections;
-import java.util.List;
-
 import butterknife.Bind;
-import butterknife.BindDrawable;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 /**
  * Created by Daesub Kim on 2016-07-25.
  */
@@ -64,17 +45,21 @@ public class TournamentActivity extends AppCompatActivity {
     @Bind(R.id.img_bg_bottom)
     View imgBgBottom;
 
+
+    @Bind(com.nexters.amuguna.gola.R.id.center_top_next_img)
+    ImageView topNextImage;
     @Bind(com.nexters.amuguna.gola.R.id.center_top_img)
     ImageView topImage;
-
     @Bind(R.id.center_top_text)
     TextView topText;
 
+    @Bind(com.nexters.amuguna.gola.R.id.center_bottom_next_img)
+    ImageView bottomNextImage;
     @Bind(com.nexters.amuguna.gola.R.id.center_bottom_img)
     ImageView bottomImage;
-
     @Bind(R.id.center_bottom_text)
     TextView bottomText;
+
 
     @Bind(R.id.ripple)
     RippleBackground ripple;
@@ -107,12 +92,31 @@ public class TournamentActivity extends AppCompatActivity {
             /* 첫 Image 세팅 */
             StaticInfo.imageList.get(StaticInfo.ROUND_16[0]).into(topImage);
             StaticInfo.imageList.get(StaticInfo.ROUND_16[1]).into(bottomImage);
+            /* 다음 Image 세팅 */
+            StaticInfo.imageList.get(StaticInfo.ROUND_16[2]).into(topNextImage);
+            StaticInfo.imageList.get(StaticInfo.ROUND_16[3]).into(bottomNextImage);
 
             topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[0]]);
             bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[1]]);
-
         }
     }
+
+    @Bind(R.id.ripple_background_image)
+    View rippleBackgroundImage;
+    @Bind(R.id.round_end_info)
+    TextView round_end_info;
+    @Bind(R.id.im_selected_menu)
+    TextView imSelectMenu;
+    @Bind(R.id.round_end_info2)
+    TextView roundEndInfo2;
+
+    @Bind(R.id.end_infomation)
+    RelativeLayout end_infomation;
+    //@OnClick(R.id.end_infomation)
+    public void endInfomationClick(View v){
+        endPageClick(v);
+    }
+
 
     private void setTopProgress() {
         /* 상단 Progress 세팅  */
@@ -144,43 +148,12 @@ public class TournamentActivity extends AppCompatActivity {
         }
     }
 
-    private void sleep(long time) {
-        try {
-            Thread.sleep(time);
-        } catch(Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-
-
-    @Bind(R.id.ripple_background_image)
-    View rippleBackgroundImage;
-    @Bind(R.id.round_end_info)
-    TextView round_end_info;
-    @Bind(R.id.im_selected_menu)
-    TextView imSelectMenu;
-    @Bind(R.id.round_end_info2)
-    TextView roundEndInfo2;
-
-    private void endRound(int []color ,int []selectFood){
-        round_end_info.setText("\n" + StaticInfo.ROUND + "강 종료.");
-        if(StaticInfo.ROUND!=4)
-            roundEndInfo2.setText("터치하면 " + (StaticInfo.ROUND / 2) + "강 시작!");
-        else
-            roundEndInfo2.setText("터치하면 결승 시작!");
-        StringBuilder stringBuilder = new StringBuilder();
-        for(int i=0;i<selectFood.length;i++)
-            if(i%4!=0)
-                stringBuilder.append(" \t"+StaticInfo.foodName[selectFood[i]]);
-            else
-                stringBuilder.append("\n\t"+StaticInfo.foodName[selectFood[i]]);
-        imSelectMenu.setText(stringBuilder.toString());
-        end_infomation.setVisibility(View.VISIBLE);
-        ripple.startRippleAnimation();
-        topImage.setEnabled(false);
-        bottomImage.setEnabled(false);
-
-        rippleBackgroundImage.setBackgroundColor(Color.rgb(color[0],color[1],color[2]));
+    /**
+     * 위의 음식 그림 선택 시
+     */
+    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
+    void topImgClick() {
+        imgClick(0, topImage, bottomImage, bottomText, imgBgBottom);
     }
 
     private void topClicked() {
@@ -225,6 +198,7 @@ public class TournamentActivity extends AppCompatActivity {
                 break;
 
             case 2 :
+                StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 Log.e("IsLastGame", "True");
                 /* Move to ResultActivity. */
 
@@ -237,95 +211,17 @@ public class TournamentActivity extends AppCompatActivity {
                 finish();
                 return;
         }
+
         // Image Load
         setTopProgress();
         imageLoad();
-    }
-    @Bind(R.id.end_infomation)
-    RelativeLayout end_infomation;
-
-    @OnClick(R.id.ripple)
-    public void rippleClick(View v) {
-        endPageClick(v);
-    }
-    //@OnClick(R.id.end_infomation)
-    public void endInfomationClick(View v){
-        endPageClick(v);
-    }
-    public void endPageClick(View v){
-        end_infomation.setVisibility(View.GONE);
-        ripple.stopRippleAnimation();
-        topImage.setEnabled(true);
-    }
-    private void imgClick(final int which, final ImageView unClickImage ,final TextView bottomTopText,final View imgBg) {
-
-        topImage.setEnabled(false);
-        bottomImage.setEnabled(false);
-
-        Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT + 1) + "경기 : ");
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            switch (StaticInfo.ROUND) {
-                                case 16 :
-                                    unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x));
-                                    break;
-                                case 8 :
-                                    unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x8));
-                                    break;
-                                case 4 :
-                                    unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.card_x4));
-                                    break;
-
-                            }
-                            bottomTopText.setText(null);
-                            imgBg.setVisibility(View.INVISIBLE);
-
-                        }
-                    });
-                    Thread.sleep(500);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-
-                            if(which==0)
-                                topClicked();
-                            else
-                                bottomClicked();
-
-                            imgBgTop.setVisibility(View.VISIBLE);
-                            imgBgBottom.setVisibility(View.VISIBLE);
-
-                            topImage.setEnabled(true);
-                            bottomImage.setEnabled(true);
-                        }
-                    });
-                } catch(Exception ex) {
-                    ex.printStackTrace();
-                } finally {
-
-                }
-            }
-        }).start();
-
-    }
-    /**
-     * 위의 음식 그림 선택 시
-     */
-    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
-    void topImgClick() {
-        imgClick(0, bottomImage, bottomText, imgBgBottom);
     }
     /**
      * 하단의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-        imgClick(1, topImage, topText, imgBgTop);
+        imgClick(1, bottomImage, topImage, topText, imgBgTop);
     }
 
     private void bottomClicked() {
@@ -361,7 +257,6 @@ public class TournamentActivity extends AppCompatActivity {
 
                 Log.e("Bottom Food", StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
                 StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ];
-
                 StaticInfo.CNT++;
 
                 // 16강 라운드 마지막경기 일 경우
@@ -372,6 +267,8 @@ public class TournamentActivity extends AppCompatActivity {
 
                 break;
             case 2 :
+
+                StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 //StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ];
                 Log.e("IsLastGame", "True");
 
@@ -389,46 +286,204 @@ public class TournamentActivity extends AppCompatActivity {
         imageLoad();
     }
 
+    private void imgClick(final int which, final ImageView clickedImage, final ImageView unClickImage ,final TextView bottomTopText,final View imgBg) {
+
+        Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT + 1) + "경기 : ");
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            topImage.setEnabled(false);
+                            bottomImage.setEnabled(false);
+
+                            switch (StaticInfo.ROUND) {
+                                case 16 :
+                                    //unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.non_selected));
+                                    unClickImage.setAlpha(0.6f);
+                                    break;
+                                case 8 :
+                                    //unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.non_selected));
+                                    unClickImage.setAlpha(0.6f);
+                                    break;
+                                case 4 :
+                                    //unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.non_selected));
+                                    unClickImage.setAlpha(0.6f);
+                                    break;
+                                case 2 :
+                                    //unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.non_selected));
+                                    unClickImage.setAlpha(0.6f);
+                                    break;
+
+                            }
+                            bottomTopText.setAlpha(0.5f);
+                            imgBg.setVisibility(View.INVISIBLE);
+                        }
+                    });
+                    Thread.sleep(500);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            unClickImage.setAlpha(1.0f);
+                            bottomTopText.setAlpha(1.0f);
+
+                            if(which==0)
+                                topClicked();
+                            else
+                                bottomClicked();
+
+                            bottomImage.setEnabled(true);
+                            topImage.setEnabled(true);
+
+                            imgBgTop.setVisibility(View.VISIBLE);
+                            imgBgBottom.setVisibility(View.VISIBLE);
+                        }
+                    });
+                } catch(Exception ex) {
+                    ex.printStackTrace();
+                } finally {
+
+                }
+            }
+        }).start();
+
+    }
     /* 대섭 */
     private void imageLoad() {
 
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            topImage.setImageDrawable(topNextImage.getDrawable());
+                            bottomImage.setImageDrawable(bottomNextImage.getDrawable());
+                        }
+                    });
+                    Thread.sleep(10);
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            switch(StaticInfo.ROUND) {
+
+                                case 16 :
+                                    if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                                    } else {
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[0]).into(topNextImage);
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[1]).into(bottomNextImage);
+                                    }
+
+                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
+                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
+                                    break;
+
+                                case 8 :
+                                    if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                                    } else {
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[0]).into(topNextImage);
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[1]).into(bottomNextImage);
+                                    }
+
+                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
+                                    break;
+
+                                case 4 :
+                                    if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                                    } else {
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_2[0]).into(topNextImage);
+                                        StaticInfo.imageList.get(StaticInfo.ROUND_2[1]).into(bottomNextImage);
+                                    }
 
 
-        switch(StaticInfo.ROUND) {
+                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
+                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
+                                    break;
 
-            case 16 :
-                StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]).into(topImage);
-                StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+                                case 2 :
+                                    StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
 
-                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
-                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
-                break;
+                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]]);
+                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
+                                    break;
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
 
-            case 8 :
-                StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]).into(topImage);
-                StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+    }
 
-                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
-                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
-                break;
+    private void endRound(int []color ,int []selectFood){
 
-            case 4 :
-                StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]).into(topImage);
-                StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+        bottomImage.setVisibility(View.GONE);
+        topImage.setVisibility(View.GONE);
 
-                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
-                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
-                break;
 
-            case 2 :
-                StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]).into(topImage);
-                StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+        round_end_info.setText("\n" + StaticInfo.ROUND + "강 종료.");
+        if(StaticInfo.ROUND!=4)
+            roundEndInfo2.setText("터치하면 " + (StaticInfo.ROUND / 2) + "강 시작!");
+        else
+            roundEndInfo2.setText("터치하면 결승 시작!");
+        StringBuilder stringBuilder = new StringBuilder();
+        for(int i=0;i<selectFood.length;i++)
+            if(i%4!=0)
+                stringBuilder.append(" \t"+StaticInfo.foodName[selectFood[i]]);
+            else
+                stringBuilder.append("\n\t"+StaticInfo.foodName[selectFood[i]]);
+        imSelectMenu.setText(stringBuilder.toString());
+        end_infomation.setVisibility(View.VISIBLE);
+        ripple.startRippleAnimation();
 
-                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]]);
-                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
-                break;
-        }
+        rippleBackgroundImage.setBackgroundColor(Color.rgb(color[0],color[1],color[2]));
 
+    }
+
+    @OnClick(R.id.ripple)
+    public void rippleClick(View v) {
+        endPageClick(v);
+    }
+    public void endPageClick(View v){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    runOnUiThread(new Runnable() {
+                        @Override
+                        public void run() {
+                            end_infomation.setVisibility(View.GONE);
+                            ripple.stopRippleAnimation();
+
+                            bottomImage.setVisibility(View.VISIBLE);
+                            topImage.setVisibility(View.VISIBLE);
+                            bottomImage.setEnabled(true);
+                            topImage.setEnabled(true);
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
     }
 
     /*---------------------------------------------------------------------------------------------------------------------------*/

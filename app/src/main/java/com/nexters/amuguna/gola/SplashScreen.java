@@ -1,7 +1,6 @@
 package com.nexters.amuguna.gola;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
@@ -9,13 +8,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.Window;
 import android.view.WindowManager;
-
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
-import com.nexters.amuguna.gola.manager.GolaImageManager;
-
 import java.lang.reflect.Field;
-
 import butterknife.ButterKnife;
 import jp.wasabeef.glide.transformations.RoundedCornersTransformation;
 
@@ -67,7 +62,6 @@ public class SplashScreen extends AppCompatActivity {
                             );
                             i++;
                         }
-
                     }
                     sleep(1500);
                 }catch(InterruptedException e){
