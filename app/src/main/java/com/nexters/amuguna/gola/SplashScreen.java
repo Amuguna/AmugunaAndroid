@@ -1,11 +1,14 @@
 package com.nexters.amuguna.gola;
 
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Point;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Display;
 import android.view.Window;
 import android.view.WindowManager;
 import com.bumptech.glide.Glide;
@@ -37,8 +40,6 @@ public class SplashScreen extends AppCompatActivity {
             public void run(){
                 try{
                     StaticInfo.RAN.clear();
-                    StaticInfo.cardX = Glide.with(SplashScreen.this)
-                            .load(getResources().getIdentifier("com.nexters.amuguna.gola:drawable/card_x",null,null));
 
                     final Class<?> clz = R.drawable.class;
                     Field[] drawables = clz.getDeclaredFields();
@@ -48,21 +49,40 @@ public class SplashScreen extends AppCompatActivity {
                         if(imageName.startsWith("gola_img_")) {
 
                             Log.e("ImageName", i + " / " + imageName);
+
+
                             // 랜덤 수 세팅
                             StaticInfo.RAN.add(i);
                             // ImageList 세팅
                             StaticInfo.imageList.add(
                                     Glide.with(SplashScreen.this)
                                             .load(getResources().getIdentifier("com.nexters.amuguna.gola:drawable/" + imageName,null,null))
-
                                             .diskCacheStrategy( DiskCacheStrategy.RESULT )
-
                                             .bitmapTransform(new RoundedCornersTransformation(getApplicationContext(), 20, 0))
-                                          //  .preload(500, 500)
+                                            //.override(w,h)
                             );
                             i++;
                         }
                     }
+
+                    int w=0,h=0;
+                    if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_LARGE) {
+                        Log.e("Display!!!", "Large");
+                        w=400; h=280;
+                    }
+                    else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_NORMAL) {
+                        Log.e("Display!!!", "Normal");
+                        w=280; h=180;
+                    }
+                    else if ((getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) == Configuration.SCREENLAYOUT_SIZE_SMALL) {
+                        Log.e("Display!!!", "Small");
+                        w=180; h=130;
+                    }
+                    else {
+                        Log.e("Display!!!", "Neither");
+                        w=400; h=280;
+                    }
+
                     sleep(1500);
                 }catch(InterruptedException e){
                     e.printStackTrace();

@@ -3,6 +3,7 @@ package com.nexters.amuguna.gola;
 import android.content.Intent;
 
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import butterknife.OnClick;
  */
 public class TournamentActivity extends AppCompatActivity {
 
+    static boolean isFlag;
     Intent intent;
 
     @Bind(R.id.img_16)
@@ -75,12 +77,15 @@ public class TournamentActivity extends AppCompatActivity {
         getSupportActionBar().hide();
 
         intent = getIntent();
+        isFlag = false;
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
             // CNT, ROUND 초기화
             StaticInfo.CNT = 0; StaticInfo.ROUND = 16;
             // 랜덤수 섞어줌
             Collections.shuffle(StaticInfo.RAN);
+
+
 
             // 섞은 랜덤수를 16강 배열에 넣음.
             for(int i=0; i<StaticInfo.ROUND; i++)
@@ -148,13 +153,7 @@ public class TournamentActivity extends AppCompatActivity {
         }
     }
 
-    /**
-     * 위의 음식 그림 선택 시
-     */
-    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
-    void topImgClick() {
-        imgClick(0, topImage, bottomImage, bottomText, imgBgBottom);
-    }
+
 
     private void topClicked() {
 
@@ -217,11 +216,26 @@ public class TournamentActivity extends AppCompatActivity {
         imageLoad();
     }
     /**
+     * 위의 음식 그림 선택 시
+     */
+    @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
+    void topImgClick() {
+        imgClick(0, topImage, bottomImage, bottomText, imgBgBottom);
+    }
+    @OnClick(R.id.center_top_next_img)
+    void topNextImgClick() {
+        imgClick(0, topNextImage, bottomNextImage, bottomText, imgBgBottom);
+    }
+    /**
      * 하단의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
         imgClick(1, bottomImage, topImage, topText, imgBgTop);
+    }
+    @OnClick(R.id.center_bottom_next_img)
+    void bottomNextImgClick() {
+        imgClick(1, bottomNextImage, topNextImage, topText, imgBgTop);
     }
 
     private void bottomClicked() {
@@ -354,81 +368,108 @@ public class TournamentActivity extends AppCompatActivity {
     }
     /* 대섭 */
     private void imageLoad() {
+        isFlag = !isFlag;
+            if(isFlag) {
+                topImage.setVisibility(View.GONE);
+                bottomImage.setVisibility(View.GONE);
+                topNextImage.setVisibility(View.VISIBLE);
+                bottomNextImage.setVisibility(View.VISIBLE);
 
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            topImage.setImageDrawable(topNextImage.getDrawable());
-                            bottomImage.setImageDrawable(bottomNextImage.getDrawable());
-                        }
-                    });
-                    Thread.sleep(10);
-                    runOnUiThread(new Runnable() {
-                        @Override
-                        public void run() {
-                            switch(StaticInfo.ROUND) {
-
-                                case 16 :
-                                    if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
-
-                                    } else {
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[0]).into(topNextImage);
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[1]).into(bottomNextImage);
-                                    }
-
-                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
-                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
-                                    break;
-
-                                case 8 :
-                                    if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
-
-                                    } else {
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[0]).into(topNextImage);
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[1]).into(bottomNextImage);
-                                    }
-
-                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
-                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
-                                    break;
-
-                                case 4 :
-                                    if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
-
-                                    } else {
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_2[0]).into(topNextImage);
-                                        StaticInfo.imageList.get(StaticInfo.ROUND_2[1]).into(bottomNextImage);
-                                    }
+                nextImgLoad(topImage, bottomImage);
 
 
-                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
-                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
-                                    break;
+            } else {
 
-                                case 2 :
-                                    StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+                topNextImage.setVisibility(View.GONE);
+                bottomNextImage.setVisibility(View.GONE);
+                topImage.setVisibility(View.VISIBLE);
+                bottomImage.setVisibility(View.VISIBLE);
 
-                                    topText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]]);
-                                    bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
-                                    break;
-                            }
-                        }
-                    });
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
+                nextImgLoad(topNextImage, bottomNextImage);
+
             }
-        }).start();
+
+
+
+    }
+
+    private void nextImgLoad(final ImageView topNextImage, final ImageView bottomNextImage) {
+
+     new Thread(new Runnable() {
+         @Override
+         public void run() {
+             try {
+                 Thread.sleep(500);
+             } catch (Exception ex){}
+             runOnUiThread(new Runnable() {
+                 @Override
+                 public void run() {
+
+
+
+                     switch(StaticInfo.ROUND) {
+
+
+                         case 16 :
+                             if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                             } else {
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_8[0]).into(topNextImage);
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_8[1]).into(bottomNextImage);
+                             }
+
+                             topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
+                             bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
+                             break;
+
+                         case 8 :
+                             if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                             } else {
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_4[0]).into(topNextImage);
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_4[1]).into(bottomNextImage);
+                             }
+
+                             topText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                             bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
+                             break;
+
+                         case 4 :
+                             if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                             } else {
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_2[0]).into(topNextImage);
+                                 StaticInfo.imageList.get(StaticInfo.ROUND_2[1]).into(bottomNextImage);
+                             }
+
+
+                             topText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
+                             bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
+                             break;
+
+                         case 2 :
+                             StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+
+                             topText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]]);
+                             bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
+                             break;
+                     }
+                     topNextImage.setVisibility(View.GONE);
+                     bottomNextImage.setVisibility(View.GONE);
+                 }
+             });
+
+         }
+     }).start();
+
+
+
 
     }
 
