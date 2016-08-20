@@ -97,9 +97,12 @@ public class TournamentActivity extends AppCompatActivity {
             /* 첫 Image 세팅 */
             StaticInfo.imageList.get(StaticInfo.ROUND_16[0]).into(topImage);
             StaticInfo.imageList.get(StaticInfo.ROUND_16[1]).into(bottomImage);
+
             /* 다음 Image 세팅 */
             StaticInfo.imageList.get(StaticInfo.ROUND_16[2]).into(topNextImage);
             StaticInfo.imageList.get(StaticInfo.ROUND_16[3]).into(bottomNextImage);
+            topNextImage.setVisibility(View.GONE);
+            bottomNextImage.setVisibility(View.GONE);
 
             topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[0]]);
             bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[1]]);
@@ -395,6 +398,60 @@ public class TournamentActivity extends AppCompatActivity {
 
     private void nextImgLoad(final ImageView topNextImage, final ImageView bottomNextImage) {
 
+        switch(StaticInfo.ROUND) {
+
+
+            case 16 :
+                if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                    StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                    StaticInfo.imageList.get(StaticInfo.ROUND_16[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                } else {
+                    StaticInfo.imageList.get(StaticInfo.ROUND_8[0]).into(topNextImage);
+                    StaticInfo.imageList.get(StaticInfo.ROUND_8[1]).into(bottomNextImage);
+                }
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_16[ 2*StaticInfo.CNT+1 ]]);
+                break;
+
+            case 8 :
+                if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                    StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                    StaticInfo.imageList.get(StaticInfo.ROUND_8[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                } else {
+                    StaticInfo.imageList.get(StaticInfo.ROUND_4[0]).into(topNextImage);
+                    StaticInfo.imageList.get(StaticInfo.ROUND_4[1]).into(bottomNextImage);
+                }
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT+1 ]]);
+                break;
+
+            case 4 :
+                if(StaticInfo.CNT != StaticInfo.ROUND/2-1) {
+                    StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+2 ]).into(topNextImage);
+                    StaticInfo.imageList.get(StaticInfo.ROUND_4[ 2*StaticInfo.CNT+3 ]).into(bottomNextImage);
+
+                } else {
+                    StaticInfo.imageList.get(StaticInfo.ROUND_2[0]).into(topNextImage);
+                    StaticInfo.imageList.get(StaticInfo.ROUND_2[1]).into(bottomNextImage);
+                }
+
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT+1 ]]);
+                break;
+
+            case 2 :
+                StaticInfo.imageList.get(StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]).into(bottomImage);
+
+                topText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT ]]);
+                bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
+                break;
+        }
+        /*
      new Thread(new Runnable() {
          @Override
          public void run() {
@@ -460,15 +517,15 @@ public class TournamentActivity extends AppCompatActivity {
                              bottomText.setText(StaticInfo.foodName[StaticInfo.ROUND_2[ 2*StaticInfo.CNT+1 ]]);
                              break;
                      }
-                     topNextImage.setVisibility(View.GONE);
-                     bottomNextImage.setVisibility(View.GONE);
+                     //topNextImage.setVisibility(View.GONE);
+                     //bottomNextImage.setVisibility(View.GONE);
                  }
              });
 
          }
      }).start();
 
-
+*/
 
 
     }
