@@ -200,12 +200,6 @@
             android:layout_alignParentTop="true"
             >
             <ImageView
-                android:id="@+id/center_top_next_img"
-                android:layout_width="@dimen/tournament_img_width"
-                android:layout_height="@dimen/tournament_img_height"
-                android:layout_centerHorizontal="true"
-                />
-            <ImageView
                 android:id="@+id/center_top_img"
                 android:layout_width="@dimen/tournament_img_width"
                 android:layout_height="@dimen/tournament_img_height"
@@ -238,12 +232,6 @@
             android:layout_marginTop="@dimen/tournament_img_between"
             >
             <ImageView
-                android:id="@+id/center_bottom_next_img"
-                android:layout_width="@dimen/tournament_img_width"
-                android:layout_height="@dimen/tournament_img_height"
-                android:layout_centerHorizontal="true"
-                />
-            <ImageView
                 android:id="@+id/center_bottom_img"
                 android:layout_width="@dimen/tournament_img_width"
                 android:layout_height="@dimen/tournament_img_height"
@@ -261,6 +249,78 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignBottom="@+id/img_bg_bottom"
+                android:layout_centerHorizontal="true"
+                android:gravity="bottom"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="@dimen/tournament_img_text_margin"
+                android:textSize="@dimen/tournament_img_text_size"
+                />
+        </RelativeLayout>
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/secondLinear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/tournament_bottom_margin"
+        android:orientation="vertical"
+        android:visibility="gone"
+        >
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            >
+            <ImageView
+                android:id="@+id/center_top_next_img"
+                android:layout_width="@dimen/tournament_img_width"
+                android:layout_height="@dimen/tournament_img_height"
+                android:layout_centerHorizontal="true"
+                />
+            <View
+                android:id="@+id/img_bg_top2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tournament_img_height"
+                android:background="@drawable/img_bg"
+                />
+            <TextView
+                android:id="@+id/center_top_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_bg_top2"
+                android:layout_centerHorizontal="true"
+                android:gravity="center"
+                android:textColor="#ffffff"
+                android:layout_marginBottom="@dimen/tournament_img_text_margin"
+                android:textSize="@dimen/tournament_img_text_size"
+                />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="@dimen/tournament_img_between"
+            >
+            <ImageView
+                android:id="@+id/center_bottom_next_img"
+                android:layout_width="@dimen/tournament_img_width"
+                android:layout_height="@dimen/tournament_img_height"
+                android:layout_centerHorizontal="true"
+                />
+
+            <View
+                android:id="@+id/img_bg_bottom2"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/tournament_img_height"
+                android:background="@drawable/img_bg"
+                />
+            <TextView
+                android:id="@+id/center_bottom_text2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@+id/img_bg_bottom2"
                 android:layout_centerHorizontal="true"
                 android:gravity="bottom"
                 android:textColor="#ffffff"
