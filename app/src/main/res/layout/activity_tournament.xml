@@ -205,6 +205,14 @@
                 android:layout_height="@dimen/tournament_img_height"
                 android:layout_centerHorizontal="true"
                 />
+            <ImageView
+                android:id="@+id/selected_top_like"
+                android:layout_width="@dimen/tournament_selected_img_size"
+                android:layout_height="@dimen/tournament_selected_img_size"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                />
 
             <View
                 android:id="@+id/img_bg_top"
@@ -237,7 +245,14 @@
                 android:layout_height="@dimen/tournament_img_height"
                 android:layout_centerHorizontal="true"
                 />
-
+            <ImageView
+                android:id="@+id/selected_bottom_like"
+                android:layout_width="@dimen/tournament_selected_img_size"
+                android:layout_height="@dimen/tournament_selected_img_size"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true"
+                android:visibility="gone"
+                />
             <View
                 android:id="@+id/img_bg_bottom"
                 android:layout_width="match_parent"
@@ -278,6 +293,14 @@
                 android:layout_height="@dimen/tournament_img_height"
                 android:layout_centerHorizontal="true"
                 />
+            <ImageView
+                android:id="@+id/selected_top_next_like"
+                android:layout_width="@dimen/tournament_selected_img_size"
+                android:layout_height="@dimen/tournament_selected_img_size"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                />
             <View
                 android:id="@+id/img_bg_top2"
                 android:layout_width="match_parent"
@@ -309,7 +332,14 @@
                 android:layout_height="@dimen/tournament_img_height"
                 android:layout_centerHorizontal="true"
                 />
-
+            <ImageView
+                android:id="@+id/selected_bottom_next_like"
+                android:layout_width="@dimen/tournament_selected_img_size"
+                android:layout_height="@dimen/tournament_selected_img_size"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:visibility="gone"
+                />
             <View
                 android:id="@+id/img_bg_bottom2"
                 android:layout_width="match_parent"

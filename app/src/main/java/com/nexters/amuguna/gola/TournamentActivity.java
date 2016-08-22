@@ -2,6 +2,8 @@ package com.nexters.amuguna.gola;
 
 import android.content.Intent;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
@@ -67,7 +69,22 @@ public class TournamentActivity extends AppCompatActivity {
     @Bind(R.id.ripple)
     RippleBackground ripple;
 
+    @Bind(R.id.selected_top_like)
+    ImageView selectedTopLike;
+    @Bind(R.id.selected_top_next_like)
+    ImageView selectedTopLike2;
 
+    @Bind(R.id.selected_bottom_like)
+    ImageView selectedBottomLike;
+    @Bind(R.id.selected_bottom_next_like)
+    ImageView selectedBottomLike2;
+
+    private void setLikeImage(int resourceId) {
+        selectedBottomLike.setImageBitmap(BitmapFactory.decodeResource(getResources(),resourceId));
+        selectedBottomLike2.setImageBitmap(BitmapFactory.decodeResource(getResources(),resourceId));
+        selectedTopLike.setImageBitmap(BitmapFactory.decodeResource(getResources(),resourceId));
+        selectedTopLike2.setImageBitmap(BitmapFactory.decodeResource(getResources(),resourceId));
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +96,8 @@ public class TournamentActivity extends AppCompatActivity {
 
         intent = getIntent();
         isFlag = true;
+        setLikeImage(R.drawable.selected_16);
+
         if(intent.getBooleanExtra("isFirstRound", true)) {
 
             // CNT, ROUND 초기화
@@ -172,19 +191,25 @@ public class TournamentActivity extends AppCompatActivity {
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
                     /*FF3030->10진수로하면-16724016*/
-                    endRound(new int[]{255,30,30},StaticInfo.ROUND_8);
+                    endRound(new int[]{255, 30, 30}, StaticInfo.ROUND_8);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+
                 }
                 break;
 
             case 8 :
-                Log.e("Top Food", StaticInfo.ROUND_8[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_8[ 2*StaticInfo.CNT ]]);
+                Log.e("Top Food", StaticInfo.ROUND_8[2 * StaticInfo.CNT] + " / " + StaticInfo.foodName[StaticInfo.ROUND_8[2 * StaticInfo.CNT]]);
                 StaticInfo.ROUND_4[StaticInfo.CNT] =  StaticInfo.ROUND_8[ 2*StaticInfo.CNT ];
                 StaticInfo.CNT++;
 
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    endRound(new int[]{0,174,54},StaticInfo.ROUND_4);
+                    endRound(new int[]{0, 174, 54}, StaticInfo.ROUND_4);
+
+                    selectedBottomLike.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.selected_4));
+                    selectedBottomLike2.setImageBitmap(BitmapFactory.decodeResource(getResources(),R.drawable.selected_4));
+                    selectedTopLike.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.selected_4));
+                    selectedTopLike2.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.selected_4));
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
                 break;
@@ -193,15 +218,17 @@ public class TournamentActivity extends AppCompatActivity {
                 Log.e("Top Food", StaticInfo.ROUND_4[ 2*StaticInfo.CNT ] + " / " +  StaticInfo.foodName[StaticInfo.ROUND_4[ 2*StaticInfo.CNT ]]);
                 StaticInfo.ROUND_2[StaticInfo.CNT] =  StaticInfo.ROUND_4[ 2*StaticInfo.CNT ];
                 StaticInfo.CNT++;
-
+                setLikeImage(R.drawable.selected_4);
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
-                    endRound(new int[]{16,99,238},StaticInfo.ROUND_2);
+                    endRound(new int[]{16, 99, 238}, StaticInfo.ROUND_2);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+
                 }
                 break;
 
             case 2 :
+
                 StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 Log.e("IsLastGame", "True");
                 /* Move to ResultActivity. */
@@ -233,22 +260,22 @@ public class TournamentActivity extends AppCompatActivity {
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_top_img)
     void topImgClick() {
-        imgClick(0, topImage, bottomImage, bottomText, imgBgBottom);
+        imgClick(0, topImage, bottomImage, bottomText, imgBgBottom,selectedTopLike);
     }
     @OnClick(R.id.center_top_next_img)
     void topNextImgClick() {
-        imgClick(0, topNextImage, bottomNextImage, bottomText2, imgBgBottom2);
+        imgClick(0, topNextImage, bottomNextImage, bottomText2, imgBgBottom2,selectedTopLike2);
     }
     /**
      * 하단의 음식 그림 선택 시
      */
     @OnClick(com.nexters.amuguna.gola.R.id.center_bottom_img)
     void bottomImgClick() {
-        imgClick(1, bottomImage, topImage, topText, imgBgTop);
+        imgClick(1, bottomImage, topImage, topText, imgBgTop , selectedBottomLike);
     }
     @OnClick(R.id.center_bottom_next_img)
     void bottomNextImgClick() {
-        imgClick(1, bottomNextImage, topNextImage, topText2, imgBgTop2);
+        imgClick(1, bottomNextImage, topNextImage, topText2, imgBgTop2 ,selectedBottomLike2);
     }
 
     private void bottomClicked() {
@@ -264,6 +291,7 @@ public class TournamentActivity extends AppCompatActivity {
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
                     endRound(new int[]{255,30,30},StaticInfo.ROUND_8);
+
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
                 }
 
@@ -288,8 +316,10 @@ public class TournamentActivity extends AppCompatActivity {
 
                 // 16강 라운드 마지막경기 일 경우
                 if( StaticInfo.CNT == StaticInfo.ROUND/2 ) {
+
                     endRound(new int[]{16,99,238},StaticInfo.ROUND_2);
                     StaticInfo.ROUND/=2; StaticInfo.CNT=0;
+
                 }
 
                 break;
@@ -313,7 +343,7 @@ public class TournamentActivity extends AppCompatActivity {
         imageLoad();
     }
 
-    private void imgClick(final int which, final ImageView clickedImage, final ImageView unClickImage ,final TextView bottomTopText,final View imgBg) {
+    private void imgClick(final int which, final ImageView clickedImage, final ImageView unClickImage ,final TextView bottomTopText,final View imgBg, final ImageView selectedLike) {
 
         Log.e("Top", StaticInfo.ROUND + "강 : " + (StaticInfo.CNT + 1) + "경기 : ");
         new Thread(new Runnable() {
@@ -323,7 +353,7 @@ public class TournamentActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            selectedLike.setVisibility(View.VISIBLE);
                             clickedImage.setEnabled(false);
                             unClickImage.setEnabled(false);
 
@@ -332,6 +362,7 @@ public class TournamentActivity extends AppCompatActivity {
                                 case 16 :
                                     //unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.non_selected));
                                     unClickImage.setAlpha(0.6f);
+
                                     break;
                                 case 8 :
                                     //unClickImage.setImageBitmap(BitmapFactory.decodeResource(getResources(), R.drawable.non_selected));
@@ -356,7 +387,7 @@ public class TournamentActivity extends AppCompatActivity {
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-
+                            selectedLike.setVisibility(View.GONE);
                             unClickImage.setAlpha(1.0f);
                             bottomTopText.setAlpha(1.0f);
 
@@ -481,6 +512,12 @@ public class TournamentActivity extends AppCompatActivity {
 
         bottomImage.setVisibility(View.GONE);
         topImage.setVisibility(View.GONE);
+        switch(StaticInfo.ROUND) {
+            case 16 : setLikeImage(R.drawable.selected_8);break;
+            case 8 : setLikeImage(R.drawable.selected_4);break;
+            case 4 : setLikeImage(R.drawable.selected_2);break;
+
+        }
 
 
         round_end_info.setText("\n" + StaticInfo.ROUND + "강 종료.");
