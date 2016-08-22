@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/intro3_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#1063ee">
@@ -53,24 +54,8 @@
             android:src="@drawable/intro3_text"/>
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/intro1_graphic_bottom_margin"
-        android:orientation="vertical" >
-
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:src="@drawable/intro1_graphic"/>
-
-    </LinearLayout>
-
-
     <ImageView
+        android:id="@+id/intro3_img_linear"
         android:layout_width="match_parent"
         android:layout_height="@dimen/intro3_bottom_graphic_height"
         android:src="@drawable/yellow"

@@ -106,6 +106,7 @@ public class GolaMainActivity extends AppCompatActivity {
     void backToTutorial() {
         Intent intent = new Intent(GolaMainActivity.this,Intro1Activity.class);
         startActivity(intent);
+        overridePendingTransition(R.anim.right_in, R.anim.right_out);
         finish();
     }
 }

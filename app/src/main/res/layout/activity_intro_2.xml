@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/intro2_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#FAFAFA">
@@ -54,6 +55,15 @@
 
     </LinearLayout>
 
+    <ImageView
+        android:id="@+id/intro2_img_linear"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/intro2_graphic_height"
+        android:src="@drawable/intro_ox"
+        android:scaleType="fitXY"
+        android:layout_alignParentBottom="true"
+        />
+
     <RelativeLayout
         android:id="@+id/start_linear"
         android:layout_width="wrap_content"
@@ -81,12 +91,6 @@
             />
 
     </RelativeLayout>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/intro2_graphic_height"
-        android:src="@drawable/intro_ox"
-        android:scaleType="fitXY"
-        android:layout_alignParentBottom="true"
-        />
+
 
 </RelativeLayout>

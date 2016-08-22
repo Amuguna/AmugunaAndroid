@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.nexters.amuguna.gola.manager.GolaImageManager;
 import butterknife.Bind;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
@@ -63,20 +62,10 @@ public class ResultActivity extends AppCompatActivity {
             Log.e("RESULT", ""+intent.getIntExtra("result",1));
 
         } else {
-
-            int ran = (int) (Math.random()*GolaImageManager.food.length);
-            StaticInfo.imageList.get( ran ).into(resultImg);
-            resultTopText.setText("랜덤 선택 결과");
-            resultText.setText(StaticInfo.foodName[ran]);
-
+            selectRandom();
             crossBottomImg.setImageBitmap(BitmapFactory.decodeResource(this.getResources(), R.drawable.result_tournament_btn));
-
-            Log.e("isTournament ?", "NO !!!! ");
-            Log.e("RESULT", ""+StaticInfo.foodName[StaticInfo.RAN.get(0)]);
-
         }
     }
-
 
 
     @OnClick(R.id.go_home_top_linear)
@@ -100,11 +89,7 @@ public class ResultActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         } else {
-            /* Move to ResultActivity. */
-            Intent intent = new Intent(ResultActivity.this,ResultActivity.class);
-            intent.putExtra("isTournament", false);
-            startActivity(intent);
-            finish();
+            selectRandom();
         }
 
     }
@@ -113,11 +98,7 @@ public class ResultActivity extends AppCompatActivity {
     void crossBtnClick() {
 
         if(intent.getBooleanExtra("isTournament", true)){
-            /* Move to ResultActivity. */
-            Intent intent = new Intent(ResultActivity.this,ResultActivity.class);
-            intent.putExtra("isTournament", false);
-            startActivity(intent);
-            finish();
+            selectRandom();
         } else {
             /* Move to TournamentActivity. */
             Intent intent = new Intent(ResultActivity.this,TournamentActivity.class);
@@ -129,6 +110,16 @@ public class ResultActivity extends AppCompatActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    private void selectRandom() {
+        int ran = (int) (Math.random()*StaticInfo.foodName.length);
+        StaticInfo.imageList.get( ran ).into(resultImg);
+        resultTopText.setText("랜덤 선택 결과");
+        resultText.setText(StaticInfo.foodName[ran]);
+
+        intent.putExtra("isTournament", false);
+        Log.e("isTournament ?", "NO !!!! : "+ ran);
     }
 
 }
