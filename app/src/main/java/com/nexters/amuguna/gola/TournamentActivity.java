@@ -23,7 +23,7 @@ import butterknife.OnClick;
  * Created by Daesub Kim on 2016-07-25.
  */
 public class TournamentActivity extends AppCompatActivity {
-
+//z
     static boolean isFlag;
     Intent intent;
 
