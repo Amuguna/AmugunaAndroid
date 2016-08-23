@@ -510,6 +510,7 @@ public class TournamentActivity extends AppCompatActivity {
 
     private void endRound(int []color ,int []selectFood){
 
+        bottomText.setVisibility(View.GONE);
         bottomImage.setVisibility(View.GONE);
         topImage.setVisibility(View.GONE);
         switch(StaticInfo.ROUND) {
@@ -555,6 +556,7 @@ public class TournamentActivity extends AppCompatActivity {
                             end_infomation.setVisibility(View.GONE);
                             ripple.stopRippleAnimation();
 
+                            bottomText.setVisibility(View.VISIBLE);
                             bottomImage.setVisibility(View.VISIBLE);
                             topImage.setVisibility(View.VISIBLE);
                             bottomImage.setEnabled(true);

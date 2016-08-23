@@ -91,7 +91,7 @@
     <dimen name="result_img_margin">135dp</dimen>
     <dimen name="result_img_width">468dp</dimen>
     <dimen name="result_img_height">327dp</dimen>
-    <dimen name="result_center_bottom_margin">303dp</dimen>
+    <dimen name="result_center_top_margin">45dp</dimen>
     <dimen name="result_center_top_text_margin">490dp</dimen>
     <dimen name="result_center_top_text_size">25.5sp</dimen>
     <dimen name="result_center_bottom_text_margin">9.6dp</dimen>

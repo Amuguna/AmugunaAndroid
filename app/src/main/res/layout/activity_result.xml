@@ -36,19 +36,21 @@
     </LinearLayout>
 
     <RelativeLayout
-        android:id="@+id/result_pattern_layout"
+        android:id="@+id/result_bottom_margin"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_height="@dimen/result_center_img_height"
+        android:layout_below="@+id/result_img_layout"
+        android:layout_marginTop="@dimen/result_center_top_margin"
         android:layout_gravity="center"
-        android:layout_marginBottom="@dimen/result_center_bottom_margin">
-
+        >
+        <!--android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/result_center_bottom_margin"-->
         <ImageView
             android:id="@+id/result_pattern"
             android:layout_width="@dimen/result_center_img_width"
             android:layout_height="@dimen/result_center_img_height"
-            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:src="@drawable/result_pattern"
@@ -59,21 +61,21 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
             android:textColor="#99ffffff"
-            android:layout_marginTop="@dimen/result_center_top_text_margin"
             android:textSize="@dimen/result_center_top_text_size"
             />
         <TextView
             android:id="@+id/result_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/result_top_text"
             android:layout_centerHorizontal="true"
-            android:gravity="bottom"
+            android:layout_centerVertical="true"
             android:textColor="#ffffff"
-            android:layout_marginBottom="@dimen/result_center_bottom_text_margin"
             android:textSize="@dimen/result_center_bottom_text_size"
             />
+        <!--android:layout_marginBottom="@dimen/result_center_bottom_text_margin"-->
     </RelativeLayout>
 
     <LinearLayout

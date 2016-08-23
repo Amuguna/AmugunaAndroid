@@ -80,6 +80,7 @@ public class SplashScreen extends AppCompatActivity {
                         Log.e("Display!!!", "Neither");
                         w=400; h=280;
                     }
+                    Log.e("Density", getResources().getDisplayMetrics().density+"");
 
                     sleep(1500);
                 }catch(InterruptedException e){

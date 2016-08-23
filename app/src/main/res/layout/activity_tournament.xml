@@ -189,11 +189,13 @@
         android:id="@+id/firstLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/tournament_bottom_margin"
+        android:layout_below="@+id/frmalayout"
         android:orientation="vertical"
         >
+        <!--android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/tournament_bottom_margin"-->
+
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -276,12 +278,13 @@
         android:id="@+id/secondLinear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/tournament_bottom_margin"
+        android:layout_below="@+id/frmalayout"
         android:orientation="vertical"
         android:visibility="gone"
         >
+        <!--android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/tournament_bottom_margin"-->
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
