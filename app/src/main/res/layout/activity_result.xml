@@ -107,20 +107,21 @@
             android:gravity="center"
             android:orientation="horizontal">
             <ImageView
-                android:id="@+id/result_again"
-                android:layout_width="@dimen/result_bottom_btn_width"
-                android:layout_height="@dimen/result_bottom_btn_height"
-                android:layout_gravity="center"
-                android:layout_marginRight="@dimen/result_bottom_btn_between"
-                android:src="@drawable/result_again_btn"
-                />
-            <ImageView
                 android:id="@+id/result_cross"
                 android:layout_width="@dimen/result_bottom_btn_width"
                 android:layout_height="@dimen/result_bottom_btn_height"
                 android:layout_gravity="center"
+                android:layout_marginRight="@dimen/result_bottom_btn_between"
                 android:src="@drawable/result_random_btn"
                 />
+            <ImageView
+                android:id="@+id/result_again"
+                android:layout_width="@dimen/result_bottom_btn_width"
+                android:layout_height="@dimen/result_bottom_btn_height"
+                android:layout_gravity="center"
+                android:src="@drawable/result_again_btn"
+                />
+
         </LinearLayout>
 
     </LinearLayout>

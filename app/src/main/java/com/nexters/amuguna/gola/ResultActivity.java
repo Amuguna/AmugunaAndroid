@@ -1,5 +1,9 @@
 package com.nexters.amuguna.gola;
 
+import android.Manifest;
+import android.app.AlertDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.BitmapFactory;
@@ -7,14 +11,21 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.gun0912.tedpermission.PermissionListener;
+import com.gun0912.tedpermission.TedPermission;
 import com.nexters.amuguna.gola.model.GpsInfo;
+import com.nexters.amuguna.gola.utils.CustomPreference;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -27,7 +38,10 @@ import butterknife.OnClick;
  */
 public class ResultActivity extends AppCompatActivity {
 
+    private CustomPreference pref;
+    private Context mContext;
     Intent intent;
+    private String myLocation = "";
 
     @Bind(com.nexters.amuguna.gola.R.id.retry_top_linear)
     ViewGroup retryTopLinear;
@@ -55,8 +69,15 @@ public class ResultActivity extends AppCompatActivity {
         setContentView(com.nexters.amuguna.gola.R.layout.activity_result);
         ButterKnife.bind(this);
 
+        pref = pref.getInstance(this.getApplicationContext());
+        // GPS 세팅들어갔다 나왔을때 체크
+        // GPS켜진거 체크
+        //pref.put("GPS_Enable", false);
+        pref.put("GPS_Setting_Visited", false);
+
         /* Hide ActionBar */
         getSupportActionBar().hide();
+        mContext = getApplicationContext();
 
         /* 토너먼트에서 넘어왔는지 랜덤 선택에서 넘어왔는지 확인 */
         intent = getIntent();
@@ -77,6 +98,20 @@ public class ResultActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        resultImg.setClickable(false);
+        new Handler().postDelayed(new Runnable() {// 3 초 후에 실행
+            @Override
+            public void run() {
+                // 실행할 동작 코딩
+                resultImg.setClickable(true);
+            }
+        }, 1500);
+
+    }
 
     @OnClick(R.id.go_home_top_linear)
     void goHomeBtnClick() {
@@ -134,21 +169,55 @@ public class ResultActivity extends AppCompatActivity {
 
     @OnClick(R.id.result_img)
     void resultImgClicked() {
-        //moveToNaverApp();
+
+        PermissionListener permissionlistener = new PermissionListener() {
+            @Override
+            public void onPermissionGranted() {
+                //moveToNaverApp(null);
+                generateGPSModule();
+
+                Toast.makeText(ResultActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onPermissionDenied(ArrayList<String> deniedPermissions) {
+                myLocation = "";
+                moveToNaverApp();
+                Toast.makeText(ResultActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+            }
+        };
+
+        new TedPermission(this)
+                .setPermissionListener(permissionlistener)
+                .setRationaleMessage("가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차")
+                .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
+                .check();
+
+        /*
+        if (pref.getValue("GPS_Setting_Visited", false)) {
+
+        } else {
+
+        }*/
+
+
+        //moveToNaverApp(null);
+        /*
         GpsInfo gpsInfo = new GpsInfo(this);
         if(gpsInfo.checkGPSONOFF()) {
             moveToNaverApp(gpsInfo);
-        }
+        }*/
     }
 
-    private void moveToNaverApp(GpsInfo gpsInfo) {
+    //private void moveToNaverApp(GpsInfo gpsInfo) {
+    private void moveToNaverApp() {
 
         /* GPS 버튼 강제로 켜는 코드 넣어야함.
          * 없으면 항상 addr = null */
-        String addr = getAddr(gpsInfo);
-        Log.e("Address", addr + "");
+        //String addr = getAddr(gpsInfo);
+        //String addr = "";
 
-        String str = addr + resultText.getText().toString();
+        String naverParam = myLocation + resultText.getText().toString();
         PackageManager pm = getApplicationContext().getPackageManager();
         /* 네이버앱 설치시 */
         try {
@@ -158,20 +227,53 @@ public class ResultActivity extends AppCompatActivity {
             Intent in = new Intent(Intent.ACTION_VIEW);
             in.addCategory(Intent.CATEGORY_DEFAULT);
             in.addCategory(Intent.CATEGORY_BROWSABLE);
-            in.setData(Uri.parse("naversearchapp://keywordsearch?mode=result&query=" + str + "&version=5"));
+            in.setData(Uri.parse("naversearchapp://keywordsearch?mode=result&query=" + naverParam + "&version=5"));
             startActivity(in);
         }
         /* 네이버앱 미 설치시 */
         catch (Exception e) {
             Intent in = new Intent(Intent.ACTION_VIEW);
             in.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            in.setData(Uri.parse("http://m.search.naver.com/search.naver?query=" + str));
+            in.setData(Uri.parse("http://m.search.naver.com/search.naver?query=" + naverParam));
             startActivity(in);
         }
     }
 
+    /**
+     * GPS Module 실행
+     */
+    private void generateGPSModule() {
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        GpsInfo gpsInfo = new GpsInfo(mContext);
+                        if(gpsInfo.checkGPSONOFF()) {
+                            /* GPS가 정상적으로 켜져있음. Naver App으로 이동 */
+                            //moveToNaverApp(gpsInfo);
+                            myLocation = getAddr(gpsInfo);
+                            Log.e("myLocation", ""+myLocation);
+                            moveToNaverApp();
+                        } else {
+                            /* GPS가 꺼져있음 */
+                            alertGPSoff();
+                        }
+
+                    }
+                });
+            }
+        }).start();
+
+    }
+
     private String getAddr(GpsInfo gpsInfo) {
+
         Log.e("lat/lng", gpsInfo.getLatitude()+"/"+gpsInfo.getLongitude());
+
         String addr = getAddressName(gpsInfo.getLatitude(), gpsInfo.getLongitude());
         gpsInfo.stopUsingGPS();
         return addr;
@@ -186,6 +288,7 @@ public class ResultActivity extends AppCompatActivity {
         try{
 
             list = geocoder.getFromLocation(lat, lng, 1);
+
         } catch(Exception e){
             e.printStackTrace();
         }
@@ -201,6 +304,52 @@ public class ResultActivity extends AppCompatActivity {
                     + addr.getThoroughfare() + " ";
         }
         return address;
+    }
+
+    /**
+     * GPS가 꺼져있을 경우 GPS세팅으로 보내는 alert
+     */
+    private void alertGPSoff() {
+
+        if (pref.getValue("GPS_Setting_Visited", true)) {
+            myLocation = "";
+            moveToNaverApp();
+        } else {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    runOnUiThread(new Runnable(){
+                        @Override
+                        public void run() {
+                            AlertDialog.Builder builder = new AlertDialog.Builder(ResultActivity.this);
+                            builder.setMessage("GPS가 활성화 되어있지 않습니다. 활성화 하시겠습니까?")
+                                    .setCancelable(false)
+                                    .setPositiveButton("GPS Setting",
+                                            new DialogInterface.OnClickListener() {
+                                                public void onClick (DialogInterface dialog,int id){
+                                                    //moveConfigGPS();
+                                                    startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+
+                                                }
+                                            })
+                                    .setNegativeButton("Cancel",
+                                            new DialogInterface.OnClickListener(){
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    myLocation = "";
+                                                    moveToNaverApp();
+                                                    dialog.cancel();
+                                                }
+                                            });
+                            AlertDialog alert = builder.create();
+                            alert.show();
+                            pref.put("GPS_Setting_Visited", true);
+                        }
+                    });
+                }
+            }).start();
+        }
+
+
     }
 
 }

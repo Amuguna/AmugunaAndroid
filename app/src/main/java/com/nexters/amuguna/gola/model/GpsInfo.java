@@ -3,6 +3,7 @@ package com.nexters.amuguna.gola.model;
 /**
  * Created by Daesub Kim on 2016-08-24.
  */
+import android.Manifest;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.content.Context;
@@ -17,6 +18,7 @@ import android.os.Bundle;
 import android.os.IBinder;
 import android.provider.Settings;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 
 public class GpsInfo extends Service implements LocationListener {
 
@@ -54,7 +56,7 @@ public class GpsInfo extends Service implements LocationListener {
                 .getSystemService(LOCATION_SERVICE);
 
         if(!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
-            alertCheckGPS();
+            //alertCheckGPS();
             return false;
             /*mContext.startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));*/
 
@@ -94,14 +96,14 @@ public class GpsInfo extends Service implements LocationListener {
 
     private Location getLocation() {
 
-        if (  Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if ( Build.VERSION.SDK_INT >= 23
+                && ContextCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
+                && ContextCompat.checkSelfPermission( mContext, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            Log.e("Location Permission", "Not Permitted.");
             return null;
         }
 
         try {
-
 
             // GPS 정보 가져오기
             isGPSEnabled = locationManager
@@ -161,8 +163,8 @@ public class GpsInfo extends Service implements LocationListener {
     public void stopUsingGPS(){
 
         if (  Build.VERSION.SDK_INT >= 23 &&
-                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
-                ContextCompat.checkSelfPermission( getApplicationContext(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                ContextCompat.checkSelfPermission( mContext, android.Manifest.permission.ACCESS_FINE_LOCATION ) != PackageManager.PERMISSION_GRANTED &&
+                ContextCompat.checkSelfPermission( mContext, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
 
@@ -192,7 +194,7 @@ public class GpsInfo extends Service implements LocationListener {
     }
 
     /**
-     * GPS 나 wife 정보가 켜져있는지 확인합니다.
+     * GPS 나 wifi 정보가 켜져있는지 확인합니다.
      * */
     public boolean isGetLocation() {
         return this.isGetLocation;
