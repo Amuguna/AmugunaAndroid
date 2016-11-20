@@ -176,20 +176,24 @@ public class ResultActivity extends AppCompatActivity {
                 //moveToNaverApp(null);
                 generateGPSModule();
 
-                Toast.makeText(ResultActivity.this, "Permission Granted", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(ResultActivity.this, "위치정보 사용승인", Toast.LENGTH_SHORT).show();
             }
 
             @Override
             public void onPermissionDenied(ArrayList<String> deniedPermissions) {
                 myLocation = "";
                 moveToNaverApp();
-                Toast.makeText(ResultActivity.this, "Permission Denied\n" + deniedPermissions.toString(), Toast.LENGTH_SHORT).show();
+                Toast.makeText(ResultActivity.this, "위치정보 사용거부" /*+ deniedPermissions.toString()*/, Toast.LENGTH_SHORT).show();
             }
         };
 
         new TedPermission(this)
                 .setPermissionListener(permissionlistener)
-                .setRationaleMessage("가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차 가나다라마바사아자차")
+                .setRationaleMessage(
+                        "Gola에서 사용자의 위치정보를 활용하고자 합니다.\n\n" +
+                        "허용 : 현재위치 기준 주변 음식점 검색\n" +
+                        "거부 : 선택음식 이름으로만 검색"
+                )
                 .setPermissions(Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION)
                 .check();
 
@@ -322,9 +326,17 @@ public class ResultActivity extends AppCompatActivity {
                         @Override
                         public void run() {
                             AlertDialog.Builder builder = new AlertDialog.Builder(ResultActivity.this);
-                            builder.setMessage("GPS가 활성화 되어있지 않습니다. 활성화 하시겠습니까?")
+                            builder.setMessage("위치정보 활용을 위해 GPS 기능을\n활성화 해주세요.")
                                     .setCancelable(false)
-                                    .setPositiveButton("GPS Setting",
+                                    .setNegativeButton("거부",
+                                            new DialogInterface.OnClickListener(){
+                                                public void onClick(DialogInterface dialog, int id) {
+                                                    myLocation = "";
+                                                    moveToNaverApp();
+                                                    dialog.cancel();
+                                                }
+                                            })
+                                    .setPositiveButton("GPS 설정",
                                             new DialogInterface.OnClickListener() {
                                                 public void onClick (DialogInterface dialog,int id){
                                                     //moveConfigGPS();
@@ -332,14 +344,7 @@ public class ResultActivity extends AppCompatActivity {
 
                                                 }
                                             })
-                                    .setNegativeButton("Cancel",
-                                            new DialogInterface.OnClickListener(){
-                                                public void onClick(DialogInterface dialog, int id) {
-                                                    myLocation = "";
-                                                    moveToNaverApp();
-                                                    dialog.cancel();
-                                                }
-                                            });
+                                    ;
                             AlertDialog alert = builder.create();
                             alert.show();
                             pref.put("GPS_Setting_Visited", true);

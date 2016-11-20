@@ -94,7 +94,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_marginBottom="@dimen/result_bottom_text_between"
-            android:text="원하는 결과가 아닌가요? 그렇다면"
+            android:text="사진을 터치하여 주변 음식점을 검색해보세요."
             android:textSize="@dimen/result_bottom_text_size"
             android:textColor="#99FFFFFF"
             />

@@ -100,7 +100,7 @@
     <dimen name="result_center_img_height">123dp</dimen>
     <dimen name="result_bottom_margin">39dp</dimen>
     <dimen name="result_bottom_text_size">22.5sp</dimen>
-    <dimen name="result_bottom_text_between">15dp</dimen>
+    <dimen name="result_bottom_text_between">25dp</dimen>
     <dimen name="result_bottom_btn_width">210dp</dimen>
     <dimen name="result_bottom_btn_height">105dp</dimen>
     <dimen name="result_bottom_btn_between">12dp</dimen>
